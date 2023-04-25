@@ -42,8 +42,9 @@ namespace GB.SIMEF.DAL
                 DetalleRegistroIndicadorCategoriaFonatel = ObtenerDatoDetalleRegistroIndicadorCategoria(x),
                 idFormularioWebString = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
                 IdIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString())
-
+                IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString()),
+                RegistroIndicadorFonatel=ObtenerRegistroIndicador(x.IdSolicitud,x.idFormularioWeb)
+                
             }).ToList();
         }
 
@@ -83,13 +84,41 @@ namespace GB.SIMEF.DAL
                     DetalleRegistroIndicadorVariableValorFonatel = ObtenerDetalleRegistroIndicadorVariableValor(x),
                     idFormularioWebString = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
                     IdIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                    IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString())
-                }).ToList();
+                    IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString()),
+                RegistroIndicadorFonatel = ObtenerRegistroIndicador(x.IdSolicitud, x.idFormularioWeb)
+            }).ToList();
 
             }
 
             return ListaRegistroIndicadorFonatel;
         }
+
+
+        /// <summary>
+        /// Obtiene el registro indicador asociado al detalle
+        /// Michael Hernández Cordero
+        /// 25/04/2023
+        /// </summary>
+        /// <param name="pDetalleRegistroIndicador"></param>
+        /// <returns></returns>
+
+        public RegistroIndicadorFonatel ObtenerRegistroIndicador(int idSolicitud, int IdFormulario)
+        {
+
+            return db.Database.SqlQuery<RegistroIndicadorFonatel>
+                    ("execute Fonatel.pa_obtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@idFuente,@idEstado,@RangoFecha",
+                     new SqlParameter("@IdSolicitud", idSolicitud),
+                     new SqlParameter("@IdFormulario", IdFormulario),
+                     new SqlParameter("@IdFuente", DBNull.Value.ToString()),
+                     new SqlParameter("@IdEstado", DBNull.Value.ToString()),
+                     new SqlParameter("@RangoFecha", DBNull.Value.ToString())
+                    ).First();
+        }
+
+
+
+
+
 
         /// <summary>
         /// Carga las variable de registro indicador

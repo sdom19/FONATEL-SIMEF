@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -54,8 +55,39 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(DetalleRegistroIndicadorFonatel objeto)
+        /// <summary>
+        /// MIchael hernández Cordero
+        /// 24-04-2024
+        /// Genera el JSON para registrar en Bitacora la variable valor y categoria
+        /// </summary>
+        /// <returns></returns>
+
+        public string ArrayToStringDetalleValor(string nombre, string numeroFila, string Valor)
         {
+
+           return string.Format("{{\"Fila: {0}, {1}\":\"{2}\"}}",numeroFila, nombre, Valor);
+        }
+
+        /// <summary>
+        /// MIchael hernández Cordero
+        /// 24-04-2024
+        /// Crear código para Bitacora
+        /// </summary>
+        /// <returns></returns>
+
+        public string CodigoContatenadoBitacora(string solicitud, string codigoformulario, string Formulario)
+        {
+
+            return string.Format("{0}-{1}/{2}", solicitud.Trim()
+                ,codigoformulario.Trim()
+                ,Formulario.Trim());
+        }
+
+
+        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(DetalleRegistroIndicadorFonatel objeto, bool bitacora=false)
+        {
+            List<DetalleRegistroIndicadorFonatel> objDetalleRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
+
             try
             {
                 //Se revisa si la lista contiene informacion
@@ -69,7 +101,6 @@ namespace GB.SIMEF.BL
                     dt.Columns.Add("idVariable", typeof(int));
                     dt.Columns.Add("NumeroFila", typeof(int));
                     dt.Columns.Add("Valor", typeof(string));
-
                     foreach (var item in objeto.DetalleRegistroIndicadorVariableValorFonatel)
                     {
                         if (!string.IsNullOrEmpty(item.Solicitudid))
@@ -93,6 +124,18 @@ namespace GB.SIMEF.BL
                             item.IdIndicador = temp;
                         }
 
+                        if (bitacora && objDetalleRegistroIndicadorFonatel.Count==0)
+                        {
+                            objDetalleRegistroIndicadorFonatel = detalleRegistroIndicadorFonatelDAL
+                                .ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel()
+                                {
+                                    IdSolicitud = item.IdSolicitud,
+                                    idFormularioWeb=item.idFormularioWeb,
+                                    IdIndicador=item.IdIndicador,
+                                });
+                        }
+
+
                         dt.Rows.Add(item.IdSolicitud, item.idFormularioWeb, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
                     }
 
@@ -107,7 +150,51 @@ namespace GB.SIMEF.BL
                         detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorVariableValorFonatel(eliminar);
                     }
 
+                    var result=
+                    
                     detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorVariableValorFonatel(dt);
+
+                    if (bitacora)
+                    {
+                        DetalleRegistroIndicadorFonatel detalleRegistroIndicador = objDetalleRegistroIndicadorFonatel.First();
+                        foreach (var item in detalleRegistroIndicador.DetalleRegistroIndicadorVariableValorFonatel)
+                        {
+                            string jsonAnterior = string.Empty;
+                            string jsonNuevoValor = string.Empty;
+                            string nombre = 
+                                detalleRegistroIndicador
+                                .DetalleRegistroIndicadorVariableFonatel.Where(x => x.idVariable == item.IdVariable).Single().NombreVariable;
+
+                            string nuevoValor = 
+                                result.Where(x => x.IdVariable == item.IdVariable && x.NumeroFila == item.NumeroFila).First().Valor.ToString();
+                            if (nuevoValor != item.Valor.ToString())
+                            {
+
+                                jsonAnterior = ArrayToStringDetalleValor(nombre, item.NumeroFila.ToString(), item.Valor.ToString());
+                                jsonNuevoValor = ArrayToStringDetalleValor(nombre, item.NumeroFila.ToString(), nuevoValor);
+                                detalleRegistroIndicadorFonatelDAL.RegistrarBitacora(
+                                    accion: (int)Accion.Editar,
+                                    usuario: user,
+                                    pantalla:    modulo,
+
+                                    codigo:    CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo,
+                                        detalleRegistroIndicador.RegistroIndicadorFonatel.CodigoFormulario, 
+                                        detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario),
+                                   ValorAnterior:  jsonAnterior,
+                                   valorActual: jsonNuevoValor
+                                );
+
+                            }
+
+                        }
+                   
+
+                        
+           
+                    }
+
+
+
                 }
 
                 //Se revisa si la lista contiene informacion
@@ -165,6 +252,41 @@ namespace GB.SIMEF.BL
 
                     ResultadoConsulta.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    if (bitacora)
+                    {
+                        DetalleRegistroIndicadorFonatel detalleRegistroIndicador = objDetalleRegistroIndicadorFonatel.First();
+                        foreach (var item in detalleRegistroIndicador.DetalleRegistroIndicadorCategoriaValorFonatel)
+                        {
+                            string jsonAnterior = string.Empty;
+                            string jsonNuevoValor = string.Empty;
+                            string nombre =
+                                detalleRegistroIndicador
+                                .DetalleRegistroIndicadorCategoriaFonatel.Where(x => x.idCategoria == item.idCategoria).Single().NombreCategoria;
+
+                            string nuevoValor =
+                                ResultadoConsulta.objetoRespuesta.Where(x => x.idCategoria == item.idCategoria && x.NumeroFila == item.NumeroFila).First().Valor.ToString();
+                            if (nuevoValor != item.Valor.ToString())
+                            {
+
+                                jsonAnterior = ArrayToStringDetalleValor(nombre, item.NumeroFila.ToString(), item.Valor.ToString());
+                                jsonNuevoValor = ArrayToStringDetalleValor(nombre, item.NumeroFila.ToString(), nuevoValor);
+                                detalleRegistroIndicadorFonatelDAL.RegistrarBitacora(
+                                    accion: (int)Accion.Editar,
+                                    usuario: user,
+                                    pantalla: modulo,
+
+                                    codigo: CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo,
+                                        detalleRegistroIndicador.RegistroIndicadorFonatel.CodigoFormulario,
+                                        detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario),
+                                   ValorAnterior: jsonAnterior,
+                                   valorActual: jsonNuevoValor
+                                );
+
+                            }
+
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)

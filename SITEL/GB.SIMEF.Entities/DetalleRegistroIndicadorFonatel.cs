@@ -38,7 +38,6 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string IdSolicitudString { get; set; }
-        [NotMapped]
         public string idFormularioWebString { get; set; }
         [NotMapped]
         public string IdIndicadorString { get; set; }
@@ -54,6 +53,10 @@ namespace GB.SIMEF.Entities
         public virtual List<DetalleRegistroIndicadorCategoriaValorFonatel> DetalleRegistroIndicadorCategoriaValorFonatel { get; set; }
         [NotMapped]
         public virtual List<DetalleRegistroIndicadorVariableValorFonatel> DetalleRegistroIndicadorVariableValorFonatel { get; set; }
+
+        [NotMapped]
+        public virtual RegistroIndicadorFonatel RegistroIndicadorFonatel { get; set; }
+
 
     }
 }
