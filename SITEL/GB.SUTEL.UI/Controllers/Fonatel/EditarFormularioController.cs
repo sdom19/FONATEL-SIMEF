@@ -60,7 +60,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     RangoFecha = true
                 }, nombreUsuario);
-                model.objetoRespuesta=model.objetoRespuesta.Where(x => x.FechaFin > System.DateTime.Now).ToList();
+                model.objetoRespuesta = model.objetoRespuesta == null ?
+                    new List<RegistroIndicadorFonatel>():
+                    
+                    model.objetoRespuesta.Where(x => x.FechaFin < System.DateTime.Today).ToList();
                 return View(model.objetoRespuesta);
             }
             else
@@ -499,8 +502,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = DetalleRegistroIndicadorBL.ActualizarDetalleRegistroIndicadorFonatelMultiple(lista);
-              
+                return DetalleRegistroIndicadorBL.ActualizarDetalleRegistroIndicadorFonatelMultiple(lista);
+            }).ContinueWith((resultado) =>
+            {
+                result =resultado.Result;      
             });
 
             //Retornamos un Json con el resultado
@@ -517,7 +522,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = DetalleRegistroIndicadorCategoriaValorFonatelBL.InsertarDatos(ListaDetalleIndicadorValor);
+                result = DetalleRegistroIndicadorCategoriaValorFonatelBL.InsertarDatos(ListaDetalleIndicadorValor,true);
 
             });
 
