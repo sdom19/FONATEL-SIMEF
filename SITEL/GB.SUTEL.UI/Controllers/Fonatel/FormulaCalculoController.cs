@@ -230,7 +230,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             FormulaCalculo formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
-                IdEstadoRegistro = (int)EstadosRegistro.Eliminado
+                IdEstadoRegistro = (int)EstadosRegistro.Eliminado,
+                Accion=(int)Accion.Eliminar
             };
 
             resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
@@ -282,7 +283,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
-                IdEstadoRegistro = (int)EstadosRegistro.Activo
+                IdEstadoRegistro = (int)EstadosRegistro.Activo,
+                Accion = (int)Accion.Activar
             };
 
             await Task.Run(() =>
@@ -334,7 +336,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
-                IdEstadoRegistro = (int)EstadosRegistro.Desactivado
+                IdEstadoRegistro = (int)EstadosRegistro.Desactivado,
+                Accion = (int)Accion.Desactivar
             };
 
             await Task.Run(() =>
@@ -599,6 +602,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.Accion = (int)Accion.Crear;
             pFormulaCalculo.UsuarioCreacion = usuario;
             pFormulaCalculo.IdFormulaCalculo = 0;
             pFormulaCalculo.IdFrecuenciaEnvio = 0;
@@ -671,6 +675,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.Accion = (int)Accion.Editar;
             pFormulaCalculo.IdFormulaCalculo = 0;
             pFormulaCalculo.IdFrecuenciaEnvio = 0;
             pFormulaCalculo.IdIndicador = 0;
@@ -719,6 +724,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string idFormulaAClonar = pFormulaCalculo.id; // id de la formula seleccionada para clonar
             pFormulaCalculo.id = string.Empty;
             pFormulaCalculo.IdFormulaCalculo = 0;
+            pFormulaCalculo.Accion = (int)Accion.Clonar;
 
             string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
             RespuestaConsulta<List<FormulaCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulaCalculo>>>(creacionFormula);

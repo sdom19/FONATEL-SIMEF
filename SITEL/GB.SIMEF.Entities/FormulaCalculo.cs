@@ -95,6 +95,9 @@ namespace GB.SIMEF.Entities
         public FrecuenciaEnvio FrecuenciaEnvio { set; get; }
 
         [NotMapped]
+        public int Accion{ set; get; }
+
+        [NotMapped]
         public string EtiquetaFormulaConArgumentos { get; set; } // se utiliza para visualizar la fórmula tipo: ( { Cod 12 - cantidad torres } / { Cod 97 - Cantidad torres instaladas } ) * 2
         #endregion
     

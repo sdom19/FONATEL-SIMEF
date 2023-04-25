@@ -198,13 +198,13 @@ namespace GB.SIMEF.BL
                 //----------
 
                 resultadoConsulta.Clase = modulo;
-                resultadoConsulta.Accion = pFormulasCalculo.IdEstadoRegistro;
+                resultadoConsulta.Accion = pFormulasCalculo.Accion;
                 resultadoConsulta.Usuario = user;
                 resultadoConsulta.objetoRespuesta = resultadoActualizar;
                 resultadoConsulta.CantidadRegistros = resultadoActualizar.Count();
 
                 formulasCalculoDAL.RegistrarBitacora(resultadoConsulta.Accion, resultadoConsulta.Usuario,
-                      resultadoConsulta.Clase, formulaDespuesDelCambio.Codigo, formulaDespuesDelCambio.ToString(), formulaAntesDelCambio.ToString(), "");
+                      resultadoConsulta.Clase, formulaDespuesDelCambio.Codigo);
             }
             catch (Exception ex)
             {
@@ -327,7 +327,7 @@ namespace GB.SIMEF.BL
                 resultado.objetoRespuesta = formulaCalculo;
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Crear;
+                resultado.Accion = pFormulasCalculo.Accion;
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario, resultado.Clase, formulaCalculo[0].Codigo, "", "", formulaCalculo[0].ToString());
