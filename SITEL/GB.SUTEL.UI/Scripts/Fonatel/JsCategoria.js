@@ -62,7 +62,7 @@
             "ModoEditarAtributo": false
         },
         Mensajes: {
-            preguntaAgregarDetalleACategoria: "¿Desea agregar el detalle de la Categoría de Desagregación?",
+            preguntaAgregarDetalleACategoria: "¿Desea agregar el detalle a la Categoría de Desagregación?",
             preguntaEditarDetalleACategoria: "¿Desea editar el detalle de la Categoría de Desagregación?"
         },
 
