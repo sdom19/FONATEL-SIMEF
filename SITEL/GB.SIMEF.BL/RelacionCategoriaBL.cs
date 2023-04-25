@@ -731,7 +731,7 @@ namespace GB.SIMEF.BL
                         if (worksheet.Cells[fila, 1].Value == null)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                            throw new Exception("El archivo no cuenta con el total de filas configuradas, en total se ingresaron " + (fila - Constantes.FilaDatosExcel.DetalleRelacionCategoria) + " filas");
+                            throw new Exception(string.Format(Errores.CargaExcelRelacionCategoria, (fila - Constantes.FilaDatosExcel.DetalleRelacionCategoria)));
                         }
                         string valorId = worksheet.Cells[fila, 1].Value.ToString().Trim();
                         for (int temp= 2; temp<relacion.DetalleRelacionCategoria.Count()+2; temp++)
@@ -807,10 +807,10 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item, Accion.Crear);
                         }
                     }
-                    if (relacion.CantidadFila-2 == numeroFila-1)
+                    if (relacion.CantidadFila == (numeroFila - Constantes.FilaDatosExcel.DetalleRelacionCategoria))
                     {
                         relacion.IdEstadoRegistro = (int)EstadosRegistro.Activo;
-                        relacion.CantidadFila = relacion.CantidadFila - 2;
+                        //relacion.CantidadFila = relacion.CantidadFila - 2;
                         ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacion);
                     }
                 }
