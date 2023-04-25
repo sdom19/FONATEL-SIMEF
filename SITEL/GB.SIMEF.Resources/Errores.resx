@@ -159,6 +159,9 @@
   <data name="CantidadVariableDatoCategoria" xml:space="preserve">
     <value>La cantidad ingresada en {0} no puede ser menor al valor actual</value>
   </data>
+  <data name="CargaExcelRelacionCategoria" xml:space="preserve">
+    <value>El archivo no cuenta con el total de filas configuradas, en total se ingresaron {0} filas</value>
+  </data>
   <data name="CategoriaYaRegistrada" xml:space="preserve">
     <value>La Categoría seleccionada ya se encuentra registrada</value>
   </data>

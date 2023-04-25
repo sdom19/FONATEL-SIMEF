@@ -144,6 +144,7 @@ namespace GB.SIMEF.DAL
 
             List<FormularioWeb> resultado = Listado.Select(x => new FormularioWeb()
             {
+                idFormularioWeb = x.idFormularioWeb,
                 Codigo=x.Codigo,
                 Nombre=x.Nombre,
                 Descripcion=x.Descripcion,

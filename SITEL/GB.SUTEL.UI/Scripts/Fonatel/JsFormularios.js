@@ -424,7 +424,7 @@
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
             formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
             formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
-            formulario.id = ObtenerValorParametroUrl("id");
+            formulario.id = $.urlParam("id");
             await execAjaxCall("/FormularioWeb/EditarFormularioWeb", "POST", formulario)
                 .then((obj) => {
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicador)

@@ -15,6 +15,7 @@ namespace GB.SIMEF.BL
     {
         private readonly FormularioWebDAL clsDatos;
         private readonly DetalleFormularioWebDAL detalleFormularioWebDAL;
+        private readonly SolicitudDAL solicitudDAL;
 
         private RespuestaConsulta<List<FormularioWeb>> ResultadoConsulta;
         string modulo = string.Empty;
@@ -27,6 +28,7 @@ namespace GB.SIMEF.BL
             this.clsDatos = new FormularioWebDAL();
             this.detalleFormularioWebDAL = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FormularioWeb>>();
+            this.solicitudDAL = new SolicitudDAL();
         }
 
         private int DesencriptarId(string id)
@@ -192,6 +194,20 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                if (objeto.idEstadoRegistro == (int)Constantes.EstadosRegistro.Desactivado)
+                {
+                    var solicitudes = solicitudDAL.ObtenerDatos(new Solicitud() { IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo });
+                    var contieneSolicitud = solicitudes.Where(s => s.FormularioWeb.Any(f => f.idFormularioWeb == resul.FirstOrDefault().idFormularioWeb)).ToList();
+                    if (contieneSolicitud.Count() > 0)
+                    {
+                        foreach (var item in contieneSolicitud)
+                        {
+                            item.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Desactivado;
+                            solicitudDAL.ActualizarDatos(item);
+                        }
+                    }
+                }
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,

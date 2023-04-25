@@ -295,5 +295,13 @@ namespace GB.SIMEF.Resources
             { EstadosRegistro.Desactivado, "Detenido"},
             { EstadosRegistro.Eliminado, "Detenido"}
         };
+
+        /// <summary>
+        /// Control de filas excel, debido al encabezado con el logo
+        /// </summary>
+        public struct FilaDatosExcel
+        {
+            public const int DetalleRelacionCategoria = 10;
+        }
     }
 }

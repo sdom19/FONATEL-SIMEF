@@ -187,6 +187,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El archivo no cuenta con el total de filas configuradas, en total se ingresaron {0} filas.
+        /// </summary>
+        public static string CargaExcelRelacionCategoria {
+            get {
+                return ResourceManager.GetString("CargaExcelRelacionCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La Categoría seleccionada ya se encuentra registrada.
         /// </summary>
         public static string CategoriaYaRegistrada {
