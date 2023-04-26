@@ -22,6 +22,7 @@ JsEditarFormularioWeb = {
     },
     "Mensajes": {
         Mensaje: "Area para mensajes",
+        "ErrorNumericoEncategoria": (min, max) => `El valor debe encontrarse dentro del rango ${min} al ${max}`
     },
 
     "Metodos": {
@@ -99,7 +100,20 @@ $(document).on("click", JsEditarFormularioWeb.Controles.btndescarga, function ()
                 .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index" });
         });
 });
+$(document).on("blur", ".solo_numeros", function () {
+    /*    $(this).removeClass("has-error");*/
+    let valorminimo = $(this).attr("min") == undefined ? 0 : parseFloat($(this).attr("min"));
+    let valormaximo = $(this).attr("max") == undefined ? 1000000 : parseFloat($(this).attr("max"));
+    let valorActual = $(this).val();
+    if (valorActual < valorminimo || valorActual > valormaximo) {
 
+        $(this).val('');
+        /*      $(this).addClass("has-error");*/
+
+        jsMensajes.Metodos.OkAlertErrorModal(JsEditarFormularioWeb.Mensajes.ErrorNumericoEncategoria(valorminimo, valormaximo));
+    }
+
+});
 
 
 
