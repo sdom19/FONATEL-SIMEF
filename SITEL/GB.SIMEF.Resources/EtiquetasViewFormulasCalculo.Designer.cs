@@ -79,6 +79,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ejecutar Fórmulas.
+        /// </summary>
+        public static string BotonEjecutarFormulasActivas {
+            get {
+                return ResourceManager.GetString("BotonEjecutarFormulasActivas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoría de Desagregación.
         /// </summary>
         public static string CrearFormula_LabelCategoriaDesagregacion {
@@ -580,6 +589,15 @@ namespace GB.SIMEF.Resources {
         public static string TituloIndex {
             get {
                 return ResourceManager.GetString("TituloIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fórmulas de Cálculo.
+        /// </summary>
+        public static string TituloPantalla {
+            get {
+                return ResourceManager.GetString("TituloPantalla", resourceCulture);
             }
         }
         

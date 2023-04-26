@@ -198,6 +198,9 @@
   <data name="IndicadorFormularioRegistrado" xml:space="preserve">
     <value>El Indicador ingresado ya se encuentra registrado</value>
   </data>
+  <data name="LasFormulasNoSeEjecutaron" xml:space="preserve">
+    <value>Las fórmulas de cálculo no han sido ejecutas</value>
+  </data>
   <data name="NombreRegistrado" xml:space="preserve">
     <value>El Nombre ingresado ya se encuentra registrado</value>
   </data>

@@ -9,6 +9,7 @@
         btnVerFormula: "#tablaFormulasDetalle tbody tr td .btn-view",
         btnCloneFormula: "#tablaFormulasDetalle tbody tr td .btn-clone",
         btnEjecutarFormula: "#tablaFormulasDetalle tbody tr td .btn-reload",
+        btnEjecutarFormulasActivas: "#btnEjecutarFormulasActivas",
 
         IndexView: "#ansy7o9dc" // ID random para identificar la vista
     },
@@ -30,6 +31,9 @@
 
         preguntaDesactivarFormula: "¿Desea desactivar la Fórmula de Cálculo?",
         exitoDesactivarFormula: "La Fórmula de Cálculo ha sido desactivada",
+
+        preguntarEjecutarFormulasActivas: "¿Desea ejecutar las Fórmulas de Cálculo?",
+        exitoEjecutarFormulasActivas: "Las Fórmulas de Cálculo han sido ejecutadas",
 
         tooltipEditarFormula: "Editar",
         tooltipClonarFormula: "Clonar",
@@ -115,7 +119,7 @@
 
         EjecutarFormula: function (pIdFormula) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.ejecutar)
                     .set('onok', function (closeEvent) { resolve(true); });
             })
                 .then(data => {
@@ -132,12 +136,35 @@
                 });
         },
 
+        EjecutarFormulasActivas: function () {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntarEjecutarFormulasActivas, jsMensajes.Variables.actionType.ejecutar)
+                    .set('onok', function (closeEvent) { resolve(true); });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return IndexView.Consultas.EjecutarFormulasEnEstadoActivo();
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal(IndexView.Mensajes.exitoEjecutarFormulasActivas)
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => { ManejoDeExcepciones(error); })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         CargarTablaFormulas: function () {
             $("#loading").fadeIn();
 
             IndexView.Consultas.ObtenerListaFormulas()
                 .then(obj => {
                     this.InsertarDatosTablaFormulas(obj.objetoRespuesta);
+                    return obj.objetoRespuesta;
+                })
+                .then(obj => {
+                    this.HabilitarBotonEjecutarFormulasActivas(obj);
                 })
                 .catch(error => { ManejoDeExcepciones(null); })
                 .finally(() => { $("#loading").fadeOut(); });
@@ -181,6 +208,11 @@
             $(IndexView.Controles.tablaFormulas).html(html);
             CargarDatasource();
         },
+
+        HabilitarBotonEjecutarFormulasActivas: function (pListado) {
+            let btnStatus = pListado.filter(x => x.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo).length > 0;
+            $(IndexView.Controles.btnEjecutarFormulasActivas).prop("disabled", !btnStatus);
+        }
     },
 
     Consultas: {
@@ -202,6 +234,10 @@
 
         VerificarSiFormulaEjecuto: function (pIdFormula) {
             return execAjaxCall("/FormulaCalculo/VerificarSiFormulaEjecuto", "GET", { pIdFormula });
+        },
+
+        EjecutarFormulasEnEstadoActivo: function () {
+            return execAjaxCall("/FormulaCalculo/EjecutarFormulasEnEstadoActivo", "POST");
         }
     },
 
@@ -243,6 +279,10 @@
 
         $(document).on("click", IndexView.Controles.btnEjecutarFormula, function () {
             IndexView.Metodos.EjecutarFormula($(this).val());
+        });
+
+        $(document).on("click", IndexView.Controles.btnEjecutarFormulasActivas, function () {
+            IndexView.Metodos.EjecutarFormulasActivas();
         });
     },
 
@@ -805,6 +845,7 @@ GestionFormulaView = {
         step1: "a[href='#step-1']",
         step2: "a[href='#step-2']",
         prefijoLabelsHelp: "Help",
+        formulaEjecuto: "#formulaEjecuto",
 
         form: {
             ddlFuenteIndicador: "#ddlFuenteIndicador",
@@ -1573,11 +1614,11 @@ GestionFormulaView = {
                         } else {
                             let inicioSimbolo = cantCaracteres - item.length;
                             let charPos = pIndex - inicioSimbolo;
-
                             let nuevo = item.substring(0, (charPos - 1))
                             let nuevo2 = item.substring((charPos), item.length)
+
                             GestionFormulaView.Variables.FormulaCalculo[i].Etiqueta = nuevo + nuevo2;
-                            //console.log({longitud:item.length, charPos, cantCaracteres, index, inicioSimbolo, nuevo, nuevo2})
+
                             posicionCursor = inicioSimbolo + charPos - 1;
                             break;
                         }
@@ -1759,7 +1800,7 @@ GestionFormulaView = {
             if (formulaConstruida != null && formulaConstruida.length > 0) {
 
                 new Promise((resolve, reject) => {
-                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.agregar)
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.ejecutar)
                         .set('onok', function (closeEvent) { resolve(true); });
                 })
                     .then(data => {

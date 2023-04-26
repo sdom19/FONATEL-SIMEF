@@ -671,9 +671,6 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     })
 }
 
-
-
-
 function execAjaxCallArray(pURL, pHttpMethod, pParams = null) {
     return new Promise((resolve, reject) => {
         $.ajax({
