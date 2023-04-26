@@ -750,7 +750,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Función que permite realizar un guardado definitivo de una fórmula de cálculo. Se establece el estado 'Activo'
         /// </summary>
-        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pIdFormulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
@@ -804,6 +804,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FormulaCalculo>> resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulaCalculo() { id = pIdFormulaCalculo });
 
             return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 24/04/2023
+        /// José Navarro Acuña
+        /// Función que permite ejecutar todas las fórmulas de cálculo en estado activo
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ConsultasFonatelFilter]
+        public async Task<string> EjecutarFormulasEnEstadoActivo()
+        {
+            return JsonConvert.SerializeObject(await formulaBL.EjecutarFormulasEnEstadoActivo(new FormulaCalculo() { UsuarioModificacion = usuario }));
         }
 
         /// <summary>
@@ -1216,6 +1229,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.CriteriosModalDetalle = Enumerable.Empty<SelectListItem>();
             ViewBag.DetallesModalDetalle = Enumerable.Empty<SelectListItem>();
 
+            // Bandera para determinar si la fórmula ejecutó
+            ViewBag.LaFormulaHaSidoEjecutada = false;
+
             string idFormula = pAccionPantalla == Accion.Editar || pAccionPantalla == Accion.Visualizar ? pFormulasDeCalculo.id : string.Empty; // en caso de editar/visualizar la opción debe estar disponible
 
             // Indicador de salida
@@ -1242,7 +1258,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             // Nivel de cálculo
-
             if (!pFormulasDeCalculo.NivelCalculoTotal)
             {
                 List<CategoriaDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pFormulasDeCalculo.IdIndicadorSalidaString, true).objetoRespuesta;
@@ -1251,6 +1266,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     ViewBag.CategoriasDeIndicador = categorias;
                 }
+            }
+
+            if (!string.IsNullOrEmpty(pFormulasDeCalculo.id))
+            {
+                ViewBag.LaFormulaHaSidoEjecutada = !string.IsNullOrEmpty(formulaBL.VerificarSiFormulaEjecuto(pFormulasDeCalculo.id).objetoRespuesta);
             }
         }
 

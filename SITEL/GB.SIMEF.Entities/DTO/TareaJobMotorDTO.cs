@@ -16,6 +16,12 @@ namespace GB.SIMEF.Entities.DTO
         public DateTime? fechaInicio { set; get; }
         public ParametroTareaDTO[] parametros { set; get; }
 
+        public bool error { set; get; }
+        public string respuesta { set; get; } // se mapea con la clase RespuestaTareaJobMotorDTO
+        public string estado { set; get; }
+
+        public TareaJobMotorDTO() { }
+
         public TareaJobMotorDTO(string usuario, string aplicacion, string despacho, string periodicidad, bool iniciarAhora, DateTime? fechaInicio, ParametroTareaDTO[] parametros)
         {
             this.usuario = usuario;
@@ -44,5 +50,12 @@ namespace GB.SIMEF.Entities.DTO
             this.nombre = nombre;
             this.valor = valor;
         }
+    }
+
+    public class RespuestaTareaJobMotorDTO
+    {
+        public string FormulaEjecuta { get; set; }
+        public bool EjecucionCorrecta { get; set; }
+        public string Mensaje { get; set; }
     }
 }

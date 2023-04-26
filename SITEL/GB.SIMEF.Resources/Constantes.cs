@@ -270,6 +270,7 @@ namespace GB.SIMEF.Resources
         public readonly static string select2MultipleOptionTodosValue = "all";
 
         public readonly static string keyModoFormulario = "modoFormulario";
+        public readonly static string keyFormulaEjecuto = "formulaEjecuto";
 
         public readonly static string RolConsultasFonatel = "Consultas Fonatel";
         public readonly static string RedirectActionConsultasFonatel = "Index";

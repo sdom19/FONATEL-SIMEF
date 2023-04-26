@@ -123,6 +123,9 @@
   <data name="AccionEliminarItem" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="BotonEjecutarFormulasActivas" xml:space="preserve">
+    <value>Ejecutar Fórmulas</value>
+  </data>
   <data name="CrearFormula_LabelCategoriaDesagregacion" xml:space="preserve">
     <value>Categoría de Desagregación</value>
   </data>
@@ -290,6 +293,9 @@
     <value>Editar Fórmula de Cálculo</value>
   </data>
   <data name="TituloIndex" xml:space="preserve">
+    <value>Fórmulas de Cálculo</value>
+  </data>
+  <data name="TituloPantalla" xml:space="preserve">
     <value>Fórmulas de Cálculo</value>
   </data>
   <data name="TituloVisualizar" xml:space="preserve">

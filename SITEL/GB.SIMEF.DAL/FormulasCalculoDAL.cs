@@ -14,12 +14,18 @@ using static GB.SIMEF.Resources.Constantes;
 using System.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Timers;
 
 namespace GB.SIMEF.DAL
 {
     public class FormulasCalculoDAL : BitacoraDAL
     {
         private SIMEFContext db;
+
+        private readonly string nombreParametroTarea = "Formula";
+        private readonly string ejecutarTodasLasFormulas = "0";
+        private readonly string keyURL_APIMotor = "APIMotorFormulas";
+        private readonly string keyID_APIMotor = "APIMotorApplicationId";
 
         #region Funciones
 
@@ -336,7 +342,7 @@ namespace GB.SIMEF.DAL
 
             using (var apiClient = new HttpClient())
             {
-                HttpResponseMessage response = await apiClient.GetAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob);
+                HttpResponseMessage response = await apiClient.GetAsync(ConfigurationManager.AppSettings[keyURL_APIMotor].ToString() + "/Jobs/" + pFormulasCalculo.IdJob);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -366,20 +372,20 @@ namespace GB.SIMEF.DAL
             {
                 TareaJobMotorDTO payload = new TareaJobMotorDTO(
                     pFormulasCalculo.UsuarioCreacion,
-                    ConfigurationManager.AppSettings["APIMotorApplicationId"].ToString(),
+                    ConfigurationManager.AppSettings[keyID_APIMotor].ToString(),
                     Dispatch_Task,
                     mapFrecuenciasConMotor[(FrecuenciaEnvioEnum)pFormulasCalculo.IdFrecuenciaEnvio],
                     pStartNow,
                     pFormulasCalculo.FechaCalculo,
                     new ParametroTareaDTO[] 
                     {
-                        new ParametroTareaDTO("Formula", pFormulasCalculo.IdFormulaCalculo.ToString())
+                        new ParametroTareaDTO(nombreParametroTarea, pFormulasCalculo.IdFormulaCalculo.ToString())
                     }
                 );
 
                 var stringPayload = JsonConvert.SerializeObject(payload);
                 var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs", httpContent);
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings[keyURL_APIMotor].ToString() + "/Jobs", httpContent);
 
                 if (response.IsSuccessStatusCode) 
                 {
@@ -414,7 +420,7 @@ namespace GB.SIMEF.DAL
 
                 var stringPayload = JsonConvert.SerializeObject(payload);
                 var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/NuevaPeriodicidad", httpContent);
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings[keyURL_APIMotor].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/NuevaPeriodicidad", httpContent);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -433,7 +439,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 01/03/2023
         /// José Navarro Acuña
-        /// Función que permite ejecutar de manera manual una fórmula en el motor de cálculo, sin contemplar la fecha de cálculo y la frecuencia
+        /// Función que permite ejecutar de manera manual una fórmula en el motor de cálculo, sin contemplar la fecha de cálculo y la frecuencia.
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
@@ -443,13 +449,56 @@ namespace GB.SIMEF.DAL
 
             using (var apiClient = new HttpClient())
             {
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/LanzarAhora", null);
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings[keyURL_APIMotor].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/LanzarAhora", null);
 
                 if (response.IsSuccessStatusCode)
                 {
                     //var content = await response.Content.ReadAsStringAsync();
                     //jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
                     jobDTO = new JobMotorFormulaDTO();
+                }
+                else
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            return jobDTO;
+        }
+
+        /// <summary>
+        /// 24/04/2023
+        /// José Navarro Acuña
+        /// Función que permite ejecutar todas las fórmulas en estado activo
+        /// </summary>
+        /// <param name="pFormulaCalculo"></param>
+        /// <returns></returns>
+        public async Task<JobMotorFormulaDTO> EjecutarFormulasEnEstadoActivo(FormulaCalculo pFormulaCalculo)
+        {
+            JobMotorFormulaDTO jobDTO = null;
+
+            using (var apiClient = new HttpClient())
+            {
+                TareaJobMotorDTO payload = new TareaJobMotorDTO(
+                    pFormulaCalculo.UsuarioModificacion,
+                    ConfigurationManager.AppSettings[keyID_APIMotor].ToString(),
+                    Dispatch_Unique,
+                    string.Empty,
+                    true, // pStartNow,
+                    null,
+                    new ParametroTareaDTO[]
+                    {
+                        new ParametroTareaDTO(nombreParametroTarea, ejecutarTodasLasFormulas)
+                    }
+                );
+
+                var stringPayload = JsonConvert.SerializeObject(payload);
+                var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings[keyURL_APIMotor].ToString() + "/Jobs", httpContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
                 }
                 else
                 {
@@ -473,7 +522,7 @@ namespace GB.SIMEF.DAL
             using (var apiClient = new HttpClient())
             {
                 string estadoJob = mapEstadoFormulaConMotor[(EstadosRegistro)pFormulasCalculo.IdEstadoRegistro];
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/Estado/" + estadoJob, null);
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings[keyURL_APIMotor].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/Estado/" + estadoJob, null);
 
                 if (response.IsSuccessStatusCode)
                 {

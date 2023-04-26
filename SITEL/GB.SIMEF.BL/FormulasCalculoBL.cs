@@ -3,7 +3,7 @@ using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
-
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -889,10 +889,82 @@ namespace GB.SIMEF.BL
                 }
                 else 
                 {
-                    // el job aun no existe por tanto, mandarlo a crear y correr de una vez
+                    // el job aún no existe, por tanto, mandarlo a crear y correr de una vez
                     JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaRegistrada, true);
                     formulaRegistrada.IdJob = jobDTO.idJob;
                     FormulaCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaRegistrada);
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 24/04/2023
+        /// José Navarro Acuña
+        /// Función que permite ejecutar todas las fórmulas de cálculo en estado activo
+        /// </summary>
+        /// <param name="pFormulaCalculo"></param>
+        /// <returns></returns>
+        public async Task<RespuestaConsulta<List<FormulaCalculo>>> EjecutarFormulasEnEstadoActivo(FormulaCalculo pFormulaCalculo)
+        {
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
+            bool errorControlado = false;
+
+            try
+            {
+                TareaJobMotorDTO tarea = new TareaJobMotorDTO();
+                int timeOut = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
+                int timeOutAcumulacion = 0;
+                int tiempoEspera = 1500; // milisegundos
+                bool finalizado = false;
+
+                JobMotorFormulaDTO jobMotorDTO = await formulasCalculoDAL.EjecutarFormulasEnEstadoActivo(pFormulaCalculo);
+
+                // verificar si la tarea ha finalizado
+                while (!finalizado)
+                {
+                    JobMotorFormulaDTO jobStatus = await formulasCalculoDAL.ObtenerJobMotor(new FormulaCalculo() { IdJob = jobMotorDTO.idJob });
+
+                    if (jobStatus.tareas.Count() > 0)
+                    {
+                        tarea = jobStatus.tareas[0]; // siempre será 1 única tarea
+
+                        if (tarea.estado == RespuestaEstadoReglasValidacion.Finalizado || tarea.estado == RespuestaEstadoReglasValidacion.Detenido)
+                        {
+                            finalizado = true;
+                        }
+                    }
+
+                    await Task.Delay(tiempoEspera);
+                    timeOutAcumulacion += tiempoEspera;
+
+                    if (timeOutAcumulacion >= timeOut)
+                        throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                if (!string.IsNullOrEmpty(tarea.respuesta))
+                {
+                    List<RespuestaTareaJobMotorDTO> respuestaTarea = JsonConvert.DeserializeObject<List<RespuestaTareaJobMotorDTO>>(tarea.respuesta);
+
+                    if (respuestaTarea.Where(x => !x.EjecucionCorrecta).Count() == respuestaTarea.Count()) // todas las fórmulas han fallado en su ejecución
+                    {
+                        errorControlado = true;
+                        throw new Exception(Errores.LasFormulasNoSeEjecutaron);
+                    }
+                }
+                else
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.LasFormulasNoSeEjecutaron);
                 }
             }
             catch (Exception ex)

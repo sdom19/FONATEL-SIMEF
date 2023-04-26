@@ -1,7 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Fórmulas de Cálculo";
+    ViewBag.Title = EtiquetasViewFormulasCalculo.TituloPantalla;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
@@ -37,7 +37,8 @@
             <hr />
         </div>
         <div class="col-lg-12 mt-4">
-            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action( "Create","FormulaCalculo")">@Etiquetas.BotonCrear</a>
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action("Create","FormulaCalculo")">@Etiquetas.BotonCrear</a>
+            <button type="button" id="btnEjecutarFormulasActivas" class="btn btn-fonatel btn-pink-fonatel" data-toggle="tooltip" data-placement="top" title="@EtiquetasViewFormulasCalculo.BotonEjecutarFormulasActivas" alt="@EtiquetasViewFormulasCalculo.BotonEjecutarFormulasActivas" disabled>@EtiquetasViewFormulasCalculo.BotonEjecutarFormulasActivas</button>
         </div>
         <div class="col-lg-12 mt-4">
             @Html.Partial("_TablaFormulas")
