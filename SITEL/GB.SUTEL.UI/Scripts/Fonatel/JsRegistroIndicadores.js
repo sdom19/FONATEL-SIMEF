@@ -71,7 +71,12 @@
             "ViewList": "/Fonatel/RegistroIndicadorFonatel/index"
         },
         "Mensaje": {
-            "ErrorCargarPlantilla":"Error al cargar los datos de la plantilla"
+            "ErrorCargarPlantilla": "Error al cargar los datos de la plantilla",
+            "ErrorNumericoEncategoria": (min, max) => `El valor debe encontrarse dentro del rango ${min} al ${max}`
+
+
+
+               
         }
     },
 
@@ -889,7 +894,20 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCantidadFilas, f
     jsRegistroIndicadorFonatel.Metodos.VerificarBotonValidar();
 });
 
+$(document).on("blur", ".solo_numeros", function () {
+/*    $(this).removeClass("has-error");*/
+    let valorminimo = $(this).attr("min") == undefined ? 0 : parseFloat($(this).attr("min"));
+    let valormaximo = $(this).attr("max") == undefined ? 1000000 : parseFloat($(this).attr("max"));
+    let valorActual = $(this).val();
+    if (valorActual < valorminimo || valorActual > valormaximo) {
+       
+        $(this).val('');
+        /*      $(this).addClass("has-error");*/
 
+        jsMensajes.Metodos.OkAlertErrorModal(jsRegistroIndicadorFonatel.Variables.Mensaje.ErrorNumericoEncategoria(valorminimo, valormaximo));
+    }
+
+});
 
 
 function getTabActivoRegistroIndicador() {
