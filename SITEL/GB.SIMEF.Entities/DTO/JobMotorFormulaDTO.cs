@@ -11,5 +11,7 @@ namespace GB.SIMEF.Entities.DTO
         public Guid idJob { get; set; }
         public DateTime lanzado { get; set; }
         public string estado { get; set; }
+
+        public List<TareaJobMotorDTO> tareas { get; set; }
     }
 }

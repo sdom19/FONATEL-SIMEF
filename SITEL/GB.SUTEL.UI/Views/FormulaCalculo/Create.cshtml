@@ -1,7 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Fórmulas de Cálculo";
+    ViewBag.Title = EtiquetasViewFormulasCalculo.TituloPantalla;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
@@ -14,14 +14,20 @@
 }
 
 @Html.Hidden(Constantes.keyModoFormulario, (string)ViewBag.ModoFormulario)
-@{Session[Constantes.keyModoFormulario] = ViewBag.ModoFormulario;}
 
 @{
+    Session[Constantes.keyModoFormulario] = ViewBag.ModoFormulario;
+
     bool modoVisualizacion = false;
 
     if (ViewBag.ModoFormulario.Equals(((int)Constantes.Accion.Visualizar).ToString()))
     {
         modoVisualizacion = true;
+    }
+
+    if (ViewBag.LaFormulaHaSidoEjecutada)
+    {
+        @Html.Hidden(Constantes.keyFormulaEjecuto, true)
     }
 }
 
