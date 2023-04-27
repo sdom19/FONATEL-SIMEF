@@ -124,6 +124,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             List<DetalleRegistroIndicadorCategoriaFonatel> listaCategoria = result.objetoRespuesta[0].DetalleRegistroIndicadorCategoriaFonatel;
             List<DetalleRegistroIndicadorVariableFonatel> listaVariable = result.objetoRespuesta[0].DetalleRegistroIndicadorVariableFonatel;
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> listaCategoriaValor = result.objetoRespuesta[0].DetalleRegistroIndicadorCategoriaValorFonatel;
+            List<DetalleRegistroIndicadorVariableValorFonatel> listaVariableValor = result.objetoRespuesta[0].DetalleRegistroIndicadorVariableValorFonatel;
+
+
 
             MemoryStream stream = new MemoryStream();
 
@@ -153,35 +157,44 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 int celda = 1;
                 foreach (var item in listaVariable)
                 {
-                    worksheetInicio.Cells[9, celda].Value = item.NombreVariable;
-                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[9, celda].Style.Font.Size = 12;
-                    worksheetInicio.Cells[9, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetInicio.Cells[9, celda].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
-                    worksheetInicio.Cells[9, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[9, celda].AutoFitColumns();
-                    //worksheetInicio.Cells[9, celda].Style.Locked = false;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Value = item.NombreVariable;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Size = 12;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].AutoFitColumns();
+                    //worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Locked = false;
                     worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
-                    worksheetInicio.Cells[10, celda, detalleRegistroIndicadorFonatel.CantidadFila+10, celda].Value = "";
+                    worksheetInicio.Cells[Constantes.Excel.Valores, celda, detalleRegistroIndicadorFonatel.CantidadFila+Constantes.Excel.Valores, celda].Value = "";
+                    int fila = Constantes.Excel.Valores;
+                    foreach (var itemvalor in listaVariableValor.Where(x=>x.IdVariable==item.idVariable).OrderBy(x=>x.NumeroFila))
+                    {
+                       
+                        worksheetInicio.Cells[fila, celda].Value = itemvalor.Valor;
+                        fila++;
+                    }
 
                     celda++;
                 }
 
+
+
                 foreach (var item in listaCategoria)
                 {
-                    worksheetInicio.Cells[9, celda].Value = item.NombreCategoria;
-                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[9, celda].Style.Font.Size = 12;
-                    worksheetInicio.Cells[9, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetInicio.Cells[9, celda].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
-                    worksheetInicio.Cells[9, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Value = item.NombreCategoria;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Size = 12;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
+                    worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
                     worksheetInicio.Column(celda).AutoFit(20,40);
 
 
 
 
-                    // worksheetInicio.Cells[9, celda].Style.Locked = false;
+                    // worksheetInicio.Cells[Constantes.Excel.Columna, celda].Style.Locked = false;
 
                     switch (item.IdTipoCategoria)
                     { 
@@ -201,24 +214,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                             worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
                             break;
                     }
-                    
+                    int fila = Constantes.Excel.Valores;
+                    foreach (var itemvalor in listaCategoriaValor.Where(x => x.idCategoria == item.idCategoria).OrderBy(x => x.NumeroFila))
+                    {
+
+                        worksheetInicio.Cells[fila, celda].Value = itemvalor.Valor;
+                        fila++;
+                    }
+
                     celda++;
                 }
 
 
-                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Fill.BackgroundColor.SetColor(Constantes.greenColorFromHex1);
-                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-               // worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].AutoFitColumns();
-                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].Style.Locked = false;
+                worksheetInicio.Cells[Constantes.Excel.Valores, 1, detalleRegistroIndicadorFonatel.CantidadFila+Constantes.Excel.Columna, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells[Constantes.Excel.Valores, 1, detalleRegistroIndicadorFonatel.CantidadFila+Constantes.Excel.Columna, celda-1].Style.Fill.BackgroundColor.SetColor(Constantes.greenColorFromHex1);
+                worksheetInicio.Cells[Constantes.Excel.Valores, 1, detalleRegistroIndicadorFonatel.CantidadFila+Constantes.Excel.Columna, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                worksheetInicio.Cells[Constantes.Excel.Valores, 1, detalleRegistroIndicadorFonatel.CantidadFila+Constantes.Excel.Columna, celda - 1].Style.Locked = false;
                 
+
+
 
                 worksheetInicio.Protection.IsProtected = true;
                 worksheetInicio.Protection.SetPassword(nombre);
-
-                //89482 Llamado de metodo para bitacora al descargar 
-                registroIndicadorBL.BitacoraDescargar(registro.objetoRespuesta[0]);
-
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + nombre + ".xlsx");
