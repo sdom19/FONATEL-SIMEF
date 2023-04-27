@@ -131,7 +131,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     var maxColumnas = cantVariables + cantCategorias;
                     var indicador = Formulario.DetalleRegistroIndcadorFonatel[ws].IdIndicadorString;
 
-                    int fila = 9;
+                    int fila = Constantes.Excel.Columna;
                     int columna = 0;
 
                     var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = indicador}).objetoRespuesta.Single();
@@ -211,7 +211,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                             worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].AutoFitColumns();
                             worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].Style.Locked = false;
                         }
-
                         columna++;
                     }
 
@@ -372,7 +371,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> CargarExcel(Object datos, int cantidadFilas)
+        public async Task<string> CargarExcel(Object datos, int cantidadFila)
         {
             //retonar un detalle registro indicador con result / resultVariable
 
@@ -396,7 +395,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 string path = Path.Combine(ruta, fileName);
                 await Task.Run(() =>
                 {
-                    result = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFilas);
+                    result = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFila);
                     resultDetalle.objetoRespuesta = new DetalleRegistroIndicadorFonatel();
                     if (result.HayError == 0)
                     {
@@ -413,7 +412,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     if (resultDetalle.HayError == 0)
                     {
-                        resultVariable = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFilas);
+                        resultVariable = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFila);
                         if (resultVariable.HayError == 0)
                         {
                             resultDetalle.objetoRespuesta.DetalleRegistroIndicadorVariableValorFonatel = resultVariable.objetoRespuesta.ToList();

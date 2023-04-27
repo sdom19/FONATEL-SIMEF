@@ -211,7 +211,7 @@ namespace GB.SIMEF.BL
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Clase, objeto.Codigo,jsonActual,jsonAnterior);
 
             }
             catch (Exception ex)
