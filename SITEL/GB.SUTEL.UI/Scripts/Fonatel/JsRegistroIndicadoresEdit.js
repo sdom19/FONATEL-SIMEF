@@ -556,7 +556,7 @@
                 }
             }).fail(function (obj) {
                 $(jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla).val('');
-                jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Datos")
+                jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente")
                     .set('onok', function (closeEvent) { })
             }).always(function () {
                 $("#loading").fadeOut();
