@@ -1206,6 +1206,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Método que permite cargar los datos necesarios del formulario de Fórmulas de Cálculo
         /// </summary>
+        /// <param name="pAccionPantalla"></param>
+        /// <param name="pFormulasDeCalculo"></param>
         private void CargarDatosEnVistas(Accion pAccionPantalla, FormulaCalculo pFormulasDeCalculo)
         {
             ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
@@ -1268,6 +1270,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }
 
+            // En caso de editar o clonar, activar la bandera para determinar si la fórmula ya ha sido ejecutada
             if (!string.IsNullOrEmpty(pFormulasDeCalculo.id))
             {
                 ViewBag.LaFormulaHaSidoEjecutada = !string.IsNullOrEmpty(formulaBL.VerificarSiFormulaEjecuto(pFormulasDeCalculo.id).objetoRespuesta);

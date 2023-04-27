@@ -1023,7 +1023,8 @@ GestionFormulaView = {
         exitoArgumentoEliminado: "El Argumento ha sido eliminado",
         exitoArgumentoAgregado: "El Argumento ha sido agregado",
         preguntaAgregarArgumento: "¿Desea agregar el Argumento?",
-        preguntaEliminaArgumento: "¿Desea eliminar El Argumento?",
+        preguntaEliminaArgumento: "¿Desea eliminar el Argumento?",
+        preguntaEliminarArgumentoFormulaEjecutada: "La Fórmula de Cálculo ya ha sido ejecutada en un proceso de cálculo. ¿Desea eliminar el Argumento?",
 
         exitoArgumentoFechaCreado: "El Argumento de Fecha ha sido creado",
         exitoEliminarArgumentoFecha: "El Argumento de Fecha ha sido eliminado",
@@ -1707,13 +1708,26 @@ GestionFormulaView = {
         },
 
         BotonRemoverOperadorFormula: function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminaArgumento, jsMensajes.Variables.actionType.eliminar)
-                .set('onok', function (closeEvent) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminaArgumento, jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) { resolve(true); })
+            })
+                .then(obj => {
+                    if ($(GestionFormulaView.Controles.formulaEjecuto).length) {
+                        return new Promise((resolve, reject) => {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminarArgumentoFormulaEjecutada, jsMensajes.Variables.actionType.eliminar)
+                                .set('onok', function (closeEvent) { resolve(true); });
+                        })
+                    }
+                    else { return true; }
+                })
+                .then(obj => {
                     GestionFormulaView.Variables.FormulaCalculo.pop();
                     GestionFormulaView.Metodos.MostrarFormulaCalculo();
 
                     jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoEliminado).set('onok', function (_) { });
-                });
+                })
+                .catch(error => { ManejoDeExcepciones(error); });
         },
 
         CrearObjFormularioCrearFormula: function (pEsGuardadoParcial) {
@@ -2748,14 +2762,25 @@ GestionFormulaView = {
             let index = event.target.selectionStart;
             let keyCode = event.keyCode || event.which;
 
+            function EliminarArgumento(index) {
+                let newIndex = GestionFormulaView.Metodos.BorrarOperadorAFormula(index);
+                $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+                GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            }
+
             if (keyCode == 46) { // suppress key
                 event.preventDefault();
             }
 
             if (keyCode == 8) { // backspace key
-                let newIndex = GestionFormulaView.Metodos.BorrarOperadorAFormula(index);
-                $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
-                GestionFormulaView.Metodos.MostrarFormulaCalculo();
+                if ($(GestionFormulaView.Controles.formulaEjecuto).length) {
+                    new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminarArgumentoFormulaEjecutada, jsMensajes.Variables.actionType.eliminar)
+                            .set('onok', function (closeEvent) { resolve(true); });
+                    })
+                        .then(obj => { EliminarArgumento(index); })
+                }
+                else { EliminarArgumento(index); }
                 return false
             }
         })
