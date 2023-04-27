@@ -84,7 +84,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoInformante, EtiquetasViewRegistroIndicadorFonatel.SistemaAutomatico, modulo, objeto.Codigo);
+                //clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoInformante, EtiquetasViewRegistroIndicadorFonatel.SistemaAutomatico, modulo, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -153,7 +153,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoEncargado, EtiquetasViewRegistroIndicadorFonatel.SistemaAutomatico, modulo, objeto.Codigo);
+                //clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoEncargado, EtiquetasViewRegistroIndicadorFonatel.SistemaAutomatico, modulo, objeto.Codigo);
 
             }
             catch (Exception ex)
