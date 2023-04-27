@@ -43,6 +43,7 @@ namespace GB.SIMEF.DAL
                 IdEstado = x.IdEstado,
                 FechaModificacion = x.FechaModificacion,
                 UsuarioModificacion = x.UsuarioModificacion,
+                RowId=x.RowId,
                 IdMes = x.IdMes,
                 Mes = x.Mes,
                 IdAnno = x.IdAnno,
@@ -60,32 +61,6 @@ namespace GB.SIMEF.DAL
 
 
         #region Metodos Consulta Base de Datos
-        /// <summary>
-        /// Metodo que carga los registros de RegistroIndicadorFonatel según parametros
-        /// Fecha 29-11-2022
-        /// Francisco Vindas
-        /// </summary>
-        /// <returns>Lista</returns>
-        public List<RegistroIndicadorFonatel> ObtenerDatos(RegistroIndicadorFonatel objeto)
-        {
-            List<RegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<RegistroIndicadorFonatel>();
-            using (db = new SIMEFContext())
-            {
-                //SE NECESITARAN LOS PARAMETROS @RangoFecha
-                ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute spObtenerRegistroIndicador @IdSolicitud, @idFormularioWeb, @Codigo, @IdEstado",
-                     new SqlParameter("@IdSolicitud", objeto.IdSolicitud),
-                     new SqlParameter("@idFormularioWeb", objeto.idFormularioWeb),
-                     new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
-                     new SqlParameter("@IdEstado", objeto.IdEstado)
-                     //new SqlParameter("@RangoFecha", objeto.RangoFecha)
-                    ).ToList();
-            
-                ListaRegistroIndicadorFonatel = CrearListado(ListaRegistroIndicadorFonatel);
-            }
-
-            return ListaRegistroIndicadorFonatel;
-        }
 
         public FuenteRegistro ObtenerFuente(int id)
         {

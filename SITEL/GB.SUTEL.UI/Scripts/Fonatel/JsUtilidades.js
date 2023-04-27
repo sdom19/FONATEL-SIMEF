@@ -89,9 +89,12 @@ $(document).ready(function () {
 
     let bitacora = (typeof JsBitacora) != "undefined"
 
+   
+
     if (bitacora) {
         CargarDatasourceBitacora();
-    } else {
+    }
+    else {
         CargarDatasource();
     }
     

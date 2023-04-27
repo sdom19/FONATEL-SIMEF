@@ -8,13 +8,14 @@
     <table id="TablaEditarRegistroIndicador" class="dataTable datatable_simef table-bordered table-condensed table-hover">
         <thead>
             <tr>
+                <th scope="col" class="hidden noExport"></th>
                 <th scope="col">@EtiquetasViewEditarRegistroIndicador.Fuente</th>
                 <th scope="col">@EtiquetasViewEditarRegistroIndicador.Solicitud</th>
                 <th scope="col">@EtiquetasViewEditarRegistroIndicador.Año</th>
                 <th scope="col">@EtiquetasViewEditarRegistroIndicador.Mes</th>
                 <th scope="col">@EtiquetasViewEditarRegistroIndicador.NombreFormulario</th>
                 <th scope="col">@EtiquetasViewEditarRegistroIndicador.Estado</th>
-                <th scope="col">@EtiquetasViewEditarRegistroIndicador.Acciones</th>
+                <th scope="col" class="noExport">@EtiquetasViewEditarRegistroIndicador.Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -22,18 +23,19 @@
             @foreach (var item in Model)
             {
             <tr>
+                <td class="hidden">@item.RowId</td>
                 <td>@item.Fuente.Fuente</td>
-                <td>@string.Format("{0}/{1}", item.Codigo,item.Nombre)</td>
+                <td>@string.Format("{0}/{1}", item.Codigo, item.Nombre)</td>
                 <td>@item.Anno</td>
                 <th>@item.Mes</th>
                 <th>@string.Format("{0}/{1}", item.CodigoFormulario, item.Formulario)</th>
                 <td>@item.Estado</td>
                 @if (item.IdEstado == (int)Constantes.EstadosRegistro.Completado)
                 {
-            <td>
-                <button type="button" data-toggle="tooltip" data-placement="top" id="BtnEditarPrincipal" onclick="location.href='@Url.Action("Edit", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Editar class="btn-icon-base btn-edit"></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" onclick="DescargarExcelPrincipal('@Url.Action("DescargarExcel", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )')" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
-            </td>
+                    <td>
+                        <button type="button" data-toggle="tooltip" data-placement="top" id="BtnEditarPrincipal" onclick="location.href='@Url.Action("Edit", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Editar class="btn-icon-base btn-edit"></button>
+                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="DescargarExcelPrincipal('@Url.Action("DescargarExcel", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )')" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
+                    </td>
 
                 }
             </tr>
@@ -42,6 +44,7 @@
         </tbody>
         <tfoot>
             <tr>
+                <th class="hidden"></th>
                 <th class="select2-wrapper"></th>
                 <th class="select2-wrapper"></th>
                 <th class="select2-wrapper"></th>

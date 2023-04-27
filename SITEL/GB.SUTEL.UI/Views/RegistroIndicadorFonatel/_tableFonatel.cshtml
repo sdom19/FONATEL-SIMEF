@@ -8,7 +8,7 @@
     <table id="TableRegistroIndicadorFonatel" class="dataTable datatable_simef table-bordered table-condensed table-hover">
         <thead>
             <tr>
-
+                <th scope="col" class="hidden noExport"></th>
                 <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.Solicitud</th>
                 <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.FechaInicio</th>
                 <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.FechaFinal</th>
@@ -23,18 +23,20 @@
             @foreach (var item in Model)
             {
             <tr>
+                <td class="hidden">@item.RowId</td>
                 <td>@item.Nombre</td>
                 <td>@item.FechaInicio.ToString("MM/dd/yyyy")</td>
                 <td>@item.FechaFin.ToString("MM/dd/yyyy")</td>
                 <td>@item.Mes</td>
                 <th>@item.Formulario</th>
                 <td>@item.Estado</td>
-                <td><button type="button" data-toggle="tooltip" data-placement="top"  onclick="location.href='@Url.Action("Create", "RegistroIndicadorFonatel",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'"  title="@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb" class="btn-icon-base btn-edit-form"></button></td>
+                <td><button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("Create", "RegistroIndicadorFonatel",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title="@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb" class="btn-icon-base btn-edit-form"></button></td>
             </tr>
             }
         </tbody>
         <tfoot>
             <tr>
+                <th class="disabled"></th>
                 <th class="select2-wrapper"></th>
                 <th class="select2-wrapper"></th>
                 <th class="select2-wrapper"></th>

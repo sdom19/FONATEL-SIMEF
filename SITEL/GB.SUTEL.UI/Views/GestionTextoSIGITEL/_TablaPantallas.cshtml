@@ -1,0 +1,31 @@
+﻿@using GB.SIMEF.Resources;
+
+<div class="table-responsive table-wrapper-fonatel">
+
+    <table id="TablaPantallas" class="dataTable datatable_simef table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@EtiquetasViewGestionTextoSIGITEL.Pantalla</th>
+                <th scope="col">@EtiquetasViewGestionTextoSIGITEL.Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.datos.objetoRespuesta)
+            {
+                <tr>
+                    <td>@item.NombrePantalla</td>
+                    <td>
+                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.id" title="Editar" class="btn-icon-base btn-edit"></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th class="select2-wrapper"></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
