@@ -67,8 +67,10 @@ JsSolicitud = {
         "txtSolicitudModal": "#txtSolicitudModal",
         "txtSolicitudEnvio": "#txtSolicitudEnvio",
         "ddlFrecuencia": "#ddlFrecuencia",
+        "ddlFrecuanciaEnvio": "#ddlFrecuanciaEnvio",
         "txtFechaCiclo": "#txtFechaCiclo",
         "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
+        "ddlFrecuanciaEnvioHelp":"#ddlFrecuanciaEnvioHelp",
         "txtRepeticionesSolicitudesHelp": "#txtRepeticionesSolicitudesHelp",
         "txtFechaEnvioSolicitudHelp": "#txtFechaEnvioSolicitudHelp",
         "txtEstado": "#IdEstado"
@@ -119,6 +121,7 @@ JsSolicitud = {
                 html = html + "<td>" + listaFormularios + "</td>";
                 html = html + "<td>" + envioProgramado + "</td>";
                 html = html + "<td>" + solicitud.Estado.Nombre + "</td >";
+                //html = html + "<td>" + solicitud.IdFrecuenciaEnvio + "</td>";
            
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
 
@@ -167,11 +170,13 @@ JsSolicitud = {
 
                 else {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+
                 }
             }
 
             $(JsSolicitud.Controles.TablaSolicitud).html(html);
             CargarDatasource();
+            
         },
 
         "CargarTablaFormulario": function () {
@@ -271,6 +276,7 @@ JsSolicitud = {
             let fechainicio = moment($(JsSolicitud.Controles.txtFechaInicio).val().trim());
             let fechaFin = moment($(JsSolicitud.Controles.txtFechaFin).val().trim());
             let fuentes = $(JsSolicitud.Controles.ddlFuentes).val().trim();
+            let Frecuencia = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val().trim();
             let CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim();
             let mes = $(JsSolicitud.Controles.ddlMesSolicitud).val().trim();
             let anno = $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim();
@@ -289,6 +295,11 @@ JsSolicitud = {
             if (fuentes.length == 0) {
                 $(JsSolicitud.Controles.FuentesHelp).removeClass("hidden");
                 $(JsSolicitud.Controles.ddlFuentes).parent().addClass("has-error");
+                validar = false;
+            }
+            if (Frecuencia.length == 0) {
+                $(JsSolicitud.Controles.ddlFrecuenciaHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.ddlFrecuenciaHelp).parent().addClass("has-error");
                 validar = false;
             }
             if (CantidadFormulario.length == 0) {
@@ -387,6 +398,9 @@ JsSolicitud = {
                 if (JsSolicitud.Variables.ListadoSolicitudes.length > index) {
                     JsSolicitud.Variables.ObjetoSolicitudes = JsSolicitud.Variables.ListadoSolicitudes[index];
                     $(JsSolicitud.Controles.txtSolicitudModal).val(JsSolicitud.Variables.ObjetoSolicitudes.Codigo);
+                    $(JsSolicitud.Controles.ddlFrecuencia).val(JsSolicitud.Variables.ObjetoSolicitudes.IdFrecuenciaEnvio).change();
+                    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", true);
+
                 }
             }
         },
@@ -465,6 +479,7 @@ JsSolicitud = {
             Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
             Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
             Solicitud.idFuenteRegistro = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.IdFrecuenciaEnvio = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val();
             Solicitud.CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
             Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
@@ -512,6 +527,7 @@ JsSolicitud = {
 
             Solicitud.idFuenteRegistro = $(JsSolicitud.Controles.ddlFuentes).val();
             Solicitud.CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.IdFrecuenciaEnvio = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
             Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
             Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
@@ -716,6 +732,7 @@ JsSolicitud = {
             Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
             Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
             Solicitud.idFuenteRegistro = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.IdFrecuenciaEnvio = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val();
             Solicitud.CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
             Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
@@ -757,6 +774,7 @@ JsSolicitud = {
             Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
 
             Solicitud.idFuenteRegistro = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.IdFrecuenciaEnvio = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val();
             Solicitud.CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
             Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
@@ -804,6 +822,7 @@ JsSolicitud = {
             Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
 
             Solicitud.idFuenteRegistro = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.IdFrecuenciaEnvio = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val();
             Solicitud.CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
             Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
@@ -910,6 +929,7 @@ JsSolicitud = {
             Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
 
             Solicitud.idFuenteRegistro = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.IdFrecuenciaEnvio = $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val();
             Solicitud.CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
             Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
@@ -1004,7 +1024,7 @@ JsSolicitud = {
 
             if (codigo.length > 0 && nombre.length > 0
                 && $(JsSolicitud.Controles.txtFechaInicio).val().trim() != "0001-01-01" && $(JsSolicitud.Controles.txtFechaFin).val().trim() != "0001-01-01"
-                && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
+                && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.ddlFrecuanciaEnvio).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
                 && $(JsSolicitud.Controles.ddlMesSolicitud).val().trim().length > 0 && $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim().length > 0
                 && $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim().length > 0) {
 
@@ -1329,7 +1349,7 @@ $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function (e) {
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
     $(JsSolicitud.Controles.txtSolicitudModal).prop("disabled", false);
-    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", false);
+    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", true);
     $(JsSolicitud.Controles.txtCantidadRepeticion).prop("disabled", false);
     $(JsSolicitud.Controles.txtFechaCiclo).prop("disabled", false);
     $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
@@ -1372,9 +1392,33 @@ $(document).on("click", JsSolicitud.Controles.btnViewSolicitud, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/SolicitudFonatel/Visualizacion?id=" + id;
 });
-
-
-
+//CAMBIO DE FRECUENCIA
+$(document).on("change", JsSolicitud.Controles.ddlFrecuanciaEnvio, function (e) {
+    let id = $(this).val();
+    // alert(id);
+    $.ajax({
+        url: jsUtilidades.Variables.urlOrigen + '/SolicitudFonatel/ObtenerFormulariosxFrecuencia',
+        type: "GET",
+        dataType: "JSON",
+        beforeSend: function () {
+            $("#loading").fadeIn();
+        },
+        data: { id },
+        success: function (obj) {
+            $("#loading").fadeOut();
+            var comboFormularios = document.getElementById("ddlFormularioWeb");
+                comboFormularios.innerHTML = '';
+               // comboFormularios.empty();
+                comboFormularios.options[0] = new Option("Seleccione", -1);
+            for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+                comboFormularios.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
+   s         }
+            
+        }
+    }).fail(function (obj) {
+        $("#loading").fadeOut();
+    })
+});
 
 
 $(function () {

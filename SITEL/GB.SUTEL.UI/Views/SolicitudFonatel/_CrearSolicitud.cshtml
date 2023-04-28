@@ -50,6 +50,13 @@
                         <small id="FechaFinHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Mensaje</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", @maxlength = "3000", placeholder = EtiquetasViewSolicitudes.Mensaje, id = "txtMensajeSolicitud" } })
+                        <small id="txtMensajeSolicitudHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -96,11 +103,22 @@
                         <small id="ddlAnoSolicitudHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label for="ddlFrecuencia" class="col-sm-12 col-form-label ">@EtiquetasViewFormulario.FrecuenciaEnvio</label>
+                    <div class="col-sm-12">
+                        <div class="select2-wrapper">
+                            <div class="select2-wrapper">
+                                @Html.DropDownListFor(model => model.IdFrecuenciaEnvio, new SelectList(ViewBag.FrecuenciaEnvio, "IdFrecuenciaEnvio", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuanciaEnvio" })
+                            </div>
+                        </div>
+                        <small id="ddlFrecuenciaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                    </div>
+                </div>
+                
             </div>
         </div>
 
-        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 ">
+        @*<div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 ">
             <div class="form-group row">
                 <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Mensaje</label>
                 <div class="col-sm-12">
@@ -108,7 +126,7 @@
                     <small id="txtMensajeSolicitudHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="row">
 

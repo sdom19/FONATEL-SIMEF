@@ -79,13 +79,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             var model = ListaSolicitudes.Where(x => x.id.Equals(id)).SingleOrDefault();
 
+            /// cambio para la obtencion de las frecuencias 
+            List<int> frecuenciasValidas = new List<int> { (int)FrecuenciaEnvioEnum.Mes, (int)FrecuenciaEnvioEnum.Trimestre, (int)FrecuenciaEnvioEnum.Cuatrimestre, (int)FrecuenciaEnvioEnum.Semestral, (int)FrecuenciaEnvioEnum.Anual };
+            ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
+                .objetoRespuesta
+                .Where(d => frecuenciasValidas.Contains(d.IdFrecuenciaEnvio));
             ViewBag.ListaAnno = AnnoBL.ObtenerDatos(new Anno() ).objetoRespuesta;
             ViewBag.Modo = modo.ToString();
             ViewBag.ListaMes= MesBL.ObtenerDatos(new Mes()).objetoRespuesta;
             ViewBag.ListaFuentes = fuenteBl.ObtenerDatos(new FuenteRegistro() { IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
 
-            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstadoRegistro=(int)Constantes.EstadosRegistro.Activo })
+            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstadoRegistro=(int)Constantes.EstadosRegistro.Activo})
                                         .objetoRespuesta.Select(x=>new SelectListItem() { Selected=false, Value=x.id, 
                                             Text=Utilidades.ConcatenadoCombos(x.Codigo,x.Nombre) }).ToList();
 
@@ -400,6 +405,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
+
+        [HttpGet]
+        public string ObtenerFormulariosxFrecuencia(int id)
+        {  
+            // Cambio de frecuencia
+            RespuestaConsulta<List<SelectListItem>> result = new RespuestaConsulta<List<SelectListItem>>();
+            var Formularios = formularioWebBL.ObtenerDatos(new FormularioWeb() { idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo,idFrecuenciaEnvio = id })
+                                       .objetoRespuesta.Select(x => new SelectListItem()
+                                       {
+                                           Selected = false,
+                                           Value = x.id,
+                                           Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)
+                                       }).ToList();
+
+            result.objetoRespuesta = Formularios;
+            return JsonConvert.SerializeObject(result);
+
+        }
+
 
         /// <summary>
         /// Fecha: 10/10/2022

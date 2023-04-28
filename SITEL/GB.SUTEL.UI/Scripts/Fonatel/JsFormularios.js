@@ -841,7 +841,7 @@ $(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e)
         type: "GET",
         dataType: "JSON",
         beforeSend: function () {
-            //$("#loading").fadeIn();
+            $("#loading").fadeIn();
         },
         data: { id },
         success: function (obj) {
@@ -853,6 +853,7 @@ $(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e)
             for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
                 comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
             }
+            //alert(id+ "jose ya actualizamos el combo");
         }
     }).fail(function (obj) {
         $("#loading").fadeOut();
