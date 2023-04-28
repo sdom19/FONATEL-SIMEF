@@ -1,4 +1,4 @@
-﻿jsRegistroIndicadorFonatelEdit= {
+﻿jsRegistroIndicadorFonatelEdit = {
     "Controles": {
         //TABS
         "tabRegistroIndicador": (id) => `#Tab${id} a`,
@@ -57,7 +57,8 @@
 
     },
     "Mensajes": {
-        "ErrorNumericoEncategoria": (min, max) => `El valor debe encontrarse dentro del rango ${min} al ${max}`
+        "ErrorNumericoEncategoria": (min, max) => `El valor debe encontrarse dentro del rango ${min} al ${max}`,
+        "exitoPlantillaDescargada": "La Plantilla ha sido descargada"
     },
     "Variables": {
 
@@ -234,7 +235,10 @@
             
             window.open(jsUtilidades.Variables.urlOrigen + "/EditarFormulario/DescargarExcelUnitario?idSolicitud=" + idSolicitud + "&idFormulario=" + idFormulario + "&idIndicador=" + idIndicador);
 
-            jsMensajes.Metodos.OkAlertModal("La Plantilla ha sido descargada");           
+            jsMensajes.Metodos.OkAlertModal(jsRegistroIndicadorFonatelEdit.Mensajes.exitoPlantillaDescargada)
+                .set('onok', function (closeEvent) {
+                    window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index;
+                });
         },
 
         "ValidarCampos": function () {
