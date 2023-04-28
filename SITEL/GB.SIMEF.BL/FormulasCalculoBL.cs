@@ -204,7 +204,7 @@ namespace GB.SIMEF.BL
                 resultadoConsulta.CantidadRegistros = resultadoActualizar.Count();
 
                 formulasCalculoDAL.RegistrarBitacora(resultadoConsulta.Accion, resultadoConsulta.Usuario,
-                      resultadoConsulta.Clase, formulaDespuesDelCambio.Codigo,formulaAntesDelCambio.ToString(),formulaDespuesDelCambio.ToString());
+                      resultadoConsulta.Clase, formulaDespuesDelCambio.Codigo, formulaDespuesDelCambio.ToString(),formulaAntesDelCambio.ToString());
             }
             catch (Exception ex)
             {
