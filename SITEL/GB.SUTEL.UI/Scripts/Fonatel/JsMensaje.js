@@ -107,20 +107,20 @@
             if (actionType == jsMensajes.Variables.actionType.eliminar) {
                 alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
                     .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                    .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                    .set({ 'modal': true, 'closable': true, 'movable': false})
                 alertifyObject.setContent(jsMensajes.Variables.ContentDelete(mensaje));
             } else if (actionType == jsMensajes.Variables.actionType.descargar) {
 
                 alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
                     .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                    .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                    .set({ 'modal': true, 'closable': true, 'movable': false })
                 alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
 
             }
             else {
                 alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
                     .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                    .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                    .set({ 'modal': true, 'closable': true, 'movable': false })
                 alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
             }
 
@@ -135,7 +135,7 @@
 
             let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
                 .set('label', jsMensajes.Variables.btnlisto)
-                .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                .set({ 'modal': true, 'closable': true, 'movable': false })
             alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
 
             let buttons = $(".btn.btn-fonatel.btn-success-fonatel.custom-tooltip.custom-tooltip-yes");
@@ -149,6 +149,7 @@
 
 
 $(function () {
+    alertify.defaults.transitionOff = true;
     alertify.defaults.transition = "";
     alertify.defaults.theme.ok = "btn btn-fonatel btn-success-fonatel custom-tooltip custom-tooltip-yes"; //"btn btn-success success-icon-btn btn-base-icon";
     alertify.defaults.theme.cancel = "btn btn-fonatel btn-error-fonatel custom-tooltip custom-tooltip-no";
