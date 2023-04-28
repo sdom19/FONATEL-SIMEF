@@ -586,9 +586,14 @@ namespace GB.SIMEF.BL
                                                 double.TryParse( worksheet.Cells[j, i].Value.ToString(),out  double num) ;
 
 
+                                          
 
+                                                bool isDate = num==0?
+                                                      DateTime.TryParse(Convert.ToDateTime(worksheet.Cells[j, i].Value).ToString("dd/MM/yyyy"), out outConvert)
+                                                    : DateTime.TryParse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"), out outConvert);
+                                                
+      
 
-                                                bool isDate = DateTime.TryParse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"), out outConvert);
 
                                                 if (!isDate)
                                                 {
@@ -597,8 +602,7 @@ namespace GB.SIMEF.BL
                                                 }
                                                 else
                                                 {
-                                                   
-                                                    DateTime fechaValor = DateTime.Parse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"));
+                                                    DateTime fechaValor = outConvert;
                                                     if ((DateTime.Parse(categoria.RangoMinimo) <= fechaValor) && (fechaValor <= DateTime.Parse(categoria.RangoMaximo)))
                                                     {
                                                         valor = fechaValor.ToString("yyyy-MM-dd");
