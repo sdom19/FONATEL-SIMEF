@@ -216,7 +216,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormulaCalculo>> ClonarDatos(FormulaCalculo objeto)
         {
-            // la clonación se creó a travez de la creación y la carga inicial de la pantalla
+            // la clonación se creó a través de la creación y la carga inicial de la pantalla
             throw new NotImplementedException();
         }
 
