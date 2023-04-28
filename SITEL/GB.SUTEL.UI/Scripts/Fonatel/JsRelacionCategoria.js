@@ -469,7 +469,7 @@
             data.append('file', $(JsRelacion.Controles.inputFileCargarDetalle)[0].files[0]);
             execAjaxCallFile("/RelacionCategoria/CargarExcel", data)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
+                    jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados.")
                         .set('onok', function (closeEvent) { location.reload() });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
