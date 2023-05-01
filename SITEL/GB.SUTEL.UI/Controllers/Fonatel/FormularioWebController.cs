@@ -431,6 +431,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(result);
                       
         }
+        /// <summary>
+        /// 30/04/2023
+        /// Jose Luis Molina
+        /// Función para obtener los indicadores segun la frecuencia seleccionada
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         [HttpGet]
         public string ObtenerIndicadoresxFrecuencia(int id)
         {

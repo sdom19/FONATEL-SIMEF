@@ -887,6 +887,7 @@ JsSolicitud = {
                 });
         },
 
+
         "EliminarSolicitud": function (idSolicitud) {
 
             $("#loading").fadeIn();
@@ -1088,8 +1089,45 @@ JsSolicitud = {
                     $("#loading").fadeOut();
                 });
         },
+        "CambiarFrecuencia": function (id) {
+            $("#loading").fadeIn();
+          
+            execAjaxCall("/SolicitudFonatel/ObtenerFormulariosxFrecuencia", "GET", id)
+                .then((obj) => {
+                    var comboFormularios = document.getElementById("ddlFormularioWeb");
+                    comboFormularios.innerHTML = '';
+                    // comboFormularios.empty();
+                    comboFormularios.options[0] = new Option("Seleccione", -1);
+                    for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+                        comboFormularios.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
+                    }
+                    
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     }
 }
+//CAMBIO DE FRECUENCIA
+$(document).on("change", JsSolicitud.Controles.ddlFrecuanciaEnvio, function (e) {
+    let id = $(this).val();
+    // alert(id);
+    JsSolicitud.Consultas.CambiarFrecuencia(id);
+});
+
 
 $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e) {
     e.preventDefault();
@@ -1392,33 +1430,33 @@ $(document).on("click", JsSolicitud.Controles.btnViewSolicitud, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/SolicitudFonatel/Visualizacion?id=" + id;
 });
-//CAMBIO DE FRECUENCIA
-$(document).on("change", JsSolicitud.Controles.ddlFrecuanciaEnvio, function (e) {
-    let id = $(this).val();
-    // alert(id);
-    $.ajax({
-        url: jsUtilidades.Variables.urlOrigen + '/SolicitudFonatel/ObtenerFormulariosxFrecuencia',
-        type: "GET",
-        dataType: "JSON",
-        beforeSend: function () {
-            $("#loading").fadeIn();
-        },
-        data: { id },
-        success: function (obj) {
-            $("#loading").fadeOut();
-            var comboFormularios = document.getElementById("ddlFormularioWeb");
-                comboFormularios.innerHTML = '';
-               // comboFormularios.empty();
-                comboFormularios.options[0] = new Option("Seleccione", -1);
-            for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
-                comboFormularios.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
-   s         }
+////CAMBIO DE FRECUENCIA
+//$(document).on("change", JsSolicitud.Controles.ddlFrecuanciaEnvio, function (e) {
+//    let id = $(this).val();
+//    // alert(id);
+//    $.ajax({
+//        url: jsUtilidades.Variables.urlOrigen + '/SolicitudFonatel/ObtenerFormulariosxFrecuencia',
+//        type: "GET",
+//        dataType: "JSON",
+//        beforeSend: function () {
+//            $("#loading").fadeIn();
+//        },
+//        data: { id },
+//        success: function (obj) {
+//            $("#loading").fadeOut();
+//            var comboFormularios = document.getElementById("ddlFormularioWeb");
+//                comboFormularios.innerHTML = '';
+//               // comboFormularios.empty();
+//                comboFormularios.options[0] = new Option("Seleccione", -1);
+//            for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+//                comboFormularios.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
+//   s         }
             
-        }
-    }).fail(function (obj) {
-        $("#loading").fadeOut();
-    })
-});
+//        }
+//    }).fail(function (obj) {
+//        $("#loading").fadeOut();
+//    })
+//});
 
 
 $(function () {

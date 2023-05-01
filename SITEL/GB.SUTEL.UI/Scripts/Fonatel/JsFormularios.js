@@ -766,9 +766,46 @@
                     $("#loading").fadeOut();
                 });
         },
+        "CambiarFrecuencia": function (id) {
+            $("#loading").fadeIn();
+
+            execAjaxCall("/FormularioWeb/ObtenerIndicadoresxFrecuencia", "GET", id)
+                .then((obj) => {
+                    var comboIndicador = document.getElementById("ddlIndicador");
+                    comboIndicador.innerHTML = '';
+                    comboIndicador.options[0] = new Option("", -1);
+                    for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+                        comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
+                    }
+
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     }
 
 }
+
+//CAMBIO DE FRECUENCIA
+$(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e) {
+    let id = $(this).val();
+    // alert(id);
+    JsFormulario.Consultas.CambiarFrecuencia(id);
+});
+
 
 $(document).on("keyup", JsFormulario.Controles.ControlesStep1, function (e) {
     JsFormulario.Metodos.ValidarFormularioWebCrear();
@@ -833,32 +870,32 @@ $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
       
 });
 //CAMBIO DE FRECUENCIA
-$(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e) {
-    let id = $(this).val();
-   // alert(id);
-    $.ajax({
-        url: jsUtilidades.Variables.urlOrigen + '/FormularioWeb/ObtenerIndicadoresxFrecuencia',
-        type: "GET",
-        dataType: "JSON",
-        beforeSend: function () {
-            $("#loading").fadeIn();
-        },
-        data: { id },
-        success: function (obj) {
-            $("#loading").fadeOut();
-            //JsFormulario.Metodos.CargarIndicadores(obj);
-            var comboIndicador = document.getElementById("ddlIndicador");
-            comboIndicador.innerHTML = '';
-            comboIndicador.options[0] = new Option("", -1);
-            for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
-                comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
-            }
-            //alert(id+ "jose ya actualizamos el combo");
-        }
-    }).fail(function (obj) {
-        $("#loading").fadeOut();
-    })
-});
+//$(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e) {
+//    let id = $(this).val();
+//   // alert(id);
+//    $.ajax({
+//        url: jsUtilidades.Variables.urlOrigen + '/FormularioWeb/ObtenerIndicadoresxFrecuencia',
+//        type: "GET",
+//        dataType: "JSON",
+//        beforeSend: function () {
+//            $("#loading").fadeIn();
+//        },
+//        data: { id },
+//        success: function (obj) {
+//            $("#loading").fadeOut();
+//            //JsFormulario.Metodos.CargarIndicadores(obj);
+//            var comboIndicador = document.getElementById("ddlIndicador");
+//            comboIndicador.innerHTML = '';
+//            comboIndicador.options[0] = new Option("", -1);
+//            for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+//                comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
+//            }
+//            //alert(id+ "jose ya actualizamos el combo");
+//        }
+//    }).fail(function (obj) {
+//        $("#loading").fadeOut();
+//    })
+//});
 // GUARDAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
