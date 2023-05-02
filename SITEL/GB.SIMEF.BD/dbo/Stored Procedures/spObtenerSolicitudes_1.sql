@@ -17,6 +17,7 @@ set @consulta='SELECT  idSolicitud
       ,IdAnno
       ,CantidadFormularios
       ,idFuente
+      ,IdFrecuenciaEnvio
       ,Mensaje
       ,FechaCreacion
       ,UsuarioCreacion

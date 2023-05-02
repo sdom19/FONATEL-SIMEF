@@ -8,6 +8,7 @@
     [IdAnno]              INT            NOT NULL,
     [CantidadFormularios] INT            NULL,
     [idFuente]            INT            NULL,
+    [IdFrecuenciaEnvio]   INT            NULL,
     [Mensaje]             VARCHAR (3000) NOT NULL,
     [FechaCreacion]       DATETIME       CONSTRAINT [DF_Solicitud_FechaCreacion] DEFAULT (getdate()) NOT NULL,
     [UsuarioCreacion]     VARCHAR (100)  NOT NULL,
