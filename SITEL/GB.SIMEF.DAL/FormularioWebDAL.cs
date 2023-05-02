@@ -26,10 +26,11 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaFormulariosWeb = db.Database.SqlQuery<FormularioWeb>
-                    ("execute pa_ObtenerFormularioWeb @idFormularioWeb, @idEstado, @codigo",
+                    ("execute pa_ObtenerFormularioWeb @idFormularioWeb, @idEstado, @codigo, @idfrecuenciaEnvio",
                     new SqlParameter("@idFormularioWeb", objFormulario.idFormularioWeb),
                     new SqlParameter("@idEstado", objFormulario.idEstadoRegistro),
-                    new SqlParameter("@codigo", string.IsNullOrEmpty(objFormulario.Codigo) ? DBNull.Value.ToString() : objFormulario.Codigo)
+                    new SqlParameter("@codigo", string.IsNullOrEmpty(objFormulario.Codigo) ? DBNull.Value.ToString() : objFormulario.Codigo),
+                    new SqlParameter("@idfrecuenciaEnvio", objFormulario.idFrecuenciaEnvio)
                     ).ToList();
                
                 ListaFormulariosWeb = ListaFormulariosWeb.Select( x => new FormularioWeb()
