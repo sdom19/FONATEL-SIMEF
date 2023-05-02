@@ -5,6 +5,12 @@ const TipoContenidoDetalle = {
     "Imagen": 4
 }
 
+const Etiquetas = {
+    Visualizar: "Visualizar",
+    DescargarPPTX: "Descargar presentación",
+    DescargarPDF: "Descargar informe"
+}
+
 function MostrarTextoImagen(control, idPantalla){
     try{
         let url = jsconstantes.variables.direccionApi + "TextoPantalla/ObtenerTextoPantalla/" + idPantalla;
@@ -114,9 +120,9 @@ function MostrarBlogGraficosInteractivos(control, idPantalla){
                                 <h3>`+subtitulo+`</h3>
                                 <h5 style="color:#555!important; text-align: left;">`+desc+`</h5>
                                 <hr>
-                                    <a class="btn btn-blue" href="descargagrafico.html" style="color: #ffffffff;">Visualizar</a>
-                                    <a class="btn btn-blue" onclick="descargarPPTX()"  style="color: #ffffffff;">Descargar PPTX</a>
-                                    <a class="btn btn-blue" onclick="descargarPDF()" style="color: #ffffffff;">Descargar PDF</a>
+                                    <a class="btn btn-blue" href="descargagrafico.html" style="color: #ffffffff;">${Etiquetas.Visualizar}</a>
+                                    <a class="btn btn-blue" onclick="descargarPPTX()"  style="color: #ffffffff;">${Etiquetas.DescargarPPTX}</a>
+                                    <a class="btn btn-blue" onclick="descargarPDF()" style="color: #ffffffff;">${Etiquetas.DescargarPDF}</a>
                             </div>        
                         </div> 
                         <br/>
