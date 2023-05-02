@@ -159,7 +159,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = formularioWebBL.ObtenerDatos(new FormularioWeb());
-            });
+           });
             return JsonConvert.SerializeObject(result);
         }
 
