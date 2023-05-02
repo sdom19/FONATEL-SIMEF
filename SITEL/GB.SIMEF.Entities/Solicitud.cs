@@ -46,6 +46,7 @@ namespace GB.SIMEF.Entities
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public int idFuenteRegistro { get; set; }
+        public int IdFrecuenciaEnvio { get; set; }
         public int idMes { get; set; }
         public int idAnno { get; set; }
         public int IdEstadoRegistro { get; set; }
