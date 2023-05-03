@@ -578,23 +578,10 @@ namespace GB.SIMEF.BL
                                                 break;
                                             case 4:
                                                 DateTime outConvert;
-
-
-
-
-
                                                 double.TryParse( worksheet.Cells[j, i].Value.ToString(),out  double num) ;
-
-
-                                          
-
-                                                bool isDate = num==0?
-                                                      DateTime.TryParse(Convert.ToDateTime(worksheet.Cells[j, i].Value).ToString("dd/MM/yyyy"), out outConvert)
-                                                    : DateTime.TryParse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"), out outConvert);
-                                                
-      
-
-
+                                                bool isDate = num == 0 ?
+                                                                DateTime.TryParse(worksheet.Cells[j, i].Value.ToString(), out outConvert)
+                                                                :DateTime.TryParse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"), out outConvert);
                                                 if (!isDate)
                                                 {
                                                     ind = false;
