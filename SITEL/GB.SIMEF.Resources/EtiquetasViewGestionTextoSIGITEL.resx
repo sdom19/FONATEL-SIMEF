@@ -150,4 +150,7 @@
   <data name="TituloVistaIndex" xml:space="preserve">
     <value>Gestión de texto SIGITEL</value>
   </data>
+  <data name="URLInformes" xml:space="preserve">
+    <value>Nombre de carpeta de informes</value>
+  </data>
 </root>

@@ -1,63 +1,69 @@
 ﻿JsGestionTextoSIGITEL = {
-    "Controles": {
-        "btnEditarTexto": "#TablaPantallas tbody tr td .btn-edit",
-        "btnEliminarDetalleTexto": "#TablaDetalleTexto tbody tr td .btn-delete",
-        "btnEditarDetalleTexto": "#TablaDetalleTexto tbody tr td .btn-edit",
-        "btnFinalizarDetalle": "#btnFinalizarDetalle",
-        "btnGuardarDetalle": "#btnGuardarDetalle",
-        "btnCancelarDetalle": "#btnCancelarDetalle",
+    Controles: {
+        btnEditarTexto: "#TablaPantallas tbody tr td .btn-edit",
+        btnEliminarDetalleTexto: "#TablaDetalleTexto tbody tr td .btn-delete",
+        btnEditarDetalleTexto: "#TablaDetalleTexto tbody tr td .btn-edit",
+        btnFinalizarDetalle: "#btnFinalizarDetalle",
+        btnGuardarDetalle: "#btnGuardarDetalle",
+        btnCancelarDetalle: "#btnCancelarDetalle",
 
-        "SeccionImagen": "#seccion-imagen",
-        "SeccionDescripcion": "#seccion-descripcion",
-        "imgPreview": "#imgPreview",
-        "TablaDetalleTexto":"#TablaDetalleTexto tbody",
+        SeccionImagen: "#seccion-imagen",
+        SeccionDescripcion: "#seccion-descripcion",
+        SeccionCarpetaInformes: "#seccion-carpeta-informes",
+        imgPreview: "#imgPreview",
+        TablaDetalleTexto: "#TablaDetalleTexto tbody",
 
-        "ddlTipoContenidoDetalle": "#ddlTipoContenidoDetalle",
-        "txtDescripcion": "#txtDescripcion",
-        "txtOrden": "#txtOrden",
-        "imageFile": "#imageFile",
-        "txtIdContenidoPantallaSIGITEL":"#txtIdContenidoPantallaSIGITEL",
+        ddlTipoContenidoDetalle: "#ddlTipoContenidoDetalle",
+        txtDescripcion: "#txtDescripcion",
+        txtOrden: "#txtOrden",
+        imageFile: "#imageFile",
+        txtCarpetaInformes: "#txtCarpetaInformes",
+        txtIdContenidoPantallaSIGITEL: "#txtIdContenidoPantallaSIGITEL",
 
-        "tipoDetalleHelp": "#tipoDetalleHelp",
-        "descripcionHelp": "#descripcionHelp",
-        "imagenHelp": "#imagenHelp",
-        "ordenHelp": "#ordenHelp"
+        tipoDetalleHelp: "#tipoDetalleHelp",
+        descripcionHelp: "#descripcionHelp",
+        imagenHelp: "#imagenHelp",
+        ordenHelp: "#ordenHelp",
+        txtCarpetaInformesHelp: "#txtCarpetaInformesHelp"
     },
-    "Variables": {
-        "TipoContenidoDetalle": {
-            "TituloPrincipal": "1",
-            "Subtitulo": "2",
-            "Descripcion": "3",
-            "Imagen": "4"
+    Variables: {
+        TipoContenidoDetalle: {
+            TituloPrincipal: 1,
+            Subtitulo: 2,
+            Descripcion: 3,
+            Imagen: 4,
+            NombreCarpetaInformes: 5
         },
-        "DatosTablaDetalle": [],
-        "ImagenCargada": false,
-        "FileTypes": [".png",".jpg"]
+        DatosTablaDetalle: [],
+        ImagenCargada: false,
+        FileTypes: [".png", ".jpg"]
     },
-    "Metodos": {
-        "PreviewImage": function (event) {
+    Metodos: {
+        PreviewImage: function (event) {
             let input = event.target;
             let file = input.files[0];
             let objectURL = URL.createObjectURL(file);
             $(JsGestionTextoSIGITEL.Controles.imgPreview)[0].src = objectURL;
         },
 
-        "ValidarCampos": function () {
+        ValidarCampos: function () {
             let resultado = true;
-            let tipoContenido = $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).val();
+            let tipoContenido = parseInt($(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).val());
             let descripcion = $(JsGestionTextoSIGITEL.Controles.txtDescripcion).val();
-            let imagen = $(JsGestionTextoSIGITEL.Controles.imageFile).val();
             let orden = $(JsGestionTextoSIGITEL.Controles.txtOrden).val();
+            let carpetaInformes = $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformes).val();
 
             $(JsGestionTextoSIGITEL.Controles.tipoDetalleHelp).addClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.descripcionHelp).addClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.ordenHelp).addClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.imagenHelp).addClass("hidden");
+            $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformesHelp).addClass("hidden");
 
             $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).parent().removeClass("has-error");
             $(JsGestionTextoSIGITEL.Controles.txtDescripcion).parent().removeClass("has-error");
             $(JsGestionTextoSIGITEL.Controles.txtOrden).parent().removeClass("has-error");
             $(JsGestionTextoSIGITEL.Controles.imageFile).parent().removeClass("has-error");
+            $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformes).parent().removeClass("has-error");
 
             switch (tipoContenido) {
                 case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.TituloPrincipal:
@@ -88,6 +94,19 @@
                     }
                     break;
 
+                case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.NombreCarpetaInformes:
+                    if (carpetaInformes == "") {
+                        $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformesHelp).removeClass("hidden");
+                        $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformes).parent().addClass("has-error");
+                        resultado = false;
+                    }
+                    if (orden == "") {
+                        $(JsGestionTextoSIGITEL.Controles.ordenHelp).removeClass("hidden");
+                        $(JsGestionTextoSIGITEL.Controles.txtOrden).parent().addClass("has-error");
+                        resultado = false;
+                    }
+                    break;
+
                 default:
                     $(JsGestionTextoSIGITEL.Controles.tipoDetalleHelp).removeClass("hidden");
                     $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).parent().addClass("has-error");
@@ -97,7 +116,7 @@
             return resultado;
         },
 
-        "MostrarDatosDetalleTabla": function (data) {
+        MostrarDatosDetalleTabla: function (data) {
             JsGestionTextoSIGITEL.Variables.DatosTablaDetalle = data;
             EliminarDatasource();
             $(JsGestionTextoSIGITEL.Controles.TablaDetalleTexto).html("");
@@ -107,9 +126,9 @@
                 html = html + "<tr><th scope='row'>" + item.Orden + "</th><td>" + item.TipoContenidoTextoSIGITEL.NombreTipoContenido + "</td>";
 
                 if (item.IdTipoContenidoTextoSIGITEL == JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.Imagen) {
-                    html = html + "<td><img height='50' src='"+item.RutaImagen+"'/></td>";
+                    html = html + "<td><img height='50' src='" + item.RutaImagen + "'/></td>";
                 } else {
-                    html = html + "<td>"+item.Texto.substring(0, 150)+"</td>";
+                    html = html + "<td>" + item.Texto.substring(0, 150) + "</td>";
                 }
 
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + item.IdContenidoPantallaSIGITEL + " title='Editar' class='btn-icon-base btn-edit'></button>";
@@ -120,21 +139,22 @@
             CargarDatasource();
         },
 
-        "LimpiarCampos": function () {
+        LimpiarCampos: function () {
             $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).val(1).trigger("change");
             $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).val(null).trigger("change");
 
             $(JsGestionTextoSIGITEL.Controles.txtDescripcion).val("");
             $(JsGestionTextoSIGITEL.Controles.imageFile).val("");
             $(JsGestionTextoSIGITEL.Controles.txtOrden).val("");
+            $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformes).val("");
             $(JsGestionTextoSIGITEL.Controles.imgPreview)[0].src = "";
             $(JsGestionTextoSIGITEL.Controles.txtIdContenidoPantallaSIGITEL).val("0");
             $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).attr("disabled", false);
             JsGestionTextoSIGITEL.Variables.ImagenCargada = false;
         }
     },
-    "Consultas": {
-        "ObtenerDetalle": function () {
+    Consultas: {
+        ObtenerDetalle: function () {
             let data = new Object();
             data.IdCatalogoPantallaSIGITELString = ObtenerValorParametroUrl("id");
             if (data.IdCatalogoPantallaSIGITELString == null) {
@@ -158,7 +178,7 @@
                 });
         },
 
-        "GuardarDetalle": function () {
+        GuardarDetalle: function () {
             var data = new FormData();
             let objData = new Object();
             let tipoContenido = $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).val();
@@ -171,11 +191,17 @@
                 }
             }
 
+            if (tipoContenido == JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.NombreCarpetaInformes) {
+                objData.Texto = $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformes).val();
+            }
+            else {
+                objData.Texto = $(JsGestionTextoSIGITEL.Controles.txtDescripcion).val();
+            }
+
             objData.IdCatalogoPantallaSIGITELString = ObtenerValorParametroUrl("id");
             objData.IdTipoContenidoTextoSIGITEL = $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).val();
             objData.Orden = $(JsGestionTextoSIGITEL.Controles.txtOrden).val();
             objData.IdContenidoPantallaSIGITEL = $(JsGestionTextoSIGITEL.Controles.txtIdContenidoPantallaSIGITEL).val();
-            objData.Texto = $(JsGestionTextoSIGITEL.Controles.txtDescripcion).val();
             objData.Estado = true;
 
             if (objData.IdContenidoPantallaSIGITEL != "0") {
@@ -183,8 +209,8 @@
                 objData.RutaImagen = itemEdit.RutaImagen;
             }
 
-            data.append('datos', JSON.stringify({ datos: objData}));
-            
+            data.append('datos', JSON.stringify({ datos: objData }));
+
             $.ajax({
                 url: 'GuardarDetalle',
                 type: 'post',
@@ -202,7 +228,7 @@
                         JsGestionTextoSIGITEL.Metodos.LimpiarCampos();
                         jsMensajes.Metodos.OkAlertModal("El detalle de gestión de texto SIGITEL ha sido guardado")
                             .set('onok', function (closeEvent) { });
-                    } else{
+                    } else {
                         jsMensajes.Metodos.OkAlertErrorModal(respuesta.MensajeError)
                             .set('onok', function (closeEvent) { });
                     }
@@ -216,7 +242,7 @@
             })
         },
 
-        "EliminarDetalle": function (id) {
+        EliminarDetalle: function (id) {
             var data = new FormData();
             let objData = new Object();
             let itemEdit = JsGestionTextoSIGITEL.Variables.DatosTablaDetalle.find(item => item.IdContenidoPantallaSIGITEL == parseInt(id));
@@ -287,6 +313,10 @@ $(document).on("click", JsGestionTextoSIGITEL.Controles.btnEditarDetalleTexto, f
     $(JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle).attr("disabled", true);
     JsGestionTextoSIGITEL.Variables.ImagenCargada = true;
 
+    if (itemEdit.IdTipoContenidoTextoSIGITEL == JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.NombreCarpetaInformes) {
+        $(JsGestionTextoSIGITEL.Controles.txtCarpetaInformes).val(itemEdit.Texto);
+    }
+
     JsGestionTextoSIGITEL.Metodos.ValidarCampos();
     $("#loading").fadeOut();
 });
@@ -297,20 +327,32 @@ $(document).on("click", JsGestionTextoSIGITEL.Controles.btnEditarTexto, function
 });
 
 $(document).on("change", JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle, function () {
-    let id = $(this).val();
+    let id = parseInt($(this).val());
     switch (id) {
         case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.TituloPrincipal:
         case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.Subtitulo:
         case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.Descripcion:
-            $(JsGestionTextoSIGITEL.Controles.SeccionImagen).addClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.SeccionDescripcion).removeClass("hidden");
+
+            $(JsGestionTextoSIGITEL.Controles.SeccionImagen).addClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.imgPreview).addClass("hidden");
+            $(JsGestionTextoSIGITEL.Controles.SeccionCarpetaInformes).addClass("hidden");
             break;
-        
+
         case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.Imagen:
-            $(JsGestionTextoSIGITEL.Controles.SeccionImagen).removeClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.SeccionDescripcion).addClass("hidden");
+            $(JsGestionTextoSIGITEL.Controles.SeccionCarpetaInformes).addClass("hidden");
+
+            $(JsGestionTextoSIGITEL.Controles.SeccionImagen).removeClass("hidden");
             $(JsGestionTextoSIGITEL.Controles.imgPreview).removeClass("hidden");
+            break;
+
+        case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.NombreCarpetaInformes:
+            $(JsGestionTextoSIGITEL.Controles.SeccionImagen).addClass("hidden");
+            $(JsGestionTextoSIGITEL.Controles.SeccionDescripcion).addClass("hidden");
+            $(JsGestionTextoSIGITEL.Controles.imgPreview).addClass("hidden");
+
+            $(JsGestionTextoSIGITEL.Controles.SeccionCarpetaInformes).removeClass("hidden");
             break;
 
         default:
@@ -329,7 +371,7 @@ $(document).on("change", JsGestionTextoSIGITEL.Controles.imageFile, function (ev
     if (!JsGestionTextoSIGITEL.Variables.FileTypes.includes(fileType)) {
         $(JsGestionTextoSIGITEL.Controles.imageFile).val("");
         jsMensajes.Metodos.OkAlertErrorModal("Debe seleccionar un archivo png o jpg")
-            .set('onok', function (closeEvent) {  });
+            .set('onok', function (closeEvent) { });
         return
     }
 
@@ -363,12 +405,12 @@ $(document).on("click", JsGestionTextoSIGITEL.Controles.btnGuardarDetalle, funct
                 });
         }
     }
-    
+
 });
 
 $(document).on("click", JsGestionTextoSIGITEL.Controles.btnCancelarDetalle, function (e) {
     e.preventDefault();
-    
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             window.location.href = "/GestionTextoSIGITEL/Index";

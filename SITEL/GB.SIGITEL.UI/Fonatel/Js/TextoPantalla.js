@@ -1,8 +1,9 @@
 const TipoContenidoDetalle = {
-    "TituloPrincipal": 1,
-    "Subtitulo": 2,
-    "Descripcion": 3,
-    "Imagen": 4
+    TituloPrincipal: 1,
+    Subtitulo: 2,
+    Descripcion: 3,
+    Imagen: 4,
+    CarpetaInformes: 5
 }
 
 const Etiquetas = {
@@ -89,15 +90,16 @@ function MostrarBlogGraficosInteractivos(control, idPantalla){
                 let imagenes = datos.filter(i => i.idTipoContenidoTextoSIGITEL == TipoContenidoDetalle.Imagen).sort(function(a,b){return a.orden - b.orden});
                 let titulos = datos.filter(i => i.idTipoContenidoTextoSIGITEL == TipoContenidoDetalle.Subtitulo).sort(function(a,b){return a.orden - b.orden});
                 let descripcion = datos.filter(i => i.idTipoContenidoTextoSIGITEL == TipoContenidoDetalle.Descripcion).sort(function(a,b){return a.orden - b.orden});
+                let carpetaInformes = datos.filter(i => i.idTipoContenidoTextoSIGITEL == TipoContenidoDetalle.CarpetaInformes).sort(function(a,b){return a.orden - b.orden});
                 let html = "";
 
-                let cantidadFilas = Math.max(imagenes.length, titulos.length, descripcion.length);
+                let cantidadFilas = Math.max(imagenes.length, titulos.length, descripcion.length, carpetaInformes.length);
 
-                for(let i=0; i < cantidadFilas; i++){
-
+                for (let i=0; i < cantidadFilas; i++){
                     let srcImagen = "";
                     let desc = "";
                     let subtitulo = ""
+                    let nombreCarpeta = "";
 
                     if(imagenes.length > i){
                         srcImagen = jsconstantes.variables.direccionSITEL + imagenes[i].rutaImagen;
@@ -111,18 +113,22 @@ function MostrarBlogGraficosInteractivos(control, idPantalla){
                         subtitulo = titulos[i].texto;
                     }
 
+                    if (carpetaInformes.length > i) {
+                        nombreCarpeta = carpetaInformes[i].texto;
+                    }
+
                     html = html + `
                         <div class="row">
                             <div class="col-lg-6">   
-                                    <img src="`+srcImagen+`" alt="img"style="max-width: 400px; max-height:300px;" >   
+                                    <img src="${srcImagen}" alt="img"style="max-width: 400px; max-height:300px;" >   
                                 </div>
                                 <div class="col-lg-6 align-self-center">
-                                <h3>`+subtitulo+`</h3>
-                                <h5 style="color:#555!important; text-align: left;">`+desc+`</h5>
+                                <h3>${subtitulo}</h3>
+                                <h5 style="color:#555!important; text-align: left;">${desc}</h5>
                                 <hr>
                                     <a class="btn btn-blue" href="descargagrafico.html" style="color: #ffffffff;">${Etiquetas.Visualizar}</a>
-                                    <a class="btn btn-blue" onclick="descargarPPTX()"  style="color: #ffffffff;">${Etiquetas.DescargarPPTX}</a>
-                                    <a class="btn btn-blue" onclick="descargarPDF()" style="color: #ffffffff;">${Etiquetas.DescargarPDF}</a>
+                                    <a class="btn btn-blue" onclick="descargarPPTX('${nombreCarpeta}')"  style="color: #ffffffff;">${Etiquetas.DescargarPPTX}</a>
+                                    <a class="btn btn-blue" onclick="descargarPDF('${nombreCarpeta}')" style="color: #ffffffff;">${Etiquetas.DescargarPDF}</a>
                             </div>        
                         </div> 
                         <br/>

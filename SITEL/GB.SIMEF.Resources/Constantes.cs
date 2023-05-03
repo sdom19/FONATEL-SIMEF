@@ -9,14 +9,6 @@ namespace GB.SIMEF.Resources
 {
     public static class Constantes
     {
-        
-        
-        
-        
-        /// <summary>
-        /// 
-        /// </summary>
-
         public enum TipoCategoriaEnum : int
         {
             IdUnico = 1,
@@ -72,14 +64,12 @@ namespace GB.SIMEF.Resources
             FormulaContraOtroIndicadorEntradaSalida = 7
         }
 
-
         public enum Error : int
         {
             NoError = 0,
             ErrorSistema = 1,
             ErrorControlado = 2
         }
-
 
         public enum Accion : int
         {
@@ -100,6 +90,7 @@ namespace GB.SIMEF.Resources
             EnviarCorreoInformante = 15,
             EnviarCorreoEncargado = 16
         }
+
         /// <summary>
         /// Enum Clasificación indicador
         /// </summary>
@@ -188,6 +179,7 @@ namespace GB.SIMEF.Resources
             public const int Columna  = 9;
             public const int Valores = 10;
         }
+
         /// <summary>
         /// Debido a la lógica de negocios, no se tienen registros fisicos respecto a los indicadores de calidad, sino columnas de una entidad en BD
         /// </summary>
@@ -219,7 +211,6 @@ namespace GB.SIMEF.Resources
 
         }
 
-
         /// <summary>
         /// Usos del indicador
         /// </summary>
@@ -244,6 +235,7 @@ namespace GB.SIMEF.Resources
             public const string Formulario = "Formulario";
             public const string Indicador = "Indicador";
         }
+
         public static readonly string ValorNoApilca = "N/A";
         public static readonly string ParametrosReglaValidacionDispatch = "Unico";
         public static readonly string ParametrosReglaValidacionPeriodicity = "Solo";

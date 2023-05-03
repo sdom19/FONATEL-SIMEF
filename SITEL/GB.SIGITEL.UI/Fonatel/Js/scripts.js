@@ -1,8 +1,10 @@
 jsconstantes={
-	"variables":{
-		"direccionApi":"https://20.62.1.2:44313/api/",
-		"direccionInformes":"http://20.62.1.2/SUTEL/Informes/Informes",
-		"direccionSITEL":"https://20.62.1.2"
+	variables:{
+		direccionApi: "http://20.57.35.74:44313/api/",
+		direccionInformes: "http://20.57.35.74/SUTEL/Informes/",
+		direccionSITEL: "http://simefdns.eastus2.cloudapp.azure.com",
+
+		nombreInformes: "Informe"
 	}
 };
 

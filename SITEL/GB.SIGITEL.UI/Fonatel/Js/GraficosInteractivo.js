@@ -1,4 +1,5 @@
 var ruta = jsconstantes.variables.direccionInformes;
+
 jQuery(document).ready(function () {
 
   MostrarBlogGraficosInteractivos("#blogGraficosInteractivos", 3);
@@ -8,24 +9,23 @@ jQuery(document).ready(function () {
 
 });
 
-function descargarPDF(){
-    const BotonDescargarPDF = document.createElement('a');
-    BotonDescargarPDF.href = ruta+'.pdf';
-    BotonDescargarPDF.target = '_blank';
-    BotonDescargarPDF.download = 'Informe';
-    
-    document.body.appendChild(BotonDescargarPDF);
-    BotonDescargarPDF.click();
-    document.body.removeChild(BotonDescargarPDF);
+function descargarPDF(pNombreCarpeta){
+  generarEnlace(pNombreCarpeta, "pdf");
 }
 
-function descargarPPTX(){
+function descargarPPTX(pNombreCarpeta){
+  generarEnlace(pNombreCarpeta, "pptx");
+}
+
+function generarEnlace(pNombreCarpeta, pExtension) {
+  if (pNombreCarpeta != "" && pNombreCarpeta != null) {
     const BotonDescargarPPTX = document.createElement('a');
-    BotonDescargarPPTX.href = ruta+'.pptx';
+    BotonDescargarPPTX.href = ruta + pNombreCarpeta + `/${jsconstantes.variables.nombreInformes}.${pExtension}`;
     BotonDescargarPPTX.target = '_blank';
-    BotonDescargarPPTX.download = 'Informe';
+    BotonDescargarPPTX.download = jsconstantes.variables.nombreInformes;
     
     document.body.appendChild(BotonDescargarPPTX);
     BotonDescargarPPTX.click();
     document.body.removeChild(BotonDescargarPPTX);
+  }
 }

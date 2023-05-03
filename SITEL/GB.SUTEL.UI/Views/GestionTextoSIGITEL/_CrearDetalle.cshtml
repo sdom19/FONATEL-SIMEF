@@ -9,7 +9,7 @@
                 <label for="ddlTipoContenidoDetalle" class="col-sm-12 col-form-label">@EtiquetasViewGestionTextoSIGITEL.TipoDetalle</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
-                        @Html.DropDownListFor(model => model.IdTipoContenidoTextoSIGITEL, new SelectList(ViewBag.tipoContenido, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoContenidoDetalle" })
+                        @Html.DropDownListFor(model => model.IdTipoContenidoTextoSIGITEL, new SelectList(ViewBag.tipoContenido, "Value", "Text"), Etiquetas.PlaceholderDropDown, new { @class = "listasDesplegables", id = "ddlTipoContenidoDetalle" })
                         <small id="tipoDetalleHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -17,8 +17,7 @@
             <div class="form-group row" id="seccion-descripcion">
                 <label for="txtDescripcion" class="col-sm-12 col-form-label">@EtiquetasViewGestionTextoSIGITEL.Descripcion</label>
                 <div class="col-sm-12">
-                    @*<input type="text" aria-label="Descripcion" class="form-control form-control-fonatel alfa_numerico" maxlength="250" id="txtDescripcion" aria-describedby="Descripción" placeholder="Descripción">*@
-                    <textarea id="txtDescripcion" maxlength="1500" placeholder="Descripción" class="w-90 form-control form-control-fonatel alfa_numerico"></textarea>
+                    <textarea id="txtDescripcion" maxlength="1500" placeholder="@EtiquetasViewGestionTextoSIGITEL.Descripcion" class="w-90 form-control form-control-fonatel alfa_numerico"></textarea>
                     <small id="descripcionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
@@ -27,6 +26,13 @@
                 <div class="col-sm-12">
                     <input type="file" id="imageFile" class="form-control form-control-fonatel" accept=".png,.jpg">
                     <small id="imagenHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+            <div class="form-group row hidden" id="seccion-carpeta-informes">
+                <label for="txtCarpetaInformes" class="col-sm-12 col-form-label">@EtiquetasViewGestionTextoSIGITEL.URLInformes</label>
+                <div class="col-sm-12">
+                    <input type="text" aria-label="@EtiquetasViewGestionTextoSIGITEL.URLInformes" class="form-control form-control-fonatel alfa_numerico" maxlength="250" id="txtCarpetaInformes" aria-describedby="@EtiquetasViewGestionTextoSIGITEL.URLInformes" placeholder="@EtiquetasViewGestionTextoSIGITEL.URLInformes">
+                    <small id="txtCarpetaInformesHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             <div class="form-group row">
