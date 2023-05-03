@@ -165,7 +165,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> InsertarSolicitud(Solicitud solicitud)
         {
 
-          
             solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
 
             RespuestaConsulta<List<Solicitud>> result = null;
