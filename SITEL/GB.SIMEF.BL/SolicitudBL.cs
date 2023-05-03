@@ -73,7 +73,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarSolicitud, "Sistema automático", modulo, solicitud.Codigo);
+                //clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarSolicitud, "Sistema automático", modulo, solicitud.Codigo);
             }
             catch (Exception ex)
             {
