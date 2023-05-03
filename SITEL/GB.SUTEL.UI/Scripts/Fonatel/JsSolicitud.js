@@ -1091,8 +1091,11 @@ JsSolicitud = {
         },
         "CambiarFrecuencia": function (id) {
             $("#loading").fadeIn();
+            let Solicitud = new Object();
+            Solicitud.id = id;
+
           
-            execAjaxCall("/SolicitudFonatel/ObtenerFormulariosxFrecuencia", "GET", id)
+            execAjaxCall("/SolicitudFonatel/ObtenerFormulariosxFrecuencia", "GET", Solicitud)
                 .then((obj) => {
                     var comboFormularios = document.getElementById("ddlFormularioWeb");
                     comboFormularios.innerHTML = '';

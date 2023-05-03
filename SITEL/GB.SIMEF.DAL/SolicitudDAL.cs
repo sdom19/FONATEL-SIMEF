@@ -101,7 +101,7 @@ namespace GB.SIMEF.DAL
             {
                 ListaSolicitud = db.Database.SqlQuery<Solicitud>
 
-                ("execute pa_ActualizarSolicitud @idSolicitud ,@Codigo, @Nombre ,@FechaInicio ,@FechaFin ,@idMes ,@idAnno ,@CantidadFormulario ,@idFuente ,@Mensaje ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstadoRegistro ",
+                ("execute pa_ActualizarSolicitud @idSolicitud ,@Codigo, @Nombre ,@FechaInicio ,@FechaFin ,@idMes ,@idAnno ,@CantidadFormulario ,@idFuente,@IdFrecuenciaEnvio ,@Mensaje ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstadoRegistro ",
                      new SqlParameter("@idSolicitud", objeto.idSolicitud),
                      new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
                      new SqlParameter("@Nombre", string.IsNullOrEmpty(objeto.Nombre) ? DBNull.Value.ToString() : objeto.Nombre),
