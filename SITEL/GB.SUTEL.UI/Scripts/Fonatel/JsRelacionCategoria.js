@@ -469,10 +469,14 @@
             data.append('file', $(JsRelacion.Controles.inputFileCargarDetalle)[0].files[0]);
             execAjaxCallFile("/RelacionCategoria/CargarExcel", data)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados.")
+                    jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
                         .set('onok', function (closeEvent) { location.reload() });
                 }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                    if (obj == undefined) {
+                        jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
+                            .set('onok', function (closeEvent) { location.reload() });
+                    }
+                    else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload() });
                     }
@@ -613,7 +617,7 @@
             execAjaxCall("/RelacionCategoria/CambiarEstadoActivado", "POST", Relacion)
                 .then((obj) => {
 
-                    jsMensajes.Metodos.OkAlertModal("La Relación  ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categorías ha sido creada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/Index"; })
 
                 }).catch((data) => {
@@ -836,7 +840,10 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
 
 $(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
     if (consultasFonatel) { return; }
-    $(JsRelacion.Controles.inputFileCargarDetalle).click();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cargar los Detalles?", jsMensajes.Variables.actionType.cargar)
+        .set('onok', function (closeEvent) {
+            $(JsRelacion.Controles.inputFileCargarDetalle).click();
+        });
 });
 
 $(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {

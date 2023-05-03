@@ -413,9 +413,9 @@ CreateView = {
         exitoEliminarTipoIndicador: "El Tipo Indicador ha sido eliminado",
         exitoAgregarTipoIndicador: "El Tipo Indicador ha sido agregado",
 
-        preguntaEliminarGrupo: "¿Desea eliminar el Grupo Indicador?",
-        exitoEliminarGrupo: "El Grupo Indicador ha sido eliminado",
-        exitoAgregarGrupo: "El Grupo Indicador ha sido agregado",
+        preguntaEliminarGrupo: "¿Desea eliminar el Grupo?",
+        exitoEliminarGrupo: "El Grupo ha sido eliminado",
+        exitoAgregarGrupo: "El Grupo ha sido agregado",
 
         preguntaEliminarUnidad: "¿Desea eliminar la Unidad de Estudio?",
         exitoEliminarUnidad: "La Unidad de Estudio ha sido eliminada",

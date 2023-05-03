@@ -968,7 +968,10 @@ $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
 
 $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
     if (consultasFonatel) { return; }
-    $(JsCategoria.Controles.inputFileCargarDetalle).click();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cargar los Detalles?", jsMensajes.Variables.actionType.cargar)
+        .set('onok', function (closeEvent) {
+            $(JsCategoria.Controles.inputFileCargarDetalle).click();
+        });
 });
 
 

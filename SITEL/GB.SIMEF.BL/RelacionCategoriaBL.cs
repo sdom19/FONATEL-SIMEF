@@ -625,7 +625,7 @@ namespace GB.SIMEF.BL
                 if (objeto.DetalleRelacionCategoria.Where(p => p.idCategoriaDesagregacion == detalleRelacion.idCategoriaDesagregacion).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception("La categoría ya está asignada a la Relación");
+                    throw new Exception(Errores.CategoriaYaAsociadaRelacion);
                 }
                 else if (objeto.CantidadCategoria <= objeto.DetalleRelacionCategoria.Count())
                 {

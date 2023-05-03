@@ -162,6 +162,9 @@
   <data name="CargaExcelRelacionCategoria" xml:space="preserve">
     <value>El archivo no cuenta con el total de filas configuradas, en total se ingresaron {0} filas</value>
   </data>
+  <data name="CategoriaYaAsociadaRelacion" xml:space="preserve">
+    <value>La Categoría de Desagregación seleccionada ya se encuentra registrada</value>
+  </data>
   <data name="CategoriaYaRegistrada" xml:space="preserve">
     <value>La Categoría seleccionada ya se encuentra registrada</value>
   </data>
