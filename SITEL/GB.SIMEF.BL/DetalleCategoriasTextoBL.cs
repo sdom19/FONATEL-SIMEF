@@ -300,7 +300,7 @@ namespace GB.SIMEF.BL
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
                 {
                     cantFinal = i;
-                    int fila = i + 2;
+                    int fila = i + 10;
                     if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
                     {
                         int codigo = 0;
