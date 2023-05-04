@@ -317,7 +317,7 @@
                 $(jsRegistroIndicadorFonatel.Controles.tablaIndicador_filter).addClass("hidden");
             });
             if (!jsRegistroIndicadorFonatel.Variables.ModoConsulta) {
-                jsMensajes.Metodos.OkAlertModal("La Plantilla ha sido cargada")
+                jsMensajes.Metodos.OkAlertModal("Los datos del Formulario Web han sido cargados")
                     .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
             }
 

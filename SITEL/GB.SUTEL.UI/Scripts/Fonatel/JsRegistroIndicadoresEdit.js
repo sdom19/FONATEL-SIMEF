@@ -395,7 +395,7 @@
                         }
                         else {
                             CargarDatasourceV2("div.tab-pane .data-table-indicador.revisado");
-                            jsMensajes.Metodos.OkAlertModal("Los Datos han sido guardados")
+                            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido editado")
                                 .set('onok', function (closeEvent) { window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index;});
                         }
                     },
@@ -813,7 +813,15 @@ function DescargarExcelPrincipal(URL) {
     if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario Web?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
-            location.href = URL;
+            var ventana = window.open(jsUtilidades.Variables.urlOrigen + URL);
+
+            var interval = setInterval(function () {
+                if (ventana.closed !== false) {
+                    //Si la ventana ha sido cerrada, limpiamos el contador
+                    window.clearInterval(interval)
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido descargado")
+                }
+            }, 100)
         });
 }
 

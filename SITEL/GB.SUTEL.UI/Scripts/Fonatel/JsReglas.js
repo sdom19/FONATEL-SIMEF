@@ -88,7 +88,7 @@
     },
 
     "Mensajes": {
-        MensajeDetalleAgregado: "El Tipo de Regla de Validación ha sido creado",
+        MensajeDetalleAgregado: "El Tipo de Regla de Validación ha sido agregado",
         MensajeDetalleEditado: "El Tipo de Regla de Validación ha sido editado",
         MensajeEliminarRegla: "La Regla de Validación ha sido eliminada",
         MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una Regla de Validación para el Indicador seleccionado",

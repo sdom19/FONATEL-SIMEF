@@ -432,13 +432,13 @@ JsSolicitud = {
                             dependencias = dependencias + obj.objetoRespuesta[i] + "<br>"
                         }
                         if (Eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la/las " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     JsSolicitud.Consultas.EliminarSolicitud(idSolicitud);
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la/las " + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la " + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
                                 });
@@ -938,7 +938,7 @@ JsSolicitud = {
 
             execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/SolicitudFonatel/index";
                         });
@@ -1210,7 +1210,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e)
     e.preventDefault();
 
     if (JsSolicitud.Metodos.ValidarFormularioWeb()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Formulario Web a la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsSolicitud.Consultas.InsertarDetalleSolicitud();
             });
@@ -1241,7 +1241,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
     e.preventDefault();
 
     if (JsSolicitud.Metodos.ValidarEnvioProgramado()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a la Solicitud?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la programación a la Solicitud de Información?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 $(JsSolicitud.Controles.modalEnvio).modal('hide');
                 JsSolicitud.Consultas.InsertarEnvioProgramado();
@@ -1297,7 +1297,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Solicitud de Información?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsSolicitud.Consultas.InsertarSolicitud();
                 })

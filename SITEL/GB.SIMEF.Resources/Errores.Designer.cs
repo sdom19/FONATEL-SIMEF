@@ -241,7 +241,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El Correo ingresado ya se encuentra registrado.
+        ///   Busca una cadena traducida similar a El Correo Electrónico ingresado ya se encuentra registrado.
         /// </summary>
         public static string CorreoRegistrado {
             get {
@@ -277,7 +277,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El Formulario ya se encuentra registrado.
+        ///   Busca una cadena traducida similar a El Formulario Web ingresado ya se encuentra registrado.
         /// </summary>
         public static string FormularioIngresado {
             get {
@@ -376,7 +376,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La Regla ingresada ya se encuentra registrada para esta Variable Dato.
+        ///   Busca una cadena traducida similar a La Regla de Validación ingresada ya se encuentra registrada para esta Variable Dato.
         /// </summary>
         public static string ReglasVariableIngresada {
             get {
