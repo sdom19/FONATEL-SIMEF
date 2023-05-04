@@ -71,12 +71,9 @@
             "ViewList": "/Fonatel/RegistroIndicadorFonatel/index"
         },
         "Mensaje": {
+
             "ErrorCargarPlantilla": "Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente",
-            "ErrorNumericoEncategoria": (min, max) => `El valor debe encontrarse dentro del rango ${min} al ${max}`
-
-
-
-               
+            "ErrorNumericoEncategoria": (min, max) => `El valor debe encontrarse dentro del rango ${min} al ${max}`               
         }
     },
 
