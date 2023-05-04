@@ -1324,8 +1324,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (pIndicador.ClasificacionIndicadores.IdClasificacionIndicador == 0)
                 pIndicador.IdClasificacionIndicador = Constantes.defaultDropDownValue;
 
-            if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
-                pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
+            //if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            //    pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
 
             if (string.IsNullOrEmpty(pIndicador.GraficoInforme.id))
                 pIndicador.GraficoInforme.id = Utilidades.Encriptar(((int)TipoGraficoInformeEnum.Estandar).ToString());
@@ -1342,11 +1342,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (pIndicador.Nota == null || string.IsNullOrEmpty(pIndicador.Nota.Trim()))
                 pIndicador.Nota = defaultInputTextValue;
 
-            if (pIndicador.CantidadVariableDato == null)
-                pIndicador.CantidadVariableDato = defaultInputNumberValue;
+            //if (pIndicador.CantidadVariableDato == null)
+            //    pIndicador.CantidadVariableDato = defaultInputNumberValue;
 
-            if (pIndicador.CantidadCategoriaDesagregacion == null)
-                pIndicador.CantidadCategoriaDesagregacion= defaultInputNumberValue;
+            //if (pIndicador.CantidadCategoriaDesagregacion == null)
+            //    pIndicador.CantidadCategoriaDesagregacion= defaultInputNumberValue;
             
             if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
                 pIndicador.UnidadEstudio.id = defaultDropDownValue;
