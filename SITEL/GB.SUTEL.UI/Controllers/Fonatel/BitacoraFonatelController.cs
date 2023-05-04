@@ -30,28 +30,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var lista = BitacoraBL.ObtenerDatos(new Bitacora()).objetoRespuesta;
          
             var listaUsuario = lista.Select(x => x.Usuario).Distinct();
-
-            /*Se verifica si hace falta alguna pantalla para mostrar en las opciones del filtro de Pantallas*/
-            var listaPantallas = lista.Select(x => x.Pantalla).Distinct().ToList();
-
-         
-
-
+            var listaPantallas = lista.Select(x => x.Pantalla).Distinct().ToList(); //Se verifica si hace falta alguna pantalla para mostrar en las opciones del filtro de Pantallas
             var ListaAcciones = lista.Select(x => x.Accion).Distinct();
 
             ViewBag.Pantalla = listaPantallas.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
             ViewBag.Usuario = listaUsuario.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
-
-            ViewBag.Accion = ListaAcciones.Select(x => new SelectListItem() { Selected = false, Value = x.ToString(), Text = Enum.GetName(typeof(Accion), x) }).ToList();
+            ViewBag.Accion = ListaAcciones.Select(x => new SelectListItem() { Selected = false, Value = x.ToString(), Text = mapAccionBitacora[(Accion)x] }).ToList();
 
             var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
             ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
 
             return View();
         }
-
-
-
 
         #region Métodos de ASYNC
         /// <summary>
@@ -74,6 +64,5 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         #endregion
-
     }
 }
