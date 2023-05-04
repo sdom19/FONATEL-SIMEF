@@ -110,15 +110,18 @@
                 <!--IFRAME-->
         <!--SI EL IFRAME CAMBIARA SE CAMBIA EL LINK EN EL SRC-->
        
-        
+        <div class="col-lg-12" style="margin-top: 30px;">
+                <a class="btn btn-blue" onclick="descargarPPTX('Sigitel Gráfico')" style="color: #ffffffff;">Descargar presentación</a>
+                <a class="btn btn-blue" onclick="descargarPDF('Sigitel Gráfico')" style="color: #ffffffff;">Descargar informe</a>
+        </div>
 
-        <div style="width:100%; height: 100%;">
+        <div class="col-lg-12 mt-4" style="margin-top: 30px;">
             <iframe title="SIGITEL - SIGITEL" width="100%" height="95%" src="https://app.powerbi.com/view?r=eyJrIjoiYTNiMDdiZjItZTJiZS00MmFjLThhMjMtNzdhNmViZTQyOGY2IiwidCI6IjgyYjkxMzU0LTdmZmEtNDE5NC04YzYwLWQyNDI4MWYzZjUyMCIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
         </div>
 
         <div style="font-size: large;" id="contenidoPantallaGraficos"></div>
           
-    <div class="main-panel">&nbsp;</div>
+    <!-- <div class="main-panel">&nbsp;</div> -->
     <div id="wrapper">
         <div class="overlay">&nbsp;</div><!-- Sidebar -->
         <!--NAVBAR-->
@@ -162,6 +165,7 @@
     <script src="js/scripts.js"></script>
     <script src="js/consulta.js"></script>
     <script src="js/Graficos.js"></script>
+    <script src="Js/GraficosInteractivo.js"></script>
     <script src="js/jquery.backstretch.min.js"></script>
     <script src="js/datatable/jquery.dataTables.js"></script>
     <script src="js/datatable/dataTables.bootstrap.js"></script>
