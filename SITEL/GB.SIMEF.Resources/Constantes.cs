@@ -271,7 +271,7 @@ namespace GB.SIMEF.Resources
         public readonly static string Dispatch_Unique = "Unico";
         public readonly static string Periodicity_Unique = "Solo";
 
-        public static Dictionary<FrecuenciaEnvioEnum, string> mapFrecuenciasConMotor = new Dictionary<FrecuenciaEnvioEnum, string>() {
+        public readonly static Dictionary<FrecuenciaEnvioEnum, string> mapFrecuenciasConMotor = new Dictionary<FrecuenciaEnvioEnum, string>() {
             { FrecuenciaEnvioEnum.Semana, "Semanal"},
             { FrecuenciaEnvioEnum.Mes, "Mensual"},
             { FrecuenciaEnvioEnum.Quincenal, "Quincenal"},
@@ -281,12 +281,33 @@ namespace GB.SIMEF.Resources
             { FrecuenciaEnvioEnum.Anual, "Anual"}
         };
 
-        public static Dictionary<EstadosRegistro, string> mapEstadoFormulaConMotor = new Dictionary<EstadosRegistro, string>() {
+        public readonly static Dictionary<EstadosRegistro, string> mapEstadoFormulaConMotor = new Dictionary<EstadosRegistro, string>() {
             { EstadosRegistro.EnProceso, "Detenido"},
             { EstadosRegistro.Pendiente, "Detenido"},
             { EstadosRegistro.Activo, "Nuevo"},
             { EstadosRegistro.Desactivado, "Detenido"},
             { EstadosRegistro.Eliminado, "Detenido"}
+        };
+
+        public readonly static Dictionary<Accion, string> mapAccionBitacora = new Dictionary<Accion, string>()
+        {
+            { 0, "" },
+            { Accion.Crear, "Crear" },
+            { Accion.Consultar, "Consultar" },
+            { Accion.Editar, "Editar" },
+            { Accion.Eliminar, "Eliminar" },
+            { Accion.Clonar, "Clonar" },
+            { Accion.Activar, "Activar" },
+            { Accion.Desactivar, "Desactivar" },
+            { Accion.Descargar, "Descargar" },
+            { Accion.Visualizar, "Visualizar" },
+            { Accion.EnviarSolicitud, "Enviar solicitud" },
+            { Accion.ProgramarEnvio, "Programar envío" },
+            { Accion.EjecutarFormula, "Ejecutar fórmula" },
+            { Accion.Publicar, "Publicar" },
+            { Accion.DejarDePublicar, "Dejar de publicar" },
+            { Accion.EnviarCorreoInformante, "Enviar correo informante"},
+            { Accion.EnviarCorreoEncargado, "Enviar correo encargado" }
         };
 
         /// <summary>
