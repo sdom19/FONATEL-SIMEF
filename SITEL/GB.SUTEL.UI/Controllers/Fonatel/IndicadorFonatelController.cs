@@ -629,11 +629,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             pIndicador.IdEstadoRegistro = pIndicador.IdEstadoRegistro == (int)EstadosRegistro.Desactivado ? pIndicador.IdEstadoRegistro : (int)EstadosRegistro.EnProceso;
             pIndicador.UsuarioCreacion = usuario;
-
-            if (pIndicador.esGuardadoParcial)
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            await Task.Run(() =>
+            {
+                if (pIndicador.esGuardadoParcial)
             {
                 PrepararObjetoIndicadorGuardadoParcial(pIndicador);
-                pIndicador.IdEstadoRegistro = ValidarGuardadoParcialEstadocompleto(pIndicador).Result == true ? (int)EstadosRegistro.Activo : (int)EstadosRegistro.EnProceso;
+                pIndicador.IdEstadoRegistro = ValidarGuardadoParcialEstadocompleto(pIndicador) == true ? (int)EstadosRegistro.Activo : (int)EstadosRegistro.EnProceso;
             }
 
             // evitar datos indeseados en los ids
@@ -646,10 +648,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             pIndicador.IdUnidadEstudio = 0;
             pIndicador.IdGraficoInforme = 0;
 
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+           
 
-            await Task.Run(() =>
-            {          
+                    
                 resultado = indicadorBL.InsertarDatos(pIndicador);
             });
             return JsonConvert.SerializeObject(resultado);
@@ -1280,35 +1281,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        private async Task<bool> ValidarGuardadoParcialEstadocompleto(Indicador pIndicador)
+        private  bool ValidarGuardadoParcialEstadocompleto(Indicador pIndicador)
         {
-            return
-                await Task.Run(() =>
-                {
-                    return detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
-                    {
-                        idIndicadorString = pIndicador.id
-                    }).objetoRespuesta;
-                })
-                .ContinueWith((pDetalleIndicadorVariable) =>
-                {
-                    pIndicador.DetalleIndicadorVariable = pDetalleIndicadorVariable.Result == null
-                        ? new List<DetalleIndicadorVariable>() : pDetalleIndicadorVariable.Result;
 
-                    return detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                    Indicador objIndicador = new Indicador();
+                    objIndicador.DetalleIndicadorVariable= detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
                     {
                         idIndicadorString = pIndicador.id
                     }).objetoRespuesta;
-                })
-                .ContinueWith((pDetalleIndicadorCategoria) =>
-                {
-                    pIndicador.DetalleIndicadorCategoria = pDetalleIndicadorCategoria.Result == null
-                        ? new List<DetalleIndicadorCategoria>() : pDetalleIndicadorCategoria.Result;
+
+                    pIndicador.DetalleIndicadorCategoria= detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                    {
+                        idIndicadorString = pIndicador.id
+                    }).objetoRespuesta;
+                    pIndicador.DetalleIndicadorVariable = objIndicador.DetalleIndicadorVariable == null
+                        ? new List<DetalleIndicadorVariable>() : objIndicador.DetalleIndicadorVariable;
+                    pIndicador.DetalleIndicadorCategoria = objIndicador.DetalleIndicadorCategoria == null
+                        ? new List<DetalleIndicadorCategoria>() : objIndicador.DetalleIndicadorCategoria;
 
                     return pIndicador.CantidadCategoriaDesagregacion == pIndicador.DetalleIndicadorCategoria.Count()
-                        && pIndicador.CantidadVariableDato == pIndicador.DetalleIndicadorVariable.Count
-                        && string.IsNullOrEmpty(ValidarObjetoIndicador(pIndicador, false));
-                });
+                    && pIndicador.CantidadVariableDato == pIndicador.DetalleIndicadorVariable.Count()
+                    && string.IsNullOrEmpty(ValidarObjetoIndicador(pIndicador, false));
         }
 
         /// <summary>
@@ -1321,39 +1314,39 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             if (string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
                 pIndicador.TipoIndicadores.id = defaultDropDownValue;
-            
+
             if (string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
                 pIndicador.FrecuenciaEnvio.id = defaultDropDownValue;
-            
+
             if (pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()))
                 pIndicador.Descripcion = defaultInputTextValue;
-            
+
             if (pIndicador.ClasificacionIndicadores.IdClasificacionIndicador == 0)
                 pIndicador.IdClasificacionIndicador = Constantes.defaultDropDownValue;
 
-            //if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
-            //    pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
+            if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+                pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
 
             if (string.IsNullOrEmpty(pIndicador.GraficoInforme.id))
                 pIndicador.GraficoInforme.id = Utilidades.Encriptar(((int)TipoGraficoInformeEnum.Estandar).ToString());
 
             if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
                 pIndicador.TipoMedida.id = defaultDropDownValue;
-            
+
             if (string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
                 pIndicador.GrupoIndicadores.id = defaultDropDownValue;
-            
+
             if (pIndicador.Interno == null) // Uso
                 pIndicador.Interno = false;
 
             if (pIndicador.Nota == null || string.IsNullOrEmpty(pIndicador.Nota.Trim()))
                 pIndicador.Nota = defaultInputTextValue;
-            
-            //if (pIndicador.CantidadVariableDato == null)
-            //    pIndicador.CantidadVariableDato = defaultInputNumberValue;
-            
-            //if (pIndicador.CantidadCategoriasDesagregacion == null)
-            //    pIndicador.CantidadCategoriasDesagregacion = defaultInputNumberValue;
+
+            if (pIndicador.CantidadVariableDato == null)
+                pIndicador.CantidadVariableDato = defaultInputNumberValue;
+
+            if (pIndicador.CantidadCategoriaDesagregacion == null)
+                pIndicador.CantidadCategoriaDesagregacion= defaultInputNumberValue;
             
             if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
                 pIndicador.UnidadEstudio.id = defaultDropDownValue;
