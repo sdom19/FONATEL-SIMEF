@@ -65,6 +65,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             RespuestaConsulta<List<DatoHistorico>> result = null;
+            datoHistorico.Accion = (int)Constantes.Accion.Consultar;
             await Task.Run(() =>
             {
                 result = historicoBl.ObtenerDatos(datoHistorico);
@@ -80,7 +81,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             await Task.Run(() =>
             {
-                return historicoBl.ObtenerDatos(new DatoHistorico() { id = id });
+                return historicoBl.ObtenerDatos(new DatoHistorico() { id = id, Accion=(int)Constantes.Accion.Descargar });
             }).ContinueWith(data => {
                 MemoryStream stream = new MemoryStream();
                 using (ExcelPackage package = new ExcelPackage(stream))

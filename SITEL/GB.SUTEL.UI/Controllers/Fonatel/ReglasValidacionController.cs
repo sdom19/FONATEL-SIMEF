@@ -70,7 +70,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!string.IsNullOrEmpty(id))
             {
                 regla = reglaBL.ObtenerDatos(new ReglaValidacion() { id = id }).objetoRespuesta.Single();
-                regla.DetalleReglaValidacion = detalleReglaBL.ObtenerDatos(new DetalleReglaValidacion() { idDetalleReglaString = id }).objetoRespuesta.ToList();
+                regla.DetalleReglaValidacion = detalleReglaBL.ObtenerDatos(new DetalleReglaValidacion() { idReglaValidacion = regla.idReglaValidacion }).objetoRespuesta.ToList();
                 regla.Indicador = indicadorfonatelBL.ObtenerDatos(new Indicador() { id = regla.idIndicadorString }).objetoRespuesta.SingleOrDefault();
             }
 
