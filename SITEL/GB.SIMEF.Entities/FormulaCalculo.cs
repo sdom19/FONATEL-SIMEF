@@ -99,8 +99,13 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string EtiquetaFormulaConArgumentos { get; set; } // se utiliza para visualizar la fórmula tipo: ( { Cod 12 - cantidad torres } / { Cod 97 - Cantidad torres instaladas } ) * 2
+
+        [NotMapped]
+        public string IdFormulaAClonarString { get; set; }
+        [NotMapped]
+        public int IdFormulaAClonar { get; set; }
         #endregion
-    
+
 
         public override string ToString()
         {

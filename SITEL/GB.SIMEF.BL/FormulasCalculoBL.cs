@@ -140,8 +140,11 @@ namespace GB.SIMEF.BL
                 resultado.Accion = (int)Accion.Editar;
                 resultado.objetoRespuesta = formulaActualizada;
 
-                formulasCalculoDAL.RegistrarBitacora(resultado.Accion, resultado.Usuario, resultado.Clase,
-                    formulaAntesDelCambio.Codigo, formulaActualizada.ToString(), formulaAntesDelCambio.ToString(), "");
+                if (pFormulaCalculoAntesDeActualizar != null) // != null para evitar que registre cuando es clonación
+                {
+                    formulasCalculoDAL.RegistrarBitacora(resultado.Accion, resultado.Usuario, resultado.Clase,
+                        formulaAntesDelCambio.Codigo, formulaActualizada.ToString(), formulaAntesDelCambio.ToString(), "");
+                }
             }
             catch (Exception ex)
             {
@@ -311,6 +314,14 @@ namespace GB.SIMEF.BL
                     return resultado;
                 }
 
+                // Registro bitacora
+                FormulaCalculo formulaAClonar = null;
+                if (pFormulasCalculo.IdFormulaAClonar != 0)
+                {
+                    formulaAClonar = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormulaCalculo = pFormulasCalculo.IdFormulaAClonar }).FirstOrDefault();
+                }
+                // ---------------
+
                 List<FormulaCalculo> formulaCalculo = formulasCalculoDAL.ActualizarDatos(pFormulasCalculo);
 
                 // en este punto tenemos la fórmula creada/actualizada
@@ -329,8 +340,19 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = pFormulasCalculo.Accion;
 
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, formulaCalculo[0].Codigo, "", "", formulaCalculo[0].ToString());
+                // Registro bitacora
+                if (resultado.Accion == (int) Accion.Clonar && formulaAClonar != null)
+                {
+                    formulaCalculo[0].EtiquetaFormulaConArgumentos = formulaAClonar.EtiquetaFormulaConArgumentos;
+                    indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                            resultado.Usuario, resultado.Clase, formulaCalculo[0].Codigo, formulaCalculo[0].ToString(), "", formulaAClonar.ToString());
+                }
+                else
+                {
+                    indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                            resultado.Usuario, resultado.Clase, formulaCalculo[0].Codigo, "", "", formulaCalculo[0].ToString());
+                }
+                // ---------------
             }
             catch (Exception ex)
             {
@@ -1238,6 +1260,12 @@ namespace GB.SIMEF.BL
             {
                 int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.IdVariableDatoString), out int number);
                 pFormulasCalculo.IdDetalleIndicadorVariable = number;
+            }
+
+            if (!string.IsNullOrEmpty(pFormulasCalculo.IdFormulaAClonarString))
+            {
+                int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.IdFormulaAClonarString), out int number);
+                pFormulasCalculo.IdFormulaAClonar = number;
             }
 
             if (!pFormulasCalculo.NivelCalculoTotal && pFormulasCalculo.ListaCategoriasNivelesCalculo.Count > 0)

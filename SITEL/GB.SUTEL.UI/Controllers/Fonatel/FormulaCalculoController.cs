@@ -593,6 +593,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
             }
 
+            int accionPantalla = (int)Accion.Crear;
+
+            if (modoFormulario.Equals(((int)Accion.Clonar).ToString())) // la acción de clonar reutiliza esta función
+            {
+                accionPantalla = (int)Accion.Clonar;
+            }
+
             string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
 
             if (!string.IsNullOrEmpty(mensajesValidacion))
@@ -602,7 +609,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
-            pFormulaCalculo.Accion = (int)Accion.Crear;
+            pFormulaCalculo.Accion = accionPantalla;
             pFormulaCalculo.UsuarioCreacion = usuario;
             pFormulaCalculo.IdFormulaCalculo = 0;
             pFormulaCalculo.IdFrecuenciaEnvio = 0;
@@ -724,7 +731,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string idFormulaAClonar = pFormulaCalculo.id; // id de la formula seleccionada para clonar
             pFormulaCalculo.id = string.Empty;
             pFormulaCalculo.IdFormulaCalculo = 0;
-            pFormulaCalculo.Accion = (int)Accion.Clonar;
+            pFormulaCalculo.IdFormulaAClonarString = idFormulaAClonar;
 
             string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
             RespuestaConsulta<List<FormulaCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulaCalculo>>>(creacionFormula);
