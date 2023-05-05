@@ -141,7 +141,7 @@
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/EliminarDefinicion", "POST", definicion)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Definición ha sido eliminada")
+                    jsMensajes.Metodos.OkAlertModal("La Definición de Indicadores ha sido eliminada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -168,7 +168,7 @@
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/AgregarDefinicion", "POST", objDefinicion = objDefinicion)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Definición ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Definición de Indicadores ha sido agregada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -193,7 +193,7 @@
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/ActualizarDefinicion", "POST", objDefinicion = objDefinicion)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Definición ha sido editada")
+                    jsMensajes.Metodos.OkAlertModal("La Definición de Indicadores ha sido editada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -219,7 +219,7 @@
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/ClonarDefinicion", "POST", objDefinicion = objDefinicion)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Definición ha sido clonada")
+                    jsMensajes.Metodos.OkAlertModal("La Definición de Indicadores ha sido clonada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -311,19 +311,19 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
     if (JsDefiniciones.Metodos.ValidarControles()) {
         let modo = ObtenerValorParametroUrl("modo");
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Definición?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Definición de Indicadores?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsDefiniciones.Consultas.EditarDefinicion();
                 });
         }
         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Definición?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Definición de Indicadores?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsDefiniciones.Consultas.ClonarDefinicion();
                 });
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Definición?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Definición de Indicadores?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsDefiniciones.Consultas.AgregarDefinicion();
                    
@@ -335,7 +335,7 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
 $(document).on("click", JsDefiniciones.Controles.btnDeleteDefiniciones, function (e) {
     if (consultasFonatel) { return; }
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Definición?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Definición de Indicadores?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsDefiniciones.Consultas.EliminarDefinicion(id);
         });

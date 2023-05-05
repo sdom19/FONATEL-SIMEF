@@ -20,10 +20,10 @@
 
     Mensajes: {
         preguntaEliminarIndicador: "¿Desea eliminar el Indicador?",
-        preguntaEliminarIndicadorDependencias: (pListado) => { return `El Indicador ya está en uso en el/los<br>${pListado}<br>¿Desea eliminarlo?` },
+        preguntaEliminarIndicadorDependencias: (pListado) => { return `El Indicador está en uso en el/los<br>${pListado}<br>¿Desea eliminarlo?` },
         exitoEliminarIndicador: "El Indicador ha sido eliminado",
         preguntaDesactivarIndicador: "¿Desea desactivar el Indicador?",
-        preguntaDesactivarIndicadorDependencias: (pListado) => { return `El Indicador ya está en uso en el/los<br>${pListado}<br>¿Desea desactivarlo?`; },
+        preguntaDesactivarIndicadorDependencias: (pListado) => { return `El Indicador está en uso en el/los<br>${pListado}<br>¿Desea desactivarlo?`; },
         exitoDesactivarIndicador: "El Indicador ha sido desactivado",
         preguntaActivarIndicador: "¿Desea activar el Indicador?",
         exitoActivarIndicador: "El Indicador ha sido activado",
@@ -421,19 +421,19 @@ CreateView = {
         exitoEliminarUnidad: "La Unidad de Estudio ha sido eliminada",
         exitoAgregarUnidad: "La Unidad de Estudio ha sido agregada",
 
-        preguntaEliminarVariable: "¿Desea eliminar la Variable?",
-        exitoEliminarVariable: "La Variable ha sido eliminada",
-        preguntaAgregarVariable: "¿Desea agregar la Variable?",
+        preguntaEliminarVariable: "¿Desea eliminar la Variable Dato?",
+        exitoEliminarVariable: "La Variable Dato ha sido eliminada",
+        preguntaAgregarVariable: "¿Desea agregar la Variable Dato?",
         preguntaEditarVariable: "¿Desea editar la Variable Dato?",
         exitoEditarVariable: "La Variable Dato ha sido editada",
         exitoAgregarVariable: "La Variable ha sido agregada",
 
-        preguntaEliminarCategoria: "¿Desea eliminar la Categoría?",
-        exitoEliminarCategoria: "La Categoría ha sido eliminada",
-        preguntaAgregarCategoria: "¿Desea agregar la Categoría?",
-        preguntaEditarCategoria: "¿Desea editar la Categoría?",
-        exitoAgregarCategoria: "La Categoría ha sido agregada",
-        exitoEditarCategoria: "La Categoría ha sido editada",
+        preguntaEliminarCategoria: "¿Desea eliminar la Categoría de Desagregación?",
+        exitoEliminarCategoria: "La Categoría de Desagregación ha sido eliminada",
+        preguntaAgregarCategoria: "¿Desea agregar la Categoría de Desagregación?",
+        preguntaEditarCategoria: "¿Desea editar la Categoría de Desagregación?",
+        exitoAgregarCategoria: "La Categoría de Desagregación ha sido agregada",
+        exitoEditarCategoria: "La Categoría de Desagregación ha sido editada",
         preguntaClonarIndicador: "¿Desea clonar el Indicador?",
 
         existenCamposVacios: "Existen campos vacíos. "
@@ -683,9 +683,7 @@ CreateView = {
                     return CreateView.Consultas.GuardadoDefinitivoIndicador(pIdIndicador);
                 })
                 .then(data => {
-                    let mensaje =
-                        jsUtilidades.Variables.Acciones.Editar == $(CreateView.Controles.modoFormulario).val()
-                            ? CreateView.Mensajes.exitoEditarIndicador : CreateView.Mensajes.exitoCrearIndicador;
+                    let mensaje = CreateView.Mensajes.exitoCrearIndicador;
 
                         jsMensajes.Metodos.OkAlertModal(mensaje)
                             .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });

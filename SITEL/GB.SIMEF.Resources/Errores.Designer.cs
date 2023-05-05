@@ -205,7 +205,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La Categoría seleccionada ya se encuentra registrada.
+        ///   Busca una cadena traducida similar a La Categoría de Desagregación ingresada ya se encuentra registrada.
         /// </summary>
         public static string CategoriaYaRegistrada {
             get {
@@ -340,7 +340,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El Nombre ingresado para la Variable Dato ya se encuentra registrado.
+        ///   Busca una cadena traducida similar a El Nombre Variable Dato ingresado ya se encuentra registrado.
         /// </summary>
         public static string NombreRegistradoVariableDato {
             get {
