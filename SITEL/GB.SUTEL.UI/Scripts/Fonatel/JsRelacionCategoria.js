@@ -547,7 +547,9 @@
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminado")
                         .set('onok', function (closeEvent) {
-
+                            $(JsRelacion.Controles.listasDesplegables).each(function () {
+                                $(this).val(null).trigger("change");
+                            });
                             location.reload();
                         });
 
@@ -592,6 +594,10 @@
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                         .set('onok', function (closeEvent) {
+                            $(JsRelacion.Controles.listasDesplegables).each(function () {
+                                $(this).val(null).trigger("change");
+                            });
+
                             location.reload();
                         });
 
@@ -693,6 +699,10 @@
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido editado")
                         .set('onok', function (closeEvent) {
+                            $(JsRelacion.Controles.listasDesplegables).each(function () {
+                                $(this).val(null).trigger("change");
+                            });
+
                             location.reload();
                         });
 
