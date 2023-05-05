@@ -353,7 +353,7 @@ CrearFormulaView = {
 
         exitoFormulaCreada: "La Fórmula de Cálculo ha sido creada",
         exitoGuardadoParcial_Editar: "La Fórmula de Cálculo ha sido editada",
-        exitoGuardadoParcial_Clonar: "La Fórmula de Cálculo ha sido clonada",
+        exitoGuardadoParcial_Clonar: "La Fórmula de Cálculo ha sido creada",
     },
 
     Metodos: {
@@ -1026,8 +1026,8 @@ GestionFormulaView = {
         preguntaEliminaArgumento: "¿Desea eliminar el Argumento?",
         preguntaEliminarArgumentoFormulaEjecutada: "La Fórmula de Cálculo ya ha sido ejecutada en un proceso de cálculo. ¿Desea eliminar el Argumento?",
 
-        exitoArgumentoFechaCreado: "El Argumento de Fecha ha sido creado",
-        exitoEliminarArgumentoFecha: "El Argumento de Fecha ha sido eliminado",
+        exitoArgumentoFechaCreado: "La Definición de Fechas ha sido agregada",
+        exitoEliminarArgumentoFecha: "La Definición de Fechas ha sido eliminada",
         preguntaEliminarArgumentoFecha: "¿Desea eliminar el Argumento de Fecha?",
 
         exitoFormulaCreada: "La Fórmula de Cálculo ha sido creada",

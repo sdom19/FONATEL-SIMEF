@@ -65,7 +65,7 @@
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/PublicacionIndicadores/index" });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertModal("La Publicación ha sido desactivada")
+                        jsMensajes.Metodos.OkAlertModal("Se ha desactivado la publicación del Indicador")
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/PublicacionIndicadores/index" });
                     }
                 }).catch((obj) => {

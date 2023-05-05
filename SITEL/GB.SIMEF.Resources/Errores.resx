@@ -162,8 +162,11 @@
   <data name="CargaExcelRelacionCategoria" xml:space="preserve">
     <value>El archivo no cuenta con el total de filas configuradas, en total se ingresaron {0} filas</value>
   </data>
+  <data name="CategoriaYaAsociadaRelacion" xml:space="preserve">
+    <value>La Categoría de Desagregación seleccionada ya se encuentra registrada</value>
+  </data>
   <data name="CategoriaYaRegistrada" xml:space="preserve">
-    <value>La Categoría seleccionada ya se encuentra registrada</value>
+    <value>La Categoría de Desagregación ingresada ya se encuentra registrada</value>
   </data>
   <data name="CatidadIndicadoresExcedido" xml:space="preserve">
     <value>Se excedió la cantidad de registros establecidos</value>
@@ -175,7 +178,7 @@
     <value>El Correo Electrónico ingresado no tiene formato válido</value>
   </data>
   <data name="CorreoRegistrado" xml:space="preserve">
-    <value>El Correo ingresado ya se encuentra registrado</value>
+    <value>El Correo Electrónico ingresado ya se encuentra registrado</value>
   </data>
   <data name="DetalleRegistrado" xml:space="preserve">
     <value>El Detalle ingresado ya se encuentra registrado</value>
@@ -187,7 +190,7 @@
     <value>La Fecha de Inicio del Ciclo debe ser igual o mayor a la Fecha de hoy </value>
   </data>
   <data name="FormularioIngresado" xml:space="preserve">
-    <value>El Formulario ya se encuentra registrado</value>
+    <value>El Formulario Web ingresado ya se encuentra registrado</value>
   </data>
   <data name="FuenteRegistrada" xml:space="preserve">
     <value>La Fuente de Registro ingresada ya se encuentra registrada</value>
@@ -208,7 +211,7 @@
     <value>El Nombre ingresado ya se encuentra registrado</value>
   </data>
   <data name="NombreRegistradoVariableDato" xml:space="preserve">
-    <value>El Nombre ingresado para la Variable Dato ya se encuentra registrado</value>
+    <value>El Nombre Variable Dato ingresado ya se encuentra registrado</value>
   </data>
   <data name="NoRegistrosActualizar" xml:space="preserve">
     <value>No se encuentran registros</value>
@@ -220,7 +223,7 @@
     <value>La Regla ingresada ya se encuentra registrada para esta Categoría</value>
   </data>
   <data name="ReglasVariableIngresada" xml:space="preserve">
-    <value>La Regla ingresada ya se encuentra registrada para esta Variable Dato</value>
+    <value>La Regla de Validación ingresada ya se encuentra registrada para esta Variable Dato</value>
   </data>
   <data name="SolicitudesCantidadFormularios" xml:space="preserve">
     <value>La cantidad ingresada en Cantidad de Formularios no puede ser menor al valor actual</value>
