@@ -16,11 +16,14 @@ namespace GB.SIMEF.BL
         readonly string user = "";
         private readonly DatosHistoricosDAL DatosHistoricosDAL;
 
+        private readonly BitacoraDAL BitacoraDAL;
+
         public DatosHistoricosBL(string modulo, string user )
         {
             this.modulo = modulo;
             this.user = user;
             DatosHistoricosDAL = new DatosHistoricosDAL();
+            BitacoraDAL = new BitacoraDAL();
         }
 
         public RespuestaConsulta<List<DatoHistorico>> ActualizarElemento(DatoHistorico objeto)
@@ -77,6 +80,8 @@ namespace GB.SIMEF.BL
 
             try
             {
+                resultado.Accion = pDatosHistoricos.Accion;
+                resultado.Usuario = user;
                 if (!string.IsNullOrEmpty(pDatosHistoricos.id))
                 {
                     pDatosHistoricos.id = Utilidades.DesencriptarArray(pDatosHistoricos.id);
@@ -88,10 +93,19 @@ namespace GB.SIMEF.BL
                     }
                 }
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
+            
                 var result = DatosHistoricosDAL.ObtenerDatos(pDatosHistoricos);
                 resultado.objetoRespuesta = result;
+
                 resultado.CantidadRegistros = result.Count();
+                if (resultado.Accion==(int)Constantes.Accion.Descargar || resultado.Accion==(int)Constantes.Accion.Consultar)
+                {
+                    string codigo = string.Join(", ", result.Select(x => string.Format("{0}/{1}", x.Codigo, x.NombrePrograma)).ToList());
+                    BitacoraDAL.RegistrarBitacora(resultado.Accion,
+                    resultado.Usuario,
+                        resultado.Clase, codigo);
+
+                }
             }
             catch (Exception ex)
             {
