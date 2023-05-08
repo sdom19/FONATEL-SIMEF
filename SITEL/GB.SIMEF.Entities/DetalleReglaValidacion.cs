@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -81,10 +82,46 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string  NombreVariable { get; set; }
 
+        [NotMapped]
+        public Indicador Indicador { get; set; }
+
+        [NotMapped]
+        public DetalleIndicadorVariable IndicadorVariable { get; set; }
+
+        [NotMapped]
+        public CategoriaDesagregacion CategoriaDesagregacion { get; set; }
+
+        [NotMapped]
+        public string AtributosValidos { get; set; }
+
         public override string ToString()
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Tipo de regla\":\"").Append(this.tipoReglaValidacion.Nombre).Append("\",");
+            switch (this.idTipoReglaValidacion)
+            {
+                case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
+                    json.Append("\"Categoría actualizable\":\"").Append(this.CategoriaDesagregacion.NombreCategoria).Append("\",");
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
+                    json.Append("\"Valor constante\":\"").Append(this.reglaComparacionConstante.Constante).Append("\",");
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    json.Append("\"Valor constante\":\"").Append(this. reglaAtributoValido.idAtributoString ).Append("\",");
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
+                    json.Append("\"Indicador comparación\":\"").Append(this.Indicador.Nombre).Append("\",");
+                    json.Append("\"Variable dato comparación\":\"").Append(this.IndicadorVariable.NombreVariable).Append("\",");
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
+                    json.Append("\"Indicador comparación\":\"").Append(this.Indicador.Nombre).Append("\",");
+                    json.Append("\"Variable dato comparación\":\"").Append(this.IndicadorVariable.NombreVariable).Append("\",");
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
+                    json.Append("\"Indicador comparación\":\"").Append(this.Indicador.Nombre).Append("\",");
+                    json.Append("\"Variable dato comparación\":\"").Append(this.IndicadorVariable.NombreVariable).Append("\",");
+                    break;
+            }
             //json.Append("\"Codigo\":\"").Append(this.reglaValidacion.Codigo).Append("\",");
             json.Append("\"Operador\":\"").Append(this.operadorArismetico.Nombre).Append("\",");
             json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\"}");
