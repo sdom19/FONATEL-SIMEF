@@ -550,7 +550,9 @@ namespace GB.SIMEF.BL
                                                     }
                                                     else
                                                     {
+                                                        // se valida el tipo de dato y si el rango es incorrecto se devuelve falso
                                                         ind = false;
+                                                        indRango = false;
                                                     }
                                                 }
                                                 break;
@@ -654,12 +656,12 @@ namespace GB.SIMEF.BL
                     {
                         if (!indFecha)
                         {
-                            ResultadoConsulta.MensajeError = EtiquetasViewRegistroIndicadorFonatel.FormatoFechaIncorrecto;
+                            ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
                         }
 
                         if (!indRango)
                         {
-                            ResultadoConsulta.MensajeError = EtiquetasViewRegistroIndicadorFonatel.RangoFechaIncorrecto;
+                            ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
                         }
 
                         ResultadoConsulta.HayError = (int)Error.ErrorControlado;
