@@ -713,12 +713,19 @@ namespace GB.SIMEF.BL
             RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
+            string jsonInicial = string.Empty;
+            string jsonActual = string.Empty;
+            string jsonAnterior = string.Empty;
 
             try
             {
                 // consultar el indicador de salida almacenado previamente
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
                 FormulaCalculo formulaAlmacenada = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                if (formulaAlmacenada.Formula != null)
+                {
+                    jsonAnterior = formulaAlmacenada.GetJsonFormula();
+                }
 
                 if (formulaAlmacenada == null || string.IsNullOrEmpty(formulaAlmacenada.IdIndicadorSalidaString))
                 {
@@ -755,6 +762,19 @@ namespace GB.SIMEF.BL
 
                 pFormulasCalculo.Formula = etiquetaFormula.ToString();
                 resultado = ActualizarEtiquetaFormula(pFormulasCalculo, formulaAlmacenada);
+
+                if (formulaAlmacenada.Formula == null)
+                {
+                    resultado.Accion = (int)Accion.Crear;
+                    jsonInicial = resultado.objetoRespuesta.GetJsonFormula();
+                }
+                else
+                {
+                    jsonActual = resultado.objetoRespuesta.GetJsonFormula();
+                }
+
+                argumentoFormulaDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, resultado.objetoRespuesta.Codigo, jsonActual, jsonAnterior, jsonInicial);
             }
             catch (Exception ex)
             {
@@ -916,6 +936,8 @@ namespace GB.SIMEF.BL
                     formulaRegistrada.IdJob = jobDTO.idJob;
                     FormulaCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaRegistrada);
                 }
+
+                formulasCalculoDAL.RegistrarBitacora((int)Accion.EjecutarFormula, user, modulo, formulaRegistrada.Codigo, "", "", "");
             }
             catch (Exception ex)
             {
@@ -987,6 +1009,12 @@ namespace GB.SIMEF.BL
                 {
                     errorControlado = true;
                     throw new Exception(Errores.LasFormulasNoSeEjecutaron);
+                }
+
+                var formulasActivas = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo()).Where(f => f.IdEstadoRegistro == (int)EstadosRegistro.Activo).ToList();
+                foreach (var formula in formulasActivas) 
+                {
+                    formulasCalculoDAL.RegistrarBitacora((int)Accion.EjecutarFormula, user, modulo, formula.Codigo, "", "", "");
                 }
             }
             catch (Exception ex)

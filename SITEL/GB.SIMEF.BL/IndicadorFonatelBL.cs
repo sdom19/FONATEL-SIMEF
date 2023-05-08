@@ -949,6 +949,13 @@ namespace GB.SIMEF.BL
                 }
             }
 
+            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
+                pIndicador.IdClasificacionIndicador = number;
+                pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
+            }
+
             if (!string.IsNullOrEmpty(pIndicador.GraficoInforme?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GraficoInforme.id), out int number);

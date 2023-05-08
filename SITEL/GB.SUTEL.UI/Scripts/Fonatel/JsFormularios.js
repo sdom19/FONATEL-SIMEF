@@ -57,6 +57,7 @@
         "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
         "tablaIndicador_filter": "div.tab-pane.active #tablaIndicador_filter",
+        "btnCantidadFilas": ".tab-pane.active #btnCantidadFilas"
     },
     "Variables": {
         "ListadoFormulario": [],
@@ -1072,6 +1073,13 @@ $(document).on("keypress", JsFormulario.Controles.txtCantidadIndicador, function
         tabla.addClass("revisado");
         JsFormulario.Consultas.ConsultaVizualizarFormulario();
     }
+});
+
+$(document).on("click", JsFormulario.Controles.btnCantidadFilas, function (e) {
+    e.preventDefault();
+    var tabla = $(JsFormulario.Controles.tablaIndicador);
+    tabla.addClass("revisado");
+    JsFormulario.Consultas.ConsultaVizualizarFormulario();
 });
 
 function setSelect2() {
