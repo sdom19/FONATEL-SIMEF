@@ -100,7 +100,7 @@ namespace GB.SIMEF.DAL
                     FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
                     VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo)
+                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo, x.Formula)
                 }).ToList();
             }
             return listaformulas;
@@ -140,7 +140,7 @@ namespace GB.SIMEF.DAL
                         FrecuenciaEnvio = formula.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)formula.IdFrecuenciaEnvio) : null,
                         IndicadorSalida = formula.IdIndicador != null ? ObtenerIndicador((int)formula.IdIndicador) : null,
                         VariableSalida = formula.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)formula.IdDetalleIndicadorVariable) : null,
-                        EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(formula.IdFormulaCalculo)
+                        EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(formula.IdFormulaCalculo, formula.Formula)
                     };
                 }
             }
@@ -209,7 +209,7 @@ namespace GB.SIMEF.DAL
                     FrecuenciaEnvio = esUnicoRegistro && x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = esUnicoRegistro && x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
                     VariableSalida = esUnicoRegistro && x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = esUnicoRegistro ? ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo) : null
+                    EtiquetaFormulaConArgumentos = esUnicoRegistro ? ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo, x.Formula) : null
                 }).ToList();
             }
 
@@ -255,7 +255,7 @@ namespace GB.SIMEF.DAL
                     FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
                     VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo)
+                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo, x.Formula)
                 }).ToList();
             }
 
@@ -570,7 +570,7 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIdFormula"></param>
         /// <returns></returns>
-        private string ObtenerEtiquetaFormulaConArgumentos(int pIdFormula)
+        private string ObtenerEtiquetaFormulaConArgumentos(int pIdFormula, string formulaCalculo)
         {
             string formula = string.Empty;
 
@@ -588,6 +588,10 @@ namespace GB.SIMEF.DAL
                     listaArgs[i] = argumentos[i].Etiqueta;
                 }
                 formula = string.Format(templateEtiqueta, listaArgs);
+            }
+            else
+            {
+                formula = formulaCalculo;
             }
 
             return formula;

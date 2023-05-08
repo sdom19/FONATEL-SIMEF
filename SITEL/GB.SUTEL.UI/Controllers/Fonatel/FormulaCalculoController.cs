@@ -1020,6 +1020,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> ObtenerIndicadores(Indicador pIndicador, FuenteIndicadorEnum pFuenteIndicador, ServicioSitel pServicio)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            pIndicador.IdEstadoRegistro = (int)EstadosRegistro.Activo;
 
             if (pFuenteIndicador != FuenteIndicadorEnum.IndicadorFuenteExterna)
             {

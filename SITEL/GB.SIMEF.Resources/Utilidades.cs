@@ -86,7 +86,12 @@ namespace GB.SIMEF.Resources
             string result = "";
             if (!String.IsNullOrEmpty(json1))
             {
-                var diffObj = new JsonDiffPatch();
+                var opts = new JsonDiffPatchDotNet.Options
+                {
+                    ArrayDiff = ArrayDiffMode.Simple,
+                    TextDiff = TextDiffMode.Simple
+                };
+                var diffObj = new JsonDiffPatch(opts);
                 result = diffObj.Diff(json1, json2);
                 
             }

@@ -106,6 +106,15 @@ namespace GB.SIMEF.Entities
         public int IdFormulaAClonar { get; set; }
         #endregion
 
+        /// <summary>
+        /// 08/05/2023
+        /// Adolfo Cunquero
+        /// Devuelve el JSON para bitácora al crear o editar una formula
+        /// </summary>
+        public string GetJsonFormula()
+        {
+            return "{\"Fórmula\":\"" + this.EtiquetaFormulaConArgumentos + "\"}";
+        }
 
         public override string ToString()
         {
@@ -116,7 +125,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
             json.Append("\"Indicador de salida\":\"").Append(this.IndicadorSalida?.Nombre).Append("\",");
             json.Append("\"Variable-dato de salida\":\"").Append(this.VariableSalida?.NombreVariable).Append("\",");
-            json.Append("\"Fórmula\":\"").Append(this.EtiquetaFormulaConArgumentos).Append("\",");
+            json.Append("\"Fórmula\":\"").Append("N/A").Append("\",");
 
             switch (this.IdEstadoRegistro)
             {
