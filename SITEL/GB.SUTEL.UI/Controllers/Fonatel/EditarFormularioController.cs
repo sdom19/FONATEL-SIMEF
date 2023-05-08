@@ -39,9 +39,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public EditarFormularioController()
         {
-            EditarRegistroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorCategoriaValorFonatelBL = new DetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            EditarRegistroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargarPlanilla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargarPlanilla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorCategoriaValorFonatelBL = new DetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargarPlanilla, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 
