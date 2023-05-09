@@ -37,6 +37,8 @@ namespace GB.SIMEF.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime FechaFin { get; set; }
         public int IdFuente { get; set; }
+
+        public string FuenteNombre { get; set; }
         public string Mensaje { get; set; }
         public string Formulario { get; set; }
         public int IdEstado { get; set; }
@@ -64,9 +66,6 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public EstadoRegistro EstadoRegistro { get; set; }
 
-        [NotMapped]
-
-        public FuenteRegistro Fuente { get; set; }
 
         [NotMapped]
         public Solicitud Solicitud { get; set; }

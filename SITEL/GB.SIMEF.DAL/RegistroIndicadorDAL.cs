@@ -41,6 +41,7 @@ namespace GB.SIMEF.DAL
                 FechaFin = x.FechaFin,
                 Formulario = x.Formulario,
                 idFormularioWeb = x.idFormularioWeb,
+                FuenteNombre=x.FuenteNombre,
                 Mes = x.Mes,
                 Estado = x.Estado,
                 IdEstado = x.IdEstado,
@@ -52,7 +53,6 @@ namespace GB.SIMEF.DAL
                 IdFuente = x.IdFuente,
                 RowId=x.RowId,
                 CodigoFormulario=x.CodigoFormulario,
-                Fuente = ObtenerFuente(x.IdFuente),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
                 FormularioId = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
                 DetalleRegistroIndcadorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, idFormularioWeb = x.idFormularioWeb })
@@ -88,14 +88,7 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatel;
         }
 
-        public FuenteRegistro ObtenerFuente(int id)
-        {
-            using (SIMEFdb = new SIMEFContext()) { 
-                FuenteRegistro fuente = SIMEFdb.FuentesRegistro.Where(i => i.IdFuenteRegistro == id).Single();
-                fuente.DetalleFuenteRegistro = SIMEFdb.DetalleFuentesRegistro.Where(i => i.idFuenteRegistro == id).ToList();
-                return fuente;
-            }
-        }
+
 
         /// <summary>
         /// Metodo que actualiza los estados de registro indicador fonatel

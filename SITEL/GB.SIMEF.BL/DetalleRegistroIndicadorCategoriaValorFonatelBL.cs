@@ -75,12 +75,10 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <returns></returns>
 
-        public string CodigoContatenadoBitacora(string solicitud, string codigoformulario, string Formulario)
+        public string CodigoContatenadoBitacora(string codigoSolicitud, string solicitud, string codigoformulario, string Formulario, string fuente)
         {
 
-            return string.Format("{0}-{1}/{2}", solicitud.Trim()
-                ,codigoformulario.Trim()
-                ,Formulario.Trim());
+            return string.Format("{0}/{1}-{2}/{3}-{4}", codigoSolicitud, solicitud.Trim(),codigoformulario.Trim(),Formulario.Trim(),fuente );
         }
 
 
@@ -177,23 +175,17 @@ namespace GB.SIMEF.BL
                                     usuario: user,
                                     pantalla:    modulo,
 
-                                    codigo:    CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo,
+                                    codigo:    CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo, detalleRegistroIndicador.RegistroIndicadorFonatel.Nombre,
                                         detalleRegistroIndicador.RegistroIndicadorFonatel.CodigoFormulario, 
-                                        detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario),
+                                        detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario, detalleRegistroIndicador.RegistroIndicadorFonatel.FuenteNombre),
                                    ValorAnterior:  jsonAnterior,
                                    valorActual: jsonNuevoValor
                                 );
 
                             }
 
-                        }
-                   
-
-                        
-           
+                        }       
                     }
-
-
 
                 }
 
@@ -274,13 +266,11 @@ namespace GB.SIMEF.BL
                                     accion: (int)Accion.Editar,
                                     usuario: user,
                                     pantalla: modulo,
-
-                                    codigo: CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo,
+                                    codigo: CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo, detalleRegistroIndicador.RegistroIndicadorFonatel.Nombre,
                                         detalleRegistroIndicador.RegistroIndicadorFonatel.CodigoFormulario,
-                                        detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario),
+                                        detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario, detalleRegistroIndicador.RegistroIndicadorFonatel.FuenteNombre),
                                    ValorAnterior: jsonAnterior,
-                                   valorActual: jsonNuevoValor
-                                );
+                                   valorActual: jsonNuevoValor);
 
                             }
 

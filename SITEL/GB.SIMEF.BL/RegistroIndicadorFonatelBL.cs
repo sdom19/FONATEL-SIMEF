@@ -66,14 +66,16 @@ namespace GB.SIMEF.BL
 
                 var HoraActual = DateTime.Now.ToShortTimeString();
 
-                if (objeto.Fuente.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
+                FuenteRegistro fuenteRegistro = clsFuentesRegistroDAL.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuente }).SingleOrDefault();
+
+                if (fuenteRegistro.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
 
-                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
+                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(fuenteRegistro.Fuente), objeto.Codigo, objeto.Nombre, fuenteRegistro.Fuente, FechaActual, HoraActual);
 
-                    foreach (var detalleFuente in objeto.Fuente.DetalleFuenteRegistro.Where(x => x.Estado == true))
+                    foreach (var detalleFuente in fuenteRegistro.DetalleFuenteRegistro.Where(x => x.Estado == true))
                     {
-                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), detalleFuente.NombreDestinatario), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
+                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(fuenteRegistro.Fuente), detalleFuente.NombreDestinatario), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
                         var result = correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }
@@ -137,12 +139,14 @@ namespace GB.SIMEF.BL
                 var FechaActual = DateTime.Today.ToShortDateString();
                 var HoraActual = DateTime.Now.ToShortTimeString();
 
-                if (objeto.Fuente.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
+                FuenteRegistro fuenteRegistro = clsFuentesRegistroDAL.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuente }).SingleOrDefault();
+
+                if (fuenteRegistro.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
 
-                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
+                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(fuenteRegistro.Fuente), objeto.Codigo, objeto.Nombre, fuenteRegistro.Fuente, FechaActual, HoraActual);
 
-                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), NombreEncargado), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
+                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(fuenteRegistro.Fuente), NombreEncargado), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
                     var result = correoDal.EnviarCorreo();
                     envioCorreo.objetoRespuesta = result == 0 ? false : true;
 

@@ -49,7 +49,6 @@ namespace GB.SIMEF.DAL
                 IdAnno = x.IdAnno,
                 Anno = x.Anno,
                 IdFuente = x.IdFuente,
-                Fuente = ObtenerFuente(x.IdFuente),
                 EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
                 Solicitud = ObtenerSolicitud(x.IdSolicitud),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
