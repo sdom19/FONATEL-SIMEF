@@ -1,21 +1,23 @@
 ﻿JsBitacora= {
-    "Controles": {
-        "btnCancelar": "#btnCancelarBitacora",
-        "btnBuscarBitacora": "#btnBuscarBitacora",
-        "txtFechaHasta": "#txtFechaHasta",
-        "txtFechaDesde": "#txtFechaDesde",
-        "TablaBitacora": "#TableBitacoraFonatel tbody",
-        "ddlPantalla": "#ddlPantalla",
-        "ddlUsuario": "#ddlUsuario",
-        "ddlAccion":"#ddlAccion"
+    Controles: {
+        btnCancelar: "#btnCancelarBitacora",
+        btnBuscarBitacora: "#btnBuscarBitacora",
+        btnLimpiar: "#btnLimpiarBitacora",
+        txtFechaHasta: "#txtFechaHasta",
+        txtFechaDesde: "#txtFechaDesde",
+        TablaBitacora: "#TableBitacoraFonatel tbody",
+        ddlPantalla: "#ddlPantalla",
+        ddlUsuario: "#ddlUsuario",
+        ddlAccion: "#ddlAccion"
     },
-    "Variables":{
+    Variables: {
         "ListaBitacora":[]
     },
 
-    "Metodos": {
+    Metodos: {
         "CargarTablaBitacora": function () {
             EliminarDatasource();
+
             let html = "";
             for (var i = 0; i < JsBitacora.Variables.ListaBitacora.length; i++) {
                 let Bitacora = JsBitacora.Variables.ListaBitacora[i];
@@ -158,8 +160,21 @@
             $(JsBitacora.Controles.TablaBitacora).html(html);
             CargarDatasourceBitacora();
         },
+
+        LimpiarControles: function () {
+            SeleccionarItemSelect2(JsBitacora.Controles.ddlPantalla, "");
+            SeleccionarItemSelect2(JsBitacora.Controles.ddlUsuario, "");
+            SeleccionarItemSelect2(JsBitacora.Controles.ddlAccion, "");
+
+            $(JsBitacora.Controles.txtFechaDesde).val("");
+            $(JsBitacora.Controles.txtFechaHasta).val("");
+
+            EliminarDatasource();
+            $(JsBitacora.Controles.TablaBitacora).html("");
+            CargarDatasourceBitacora();
+        }
     },
-    "Consulta": {
+    Consulta: {
         "ConsultarBitacora": function () {
             let bitacora = new Object();
             bitacora.FechaDesde = $(JsBitacora.Controles.txtFechaDesde).val();
@@ -197,6 +212,10 @@ $(document).on("click", JsBitacora.Controles.btnBuscarBitacora, function (e) {
 });
 
 
+$(document).on("click", JsBitacora.Controles.btnLimpiar, function (e) {
+    JsBitacora.Metodos.LimpiarControles();
+});
+
 $(document).on("click", JsBitacora.Controles.btnCancelar, function (e) {
     e.preventDefault();
     if (consultasFonatel) { return; }
@@ -210,7 +229,6 @@ $(document).on("click", JsBitacora.Controles.btnCancelar, function (e) {
 $(function () {
     $(JsBitacora.Controles.txtFechaDesde).val("");
     $(JsBitacora.Controles.txtFechaHasta).val("");
-
 })
 
 

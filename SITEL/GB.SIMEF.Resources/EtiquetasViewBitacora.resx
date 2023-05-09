@@ -141,6 +141,21 @@
   <data name="Hora" xml:space="preserve">
     <value>Hora</value>
   </data>
+  <data name="LabelAcciones" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="LabelFechaFinal" xml:space="preserve">
+    <value>Fecha Final</value>
+  </data>
+  <data name="LabelFechaInicio" xml:space="preserve">
+    <value>Fecha Inicio</value>
+  </data>
+  <data name="LabelPantallas" xml:space="preserve">
+    <value>Pantallas</value>
+  </data>
+  <data name="LabelUsuarios" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
   <data name="Pantalla" xml:space="preserve">
     <value>Pantalla</value>
   </data>
