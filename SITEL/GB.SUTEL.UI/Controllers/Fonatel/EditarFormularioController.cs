@@ -110,6 +110,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             MemoryStream stream = new MemoryStream();
 
+            DetalleRegistroIndicadorFonatel objDetalleRegistroIndicador=null;
+
+
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 package.Workbook.Protection.LockRevision = true;
@@ -120,8 +123,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 var NombreExcel = Formulario.Formulario.Trim();
 
-              
-                
+
+
                 for (int ws = 0; ws < Formulario.DetalleRegistroIndcadorFonatel.Count(); ws++)
                 {
 
@@ -134,7 +137,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     int fila = Constantes.Excel.Columna;
                     int columna = 0;
 
-                    var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = indicador}).objetoRespuesta.Single();
+                    objDetalleRegistroIndicador = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = indicador}).objetoRespuesta.Single();
 
                     ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Formulario.DetalleRegistroIndcadorFonatel[ws].TituloHoja);
 
@@ -159,7 +162,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     //{
                     foreach(var variables in Formulario.DetalleRegistroIndcadorFonatel[ws].DetalleRegistroIndicadorVariableFonatel)
                     {
-                         var ValoresVariables = Detalle.DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.IdVariable == variables.idVariable).ToList();
+                         var ValoresVariables = objDetalleRegistroIndicador.DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.IdVariable == variables.idVariable).ToList();
                         //var Valores = Detalle.DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.IdSolicitud == Detalle.IdSolicitud && x.idFormularioWeb == Detalle.idFormularioWeb).ToList();
 
                         worksheetInicio.Cells[fila, columna + 1].Value = variables.NombreVariable;
@@ -221,7 +224,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     int.TryParse(Utilidades.Desencriptar(idSolicitud), out int temp);
                     idSolicitud = temp.ToString();
                 }
-                EditarRegistroIndicadorBL.BitacoraDescargar(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb });
+                EditarRegistroIndicadorBL.BitacoraDescargar(objDetalleRegistroIndicador.RegistroIndicadorFonatel);
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
@@ -245,13 +248,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormularioWeb, string idIndicador)
         {
             var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb, IndicadorId = idIndicador }).objetoRespuesta.Single();
-            var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = idIndicador }).objetoRespuesta.Single();
+            DetalleRegistroIndicadorFonatel objDetalleRegistroIndicador = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = idIndicador }).objetoRespuesta.Single();
 
             var NombreExcel = Formulario.Formulario.Trim();
 
-            var maxFilas = Detalle.CantidadFila;
-            var cantVariables = Detalle.DetalleRegistroIndicadorVariableFonatel.Count();
-            var cantCategorias = Detalle.DetalleRegistroIndicadorCategoriaFonatel.Count();
+            var maxFilas = objDetalleRegistroIndicador.CantidadFila;
+            var cantVariables = objDetalleRegistroIndicador.DetalleRegistroIndicadorVariableFonatel.Count();
+            var cantCategorias = objDetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaFonatel.Count();
             var maxColumnas = cantVariables + cantCategorias;
 
             int fila = 9;
@@ -267,7 +270,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                
 
-                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Detalle.TituloHoja);
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(objDetalleRegistroIndicador.TituloHoja);
                 worksheetInicio.Cells["A1:E8"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
 
                 worksheetInicio.Cells["A1:E6"].Style.Fill.BackgroundColor.SetColor(Constantes.fontColorFromHex);
@@ -286,9 +289,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 //    for (int i = 0; i < cantVariables; i++)
                 //   {
-                foreach (var variables in Detalle.DetalleRegistroIndicadorVariableFonatel)
+                foreach (var variables in objDetalleRegistroIndicador.DetalleRegistroIndicadorVariableFonatel)
                 {
-                    var ValoresVariables = Detalle.DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.IdVariable == variables.idVariable).ToList();
+                    var ValoresVariables = objDetalleRegistroIndicador.DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.IdVariable == variables.idVariable).ToList();
 
                     //var Valores = Detalle.DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.IdSolicitud == Detalle.IdSolicitud && x.idFormularioWeb == Detalle.idFormularioWeb && x.IdIndicador == Detalle.IdIndicador).ToList();
                     worksheetInicio.Cells[fila, columna + 1].Value = variables.NombreVariable;
@@ -318,8 +321,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 for (int i = 0; i < cantCategorias; i++)
                 {
-                    var Categoria = Detalle.DetalleRegistroIndicadorCategoriaFonatel[i];
-                    var Valores = Detalle.DetalleRegistroIndicadorCategoriaValorFonatel.Where(x => x.idCategoria == Categoria.idCategoria).ToList();
+                    var Categoria = objDetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaFonatel[i];
+                    var Valores = objDetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaValorFonatel.Where(x => x.idCategoria == Categoria.idCategoria).ToList();
 
                     worksheetInicio.Cells[fila, columna + 1].Value = Categoria.NombreCategoria;
                     worksheetInicio.Cells[fila, columna + 1].Style.Font.Bold = true;
@@ -349,7 +352,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     int.TryParse(Utilidades.Desencriptar(idSolicitud), out int temp);
                     idSolicitud = temp.ToString();
                 }
-                EditarRegistroIndicadorBL.BitacoraDescargar(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb });
+                EditarRegistroIndicadorBL.BitacoraDescargar(objDetalleRegistroIndicador.RegistroIndicadorFonatel);
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";

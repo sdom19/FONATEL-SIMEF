@@ -317,5 +317,19 @@ namespace GB.SIMEF.Resources
         {
             public const int DetalleRelacionCategoria = 10;
         }
+
+        /// <summary>
+        /// MIchael hernández Cordero
+        /// 24-04-2024
+        /// Crear código para Bitacora
+        /// </summary>
+        /// <returns></returns>
+
+        public static string CodigoContatenadoBitacoraREgistroIndicador(string codigoSolicitud, string solicitud, string codigoformulario, string Formulario, string fuente)
+        {
+
+            return string.Format("{0}/{1}-{2}/{3}-{4}", codigoSolicitud, solicitud.Trim(), codigoformulario.Trim(), Formulario.Trim(), fuente);
+        }
+
     }
 }

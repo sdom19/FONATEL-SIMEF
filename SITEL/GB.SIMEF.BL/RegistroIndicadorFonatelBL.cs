@@ -357,16 +357,18 @@ namespace GB.SIMEF.BL
         /// Metodo para registrar la bitacora cuando se descarga la plantilla de registro indicador
         /// </summary>
         /// <returns></returns>
-        public void BitacoraDescargar(RegistroIndicadorFonatel objeto)
+        public void BitacoraDescargar(RegistroIndicadorFonatel objeto )
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> resultado = new RespuestaConsulta<List<RegistroIndicadorFonatel>>();
             resultado.Clase = modulo;
-            resultado.Accion = (int)Accion.Descargar;
             resultado.Usuario = user;
-
-            clsDatos.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario,
-                            resultado.Clase, objeto.Solicitudid, "", "", "");
+            clsDatos.RegistrarBitacora(
+                                   accion: (int)Accion.Descargar,
+                                   usuario: user,
+                                   pantalla: modulo,
+                                   codigo: Constantes.CodigoContatenadoBitacoraREgistroIndicador(objeto.Codigo, objeto.Nombre,
+                                       objeto.CodigoFormulario,
+                                       objeto.Formulario, objeto.FuenteNombre));
         }
     }
 }

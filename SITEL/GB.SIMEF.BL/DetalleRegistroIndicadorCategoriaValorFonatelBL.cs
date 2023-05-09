@@ -68,19 +68,7 @@ namespace GB.SIMEF.BL
            return string.Format("{{\"Fila: {0}, {1}\":\"{2}\"}}",numeroFila, nombre, Valor);
         }
 
-        /// <summary>
-        /// MIchael hernández Cordero
-        /// 24-04-2024
-        /// Crear código para Bitacora
-        /// </summary>
-        /// <returns></returns>
-
-        public string CodigoContatenadoBitacora(string codigoSolicitud, string solicitud, string codigoformulario, string Formulario, string fuente)
-        {
-
-            return string.Format("{0}/{1}-{2}/{3}-{4}", codigoSolicitud, solicitud.Trim(),codigoformulario.Trim(),Formulario.Trim(),fuente );
-        }
-
+ 
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(DetalleRegistroIndicadorFonatel objeto, bool bitacora=false)
         {
@@ -175,7 +163,7 @@ namespace GB.SIMEF.BL
                                     usuario: user,
                                     pantalla:    modulo,
 
-                                    codigo:    CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo, detalleRegistroIndicador.RegistroIndicadorFonatel.Nombre,
+                                    codigo:    CodigoContatenadoBitacoraREgistroIndicador(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo, detalleRegistroIndicador.RegistroIndicadorFonatel.Nombre,
                                         detalleRegistroIndicador.RegistroIndicadorFonatel.CodigoFormulario, 
                                         detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario, detalleRegistroIndicador.RegistroIndicadorFonatel.FuenteNombre),
                                    ValorAnterior:  jsonAnterior,
@@ -266,7 +254,7 @@ namespace GB.SIMEF.BL
                                     accion: (int)Accion.Editar,
                                     usuario: user,
                                     pantalla: modulo,
-                                    codigo: CodigoContatenadoBitacora(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo, detalleRegistroIndicador.RegistroIndicadorFonatel.Nombre,
+                                    codigo: Constantes. CodigoContatenadoBitacoraREgistroIndicador(detalleRegistroIndicador.RegistroIndicadorFonatel.Codigo, detalleRegistroIndicador.RegistroIndicadorFonatel.Nombre,
                                         detalleRegistroIndicador.RegistroIndicadorFonatel.CodigoFormulario,
                                         detalleRegistroIndicador.RegistroIndicadorFonatel.Formulario, detalleRegistroIndicador.RegistroIndicadorFonatel.FuenteNombre),
                                    ValorAnterior: jsonAnterior,
