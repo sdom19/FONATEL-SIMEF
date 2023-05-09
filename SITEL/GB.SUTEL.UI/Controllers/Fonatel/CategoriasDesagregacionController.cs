@@ -39,7 +39,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
-
         public CategoriasDesagregacionController()
         {
             categoriaBL = new CategoriasDesagregacionBL(EtiquetasViewCategorias.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
@@ -78,7 +77,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 return View(objCategoria);
             }
-
         }
 
         [HttpGet]
@@ -108,7 +106,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     ViewBag.titulo = EtiquetasViewCategorias.EditarCategoria;
                 }
-
             }
             else
             {
@@ -116,7 +113,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             return View(objCategoria);
-
         }
 
 
@@ -132,10 +128,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             return View(objCategoria);
-
         }
-
-
 
         /// <summary>
         /// Genera el detalle total de los atributos
@@ -144,9 +137,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-
-
-
         [AuthorizeUserAttribute]
         [ConsultasFonatelFilter]
         [HttpGet]
@@ -223,16 +213,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
-           
-            
-
-
-
-
         #endregion
 
         #region Métodos de ASYNC Categoria
-
 
         /// <summary>
         /// Fecha 04-08-2022
@@ -240,7 +223,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Obtiene datos para la table de categorías INDEX
         /// </summary>
         /// <returns></returns>
-
         [HttpGet]
         public async Task<string> ObtenerListaCategorias()
         {
@@ -264,7 +246,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-
         public async Task<string> CambiarEstadoCategoria(CategoriaDesagregacion categoria)
         {
             RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
@@ -285,7 +266,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
         /// <summary>
         /// Fecha 10/08/2022
         /// Michael Hernández Cordero
@@ -293,7 +273,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="categoria"></param>
         /// <returns></returns>
-
         [HttpPost]
         [ConsultasFonatelFilter]
         public async Task<string> InsertarCategoria(CategoriaDesagregacion categoria)
@@ -308,7 +287,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
         /// <summary>
         /// Fecha 10/08/2022
         /// Michael Hernández Cordero
@@ -316,7 +294,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="categoria"></param>
         /// <returns></returns>
-
         [HttpPost]
         [ConsultasFonatelFilter]
         public async Task<string> EditarCategoria(CategoriaDesagregacion categoria)
@@ -330,9 +307,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
-
-
         /// <summary>
         /// Fecha 10/08/2022
         /// Michael Hernández Cordero
@@ -340,7 +314,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="categoria"></param>
         /// <returns></returns>
-
         [HttpPost]
         [ConsultasFonatelFilter]
         public async Task<string> ClonarCategoria(CategoriaDesagregacion categoria)
@@ -353,7 +326,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
-
 
         /// <summary>
         /// Fecha 16-08-2022
@@ -404,17 +376,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
-
         #endregion
 
-
         #region Metodos Async DetalleCateriaTexto
-
-
-
-
-
 
         /// <summary>
         /// Fecha 04-08-2022
@@ -455,7 +419,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
         /// <summary>
         /// Modifica un detalle para los atributos tipo texto
         /// 09/08/2022
@@ -476,8 +439,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
-
-
 
         /// <summary>
         /// Establece la variable estado en false, estado eliminado
@@ -509,11 +470,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             );
             return JsonConvert.SerializeObject(result);
-
-
-
-
-            return JsonConvert.SerializeObject(result);
         }
 
         /// <summary>
@@ -535,8 +491,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(result);
         }
-
-
 
         /// <summary>
         /// Cambiar estado a Finalizado Categorías
@@ -569,7 +523,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Obtiene datos de categorias para relaciones categoria
         /// </summary>
         /// <returns></returns>
-
         [HttpGet]
         public async Task<string> ListaCategoriasParaRelacion()
         {
@@ -582,8 +535,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
 
             return JsonConvert.SerializeObject(result);
-
-
         }
 
         /// <summary>
@@ -601,6 +552,5 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         #endregion
-
     }
 }
