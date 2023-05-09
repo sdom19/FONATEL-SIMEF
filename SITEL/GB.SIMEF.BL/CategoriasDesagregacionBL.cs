@@ -18,13 +18,9 @@ namespace GB.SIMEF.BL
         private readonly CategoriasDesagregacionDAL clsDatos;
         private readonly DetalleCategoriaTextoDAL clsDatosTexto;
 
-
         private RespuestaConsulta<List<CategoriaDesagregacion>> ResultadoConsulta;
         string modulo = string.Empty;
         string user = string.Empty;
-
-
-
 
 
         public CategoriasDesagregacionBL(string modulo, string user)
@@ -35,14 +31,6 @@ namespace GB.SIMEF.BL
             this.clsDatosTexto = new DetalleCategoriaTextoDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<CategoriaDesagregacion>>();
         }
-
-
-
-
-
-
-        
-
 
         public RespuestaConsulta<List<CategoriaDesagregacion>> ObtenerDatos(CategoriaDesagregacion objeto)
         {
@@ -115,6 +103,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
                 objeto.IdTipoDetalleCategoria = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.IdTipoDetalleCategoria;
+
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
@@ -122,10 +111,11 @@ namespace GB.SIMEF.BL
                     objeto.idCategoriaDesagregacion = temp;
                 }
                 List<CategoriaDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriaDesagregacion());
-                 if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper().TrimStart().TrimEnd() == objeto.NombreCategoria.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper() != objeto.Codigo.ToUpper()).ToList().Count() > 0)
+                
+                if (buscarRegistro.Where(x => x.Codigo.ToUpper().Equals(objeto.Codigo.ToUpper()) && x.idCategoriaDesagregacion != objeto.idCategoriaDesagregacion).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.NombreRegistrado);
+                    throw new Exception(Errores.CodigoRegistrado);
                 }
                 var result = listadoCategorias.Where(x => x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion).Single();
                 if (listadoCategorias.Where(x => x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion).Count() == 0)
@@ -150,8 +140,6 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-
-
                     if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
                         objeto.idEstadoRegistro = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
@@ -181,7 +169,6 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
-
                         if (objeto.CantidadDetalleDesagregacion == 0 && (objeto.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico || objeto.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Texto))
                         {
                             objeto.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
@@ -239,18 +226,12 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ActualizarDatos(objeto);
                 objeto = resul.Single();
 
-
-
-
                 string JsonActual = objeto.ToString();
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
                        ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
-
-
-
             }
             catch (Exception ex)
             {
@@ -259,8 +240,6 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
-
-
 
         public RespuestaConsulta<List<CategoriaDesagregacion>> ClonarDatos(CategoriaDesagregacion objeto)
         {
@@ -294,11 +273,11 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimiteCategoria);
                 }
-                else if (listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == objetoClonar.NombreCategoria.ToUpper()).Count() > 0)
+                /*else if (listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == objetoClonar.NombreCategoria.ToUpper()).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
-                }
+                }*/
                 else if (!Utilidades.rx_alfanumerico.Match(objetoClonar.Codigo.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -362,11 +341,9 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.Codigo, JsonNuevoValor, "", jsonInicial);
                 }
-
             }
             catch (Exception ex)
             {
-
                 if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
@@ -380,6 +357,7 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -396,16 +374,17 @@ namespace GB.SIMEF.BL
                 objeto.UsuarioCreacion = user;
                 objeto.IdTipoDetalleCategoria = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.IdTipoDetalleCategoria;
                 List<CategoriaDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriaDesagregacion());
+
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
-                else if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper() == objeto.NombreCategoria.ToUpper()).ToList().Count() > 0)
+                /*else if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper() == objeto.NombreCategoria.ToUpper()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
-                }
+                }*/
                 else if (!Utilidades.rx_alfanumerico.Match(objeto.NombreCategoria.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -464,8 +443,6 @@ namespace GB.SIMEF.BL
                         var result = clsDatos.ActualizarDatos(objeto)
                                 .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                     }
-
-
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
@@ -515,8 +492,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-
-
         /// <summary>
         /// José Navarro Acuña
         /// 17/11/2022
@@ -552,8 +527,6 @@ namespace GB.SIMEF.BL
             }
             return resultado;
         }
-
-
 
         /// <summary>
         /// 18/10/2022
