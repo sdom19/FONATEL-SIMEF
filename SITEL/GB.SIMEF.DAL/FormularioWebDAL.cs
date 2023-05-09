@@ -32,26 +32,51 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@codigo", string.IsNullOrEmpty(objFormulario.Codigo) ? DBNull.Value.ToString() : objFormulario.Codigo),
                     new SqlParameter("@idfrecuenciaEnvio", objFormulario.idFrecuenciaEnvio)
                     ).ToList();
-               
-                ListaFormulariosWeb = ListaFormulariosWeb.Select( x => new FormularioWeb()
+                //para obtener el valor correcto cuando se trabaja con frecuencia
+                if (objFormulario.idFrecuenciaEnvio != 0)
                 {
-                    id = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
-                    idFormularioWeb =x.idFormularioWeb,
-                    Codigo = x.Codigo,
-                    Nombre = x.Nombre,
-                    Descripcion = x.Descripcion,
-                    CantidadIndicador = x.CantidadIndicador,
-                    idFrecuenciaEnvio = x.idFrecuenciaEnvio,
-                    FechaCreacion = x.FechaCreacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    idEstadoRegistro = x.idEstadoRegistro,
-                    ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormularioWeb), 
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).FirstOrDefault(),
-                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuenciaEnvio).FirstOrDefault(),
-                    DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormularioWeb),
-                }).ToList();
+                    ListaFormulariosWeb = ListaFormulariosWeb.Where(x => x.idFrecuenciaEnvio == objFormulario.idFrecuenciaEnvio).Select(x => new FormularioWeb()
+                    {
+                        id = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
+                        idFormularioWeb = x.idFormularioWeb,
+                        Codigo = x.Codigo,
+                        Nombre = x.Nombre,
+                        Descripcion = x.Descripcion,
+                        CantidadIndicador = x.CantidadIndicador,
+                        idFrecuenciaEnvio = x.idFrecuenciaEnvio,
+                        FechaCreacion = x.FechaCreacion,
+                        UsuarioCreacion = x.UsuarioCreacion,
+                        FechaModificacion = x.FechaModificacion,
+                        UsuarioModificacion = x.UsuarioModificacion,
+                        idEstadoRegistro = x.idEstadoRegistro,
+                        ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormularioWeb),
+                        EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).FirstOrDefault(),
+                        FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuenciaEnvio).FirstOrDefault(),
+                        DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormularioWeb),
+                    }).ToList();
+                }
+                else {
+                    ListaFormulariosWeb = ListaFormulariosWeb.Select(x => new FormularioWeb()
+                    {
+                        id = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
+                        idFormularioWeb = x.idFormularioWeb,
+                        Codigo = x.Codigo,
+                        Nombre = x.Nombre,
+                        Descripcion = x.Descripcion,
+                        CantidadIndicador = x.CantidadIndicador,
+                        idFrecuenciaEnvio = x.idFrecuenciaEnvio,
+                        FechaCreacion = x.FechaCreacion,
+                        UsuarioCreacion = x.UsuarioCreacion,
+                        FechaModificacion = x.FechaModificacion,
+                        UsuarioModificacion = x.UsuarioModificacion,
+                        idEstadoRegistro = x.idEstadoRegistro,
+                        ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormularioWeb),
+                        EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).FirstOrDefault(),
+                        FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuenciaEnvio).FirstOrDefault(),
+                        DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormularioWeb),
+                    }).ToList();
+                }
+                
             }
             return ListaFormulariosWeb;
         }
