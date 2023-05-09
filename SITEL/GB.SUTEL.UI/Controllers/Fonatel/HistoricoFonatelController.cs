@@ -65,7 +65,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             RespuestaConsulta<List<DatoHistorico>> result = null;
-            datoHistorico.Accion = (int)Constantes.Accion.Consultar;
+            datoHistorico.Accion = (int)Constantes.Accion.Visualizar;
             await Task.Run(() =>
             {
                 result = historicoBl.ObtenerDatos(datoHistorico);
