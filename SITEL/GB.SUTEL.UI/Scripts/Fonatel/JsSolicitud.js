@@ -495,7 +495,9 @@ JsSolicitud = {
                         JsSolicitud.Variables.DetallesCompletos = false;
                         JsSolicitud.Metodos.Detalles();
                     }
+                    JsSolicitud.Consultas.CambiarFrecuencia(Solicitud.IdFrecuenciaEnvio);
                     $(JsSolicitud.Controles.step2).trigger('click');
+                   
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
