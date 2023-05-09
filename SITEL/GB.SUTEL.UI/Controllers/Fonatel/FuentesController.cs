@@ -283,6 +283,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     if (resultado.Result.HayError == 0)
                     {
+                        var correoEnviado = FuenteDestinatariosBL.ObtenerDatos(new DetalleFuenteRegistro() {idDetalleFuenteRegistro = destinatario.idDetalleFuenteRegistro }).objetoRespuesta;
+                        destinatario.CorreoEnviado = correoEnviado.FirstOrDefault().CorreoEnviado;
                         resultado.Result.HayError = FuenteDestinatariosBL.ActualizarElemento(destinatario).HayError;
                     }
                 }

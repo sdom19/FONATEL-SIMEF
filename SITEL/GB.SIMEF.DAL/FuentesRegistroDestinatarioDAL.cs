@@ -51,13 +51,14 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalleFuentesRegistro = db.Database.SqlQuery<DetalleFuenteRegistro>
-                ("execute pa_ActualizarFuenteRegistroDetalle @IdDetalleFuenteRegistro, @IdFuenteRegistro, @Nombre, @CorreoElectronico, @Estado, @IdUsuario",
+                ("execute pa_ActualizarFuenteRegistroDetalle @IdDetalleFuenteRegistro, @IdFuenteRegistro, @Nombre, @CorreoElectronico, @Estado, @IdUsuario, @CorreoEnviado",
                     new SqlParameter("@IdDetalleFuenteRegistro", objDetalleFuentesRegistro.idDetalleFuenteRegistro),
                     new SqlParameter("@IdFuenteRegistro", objDetalleFuentesRegistro.idFuenteRegistro),
                     new SqlParameter("@Nombre", string.IsNullOrEmpty(objDetalleFuentesRegistro.NombreDestinatario)?DBNull.Value.ToString(): objDetalleFuentesRegistro.NombreDestinatario),
                     new SqlParameter("@CorreoElectronico", string.IsNullOrEmpty(objDetalleFuentesRegistro.CorreoElectronico) ? DBNull.Value.ToString() : objDetalleFuentesRegistro.CorreoElectronico),
                     new SqlParameter("@Estado", objDetalleFuentesRegistro.Estado),
-                     new SqlParameter("@IdUsuario", objDetalleFuentesRegistro.idUsuario)
+                    new SqlParameter("@IdUsuario", objDetalleFuentesRegistro.idUsuario),
+                    new SqlParameter("@CorreoEnviado", objDetalleFuentesRegistro.CorreoEnviado)
                 ).ToList();
 
                 ListaDetalleFuentesRegistro = ListaDetalleFuentesRegistro.Select(x => new DetalleFuenteRegistro()

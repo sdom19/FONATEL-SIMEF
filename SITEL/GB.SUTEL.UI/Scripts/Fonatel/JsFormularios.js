@@ -57,7 +57,7 @@
         "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
         "tablaIndicador_filter": "div.tab-pane.active #tablaIndicador_filter",
-        "btnCantidadFilas": ".tab-pane.active #btnCantidadFilas"
+        "btnCantidadFilas": "div.tab-pane.active #btnCantidadFilas"
     },
     "Variables": {
         "ListadoFormulario": [],
