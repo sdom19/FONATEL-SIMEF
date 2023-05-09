@@ -102,32 +102,37 @@ namespace GB.SIMEF.Entities
             {
                 case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
                     json.Append("\"Categoría actualizable\":\"").Append(this.CategoriaDesagregacion.NombreCategoria).Append("\",");
+                    //json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\",");
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
                     json.Append("\"Valor constante\":\"").Append(this.reglaComparacionConstante.Constante).Append("\",");
+                    json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\",");
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    json.Append("\"Valor constante\":\"").Append(this. reglaAtributoValido.idAtributoString ).Append("\",");
+                    json.Append("\"Categoría id comparación\":\"").Append(this.CategoriaDesagregacion.NombreCategoria ).Append("\",");
+                    json.Append("\"Categoría atributo\":\"").Append(this.AtributosValidos).Append("\",");
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
                     json.Append("\"Indicador comparación\":\"").Append(this.Indicador.Nombre).Append("\",");
                     json.Append("\"Variable dato comparación\":\"").Append(this.IndicadorVariable.NombreVariable).Append("\",");
+                    json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\",");
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
                     json.Append("\"Indicador comparación\":\"").Append(this.Indicador.Nombre).Append("\",");
                     json.Append("\"Variable dato comparación\":\"").Append(this.IndicadorVariable.NombreVariable).Append("\",");
+                    json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\",");
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
                     json.Append("\"Indicador comparación\":\"").Append(this.Indicador.Nombre).Append("\",");
                     json.Append("\"Variable dato comparación\":\"").Append(this.IndicadorVariable.NombreVariable).Append("\",");
+                    json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\",");
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaCambioMensual:
+                    json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\",");
                     break;
             }
             //json.Append("\"Codigo\":\"").Append(this.reglaValidacion.Codigo).Append("\",");
-            json.Append("\"Operador\":\"").Append(this.operadorArismetico.Nombre).Append("\",");
-            json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\"}");
-            
-           
-
+            json.Append("\"Operador\":\"").Append(this.operadorArismetico.Nombre).Append("\"}");
             string resultado = json.ToString();
 
             return resultado;

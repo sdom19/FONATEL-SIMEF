@@ -36,7 +36,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly DetalleRegistroIndicadorCategoriaValorFonatelBL DetalleRegistroIndicadorCategoriaValorFonatelBL;
 
         #endregion
-
+        /// <summary>
+        /// Constructor de la clase 
+        /// métodos de lógica de negocio
+        /// </summary>
         public EditarFormularioController()
         {
             EditarRegistroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());

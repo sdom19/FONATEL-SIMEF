@@ -98,7 +98,7 @@ namespace GB.SIMEF.BL
                 resultado.objetoRespuesta = result;
 
                 resultado.CantidadRegistros = result.Count();
-                if (resultado.Accion==(int)Constantes.Accion.Descargar || resultado.Accion==(int)Constantes.Accion.Consultar)
+                if (resultado.Accion==(int)Constantes.Accion.Descargar || resultado.Accion==(int)Constantes.Accion.Visualizar)
                 {
                     string codigo = string.Join(", ", result.Select(x => string.Format("{0}/{1}", x.Codigo, x.NombrePrograma)).ToList());
                     BitacoraDAL.RegistrarBitacora(resultado.Accion,
