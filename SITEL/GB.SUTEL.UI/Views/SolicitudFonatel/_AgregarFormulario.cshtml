@@ -9,7 +9,7 @@
             <div class="form-group center">
                 <label for="ddlVariableIndicador" class="col-form-label">@EtiquetasViewSolicitudes.Formulario</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownList("ddlFormularioWeb", new SelectList(ViewBag.ListaFormularioWeb, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFormularioWeb" })
+                    @Html.DropDownList("ddlFormularioWeb", new SelectList(ViewBag.ListaFormularioWeb, "Value", "Text"), "", new { @class = "listasDesplegables", id = "ddlFormularioWeb", placeholder = "Seleccione" })
                 </div>
                 <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>

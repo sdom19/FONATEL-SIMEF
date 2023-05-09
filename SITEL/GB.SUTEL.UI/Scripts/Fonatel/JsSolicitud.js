@@ -1102,7 +1102,6 @@ JsSolicitud = {
                     var comboFormularios = document.getElementById("ddlFormularioWeb");
                     comboFormularios.innerHTML = '';
                     // comboFormularios.empty();
-                    comboFormularios.options[0] = new Option("Seleccione", -1);
                     for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
                         comboFormularios.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
                     }
