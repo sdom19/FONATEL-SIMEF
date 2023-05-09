@@ -6,7 +6,7 @@
         <div class="justify-content-center">
 
             <div class="form-group row">
-                <label for="ddlPantalla" class="col-sm-12 col-form-label">Pantallas</label>
+                <label for="ddlPantalla" class="col-sm-12 col-form-label">@EtiquetasViewBitacora.LabelPantallas</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper" id="select-pantallas">
                         @Html.DropDownList("ddlPantalla", new SelectList(ViewBag.Pantalla, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlPantalla", multiple = true })
@@ -24,7 +24,7 @@
         <div class="justify-content-center">
 
             <div class="form-group row">
-                <label for="ddlUsuario" class="col-sm-12 col-form-label">Usuarios</label>
+                <label for="ddlUsuario" class="col-sm-12 col-form-label">@EtiquetasViewBitacora.LabelUsuarios</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         @Html.DropDownList("ddlUsuario", new SelectList(ViewBag.Usuario, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlUsuario", multiple = true })
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="txtFechaDesde" class="col-sm-12 col-form-label">Fecha Inicio</label>
+                <label for="txtFechaDesde" class="col-sm-12 col-form-label">@EtiquetasViewBitacora.LabelFechaInicio</label>
                 <div class="col-sm-12">
                     <input type="date" class="form-control form-control-fonatel " id="txtFechaDesde" placeholder="Fecha de Inicio">
                 </div>
@@ -44,7 +44,7 @@
 
     <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
         <div class="form-group row">
-            <label for="ddlAccion" class="col-sm-12 col-form-label">Acciones</label>
+            <label for="ddlAccion" class="col-sm-12 col-form-label">@EtiquetasViewBitacora.LabelAcciones</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
                     @Html.DropDownList("ddlAccion", new SelectList(ViewBag.Accion, "Value", "Text"), "Todos", new { @class = "listasDesplegables_todos multiple-Select", id = "ddlAccion", multiple = true })
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="form-group row" id="divCantidadDetalleCategoria">
-            <label for="txtFechaHasta" class="col-sm-12 col-form-label">Fecha Final</label>
+            <label for="txtFechaHasta" class="col-sm-12 col-form-label">@EtiquetasViewBitacora.LabelFechaFinal</label>
             <div class="col-sm-12">
                 <input type="date" class="form-control form-control-fonatel " id="txtFechaHasta" placeholder="Fecha de Fin">
             </div>
@@ -65,7 +65,7 @@
 
     <div class="col-sm-12 text-center mt-5" style="display: inline-block;">
         <button type="submit" id="btnBuscarBitacora" class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGenerar">@Etiquetas.BotonGenerar</button>
-        <button type="submit" id="btnCancelarBitacora" class="btn btn-fonatel btn-clean-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonLimpiar">@Etiquetas.BotonLimpiar</button>
+        <button type="button" id="btnLimpiarBitacora" class="btn btn-fonatel btn-clean-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonLimpiar">@Etiquetas.BotonLimpiar</button>
     </div>
 
 </div>
