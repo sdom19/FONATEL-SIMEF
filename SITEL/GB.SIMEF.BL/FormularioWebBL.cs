@@ -66,38 +66,57 @@ namespace GB.SIMEF.BL
         // La cantidad de Indicadores no puede ser inferior
         private bool ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
         {
+            // funcion que devuelve si la cantidad de indicadores es menor a la ya guardada en base de datos se cambia la logica 
             bool resultadoValidacion = false;
+            FormularioWeb formularioWebViejo = new FormularioWeb();
+            var listaIndicadores = ObtenerIndicadoresFormulario(formularioWebNuevo);
+            formularioWebViejo.ListaIndicadoresObj = listaIndicadores.objetoRespuesta;
 
-            formularioWebNuevo.idEstadoRegistro = 0;
-            string[] arrayIndicadores = new string[] { };
-            int cantidadIndicadores = 0;
-            FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
-            if (formularioWebViejo.ListaIndicadores != null)
-            {
-                arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
-                cantidadIndicadores = arrayIndicadores.Count();
-            }
-            if (cantidadIndicadores > 0)
-            {
-                if (formularioWebNuevo.CantidadIndicador < cantidadIndicadores)
-                {
-                    resultadoValidacion = true;
-                }
-            }
-            else if(formularioWebViejo.ListaIndicadores == null)
-            {
-                resultadoValidacion = false;
-            }
-            else
+            if(formularioWebNuevo.CantidadIndicador < formularioWebViejo.ListaIndicadoresObj.Count() )
             {
                 resultadoValidacion = true;
             }
+            else
+            {
+                resultadoValidacion = false;
+            } 
+
+
+          //  formularioWebNuevo.idEstadoRegistro = 0;
+          //  string[] arrayIndicadores = new string[] { };
+          //  int cantidadIndicadores = 0;
+          //  int ID = Convert.ToInt32(formularioWebNuevo.idFormularioWeb);
+          //  //FormularioWeb formularioWebViejo = new FormularioWeb();
+          // // formularioWebViejo.ListaIndicadores = clsDatos.ObtenerIndicadoresXFormulario(ID);
+          //// FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
+          //  if (formularioWebViejo.ListaIndicadores != null)
+          //  {
+          //      arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
+          //      cantidadIndicadores = arrayIndicadores.Count();
+          //  }
+          //  if (cantidadIndicadores > 0)
+          //  {
+          //      if (formularioWebNuevo.CantidadIndicador < cantidadIndicadores)
+          //      {
+          //          resultadoValidacion = true;
+          //      }
+          //  }
+          //  else if(formularioWebViejo.ListaIndicadores == null)
+          //  {
+          //      resultadoValidacion = false;
+          //  }
+          //  else
+          //  {
+          //      resultadoValidacion = true;
+          //  }
 
             return resultadoValidacion;
         }
 
         private int ValidarEstado(FormularioWeb obj)
-        {
+        { 
+
+            obj.idFrecuenciaEnvio = 0;
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(obj).Single();
 
             if (formularioWebViejo.idEstadoRegistro == (int)Constantes.EstadosRegistro.Desactivado)
@@ -127,6 +146,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                var objetoRespaldo = new FormularioWeb { idFormularioWeb = objeto.idFormularioWeb, idEstadoRegistro = 0, Codigo = objeto.Codigo,idFrecuenciaEnvio= objeto.idFrecuenciaEnvio };
                 var objetoAnterior = new FormularioWeb { idFormularioWeb = objeto.idFormularioWeb, idEstadoRegistro = 0, Codigo = objeto.Codigo };
                 objetoAnterior.idFormularioWeb = DesencriptarId(objetoAnterior.id);
                 List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
@@ -153,6 +173,7 @@ namespace GB.SIMEF.BL
                 }
                 
                 objeto.idEstadoRegistro = ValidarEstado(objeto);
+                objeto.idFrecuenciaEnvio = objetoRespaldo.idFrecuenciaEnvio;
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
