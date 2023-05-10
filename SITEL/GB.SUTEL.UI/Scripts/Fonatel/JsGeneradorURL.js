@@ -39,7 +39,7 @@
 
             listaIndicadores?.forEach(item => {
                 html += "<tr>";
-                html += `<th><input type='checkbox' name='${item.Codigo}-${item.Nombre}' class='chkDatos' /></th>`
+                html += `<th><input type='checkbox' name='${item.Nombre}' class='chkDatos' /></th>`
                 html += `<th scope='row'>${item.Codigo}</th>`;
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += `<th scope='row'>${item.GrupoIndicadores.Nombre}</th>`;
@@ -92,7 +92,7 @@ $(document).on("click", jsGeneradorURL.Controles.btnGenerarURL, function () {
 });
 
 $(document).on("click", jsGeneradorURL.Controles.btnCopiar, function () {
-    debugger;
+    
     // Crea un campo de texto "oculto"
     var aux = document.createElement("input");
 
