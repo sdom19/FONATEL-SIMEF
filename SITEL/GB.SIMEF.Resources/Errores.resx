@@ -184,7 +184,7 @@
     <value>El Detalle ingresado ya se encuentra registrado</value>
   </data>
   <data name="ErrorGeneral" xml:space="preserve">
-    <value>Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente</value>
+    <value>Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente.</value>
   </data>
   <data name="EtiquetaRegistrada" xml:space="preserve">
     <value>La Etiqueta ingresada ya se encuentra registrado</value>

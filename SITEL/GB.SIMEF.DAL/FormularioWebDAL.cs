@@ -154,11 +154,14 @@ namespace GB.SIMEF.DAL
             return ListaFormulariosWeb;
         }
 
-        private string ObtenerIndicadoresXFormulario(int id) {
-            return db.Database.SqlQuery<string>
-                    ("execute pa_ObtenerListadoIndicadorXFormulario @idFormularioWeb",
-                    new SqlParameter("@idFormularioWeb", id)
-                    ).Single();
+        public string ObtenerIndicadoresXFormulario(int id) {
+           
+                return db.Database.SqlQuery<string>
+                   ("execute pa_ObtenerListadoIndicadorXFormulario @idFormularioWeb",
+                   new SqlParameter("@idFormularioWeb", id)
+                   ).Single();
+          
+               
         }
 
         /// <summary>
