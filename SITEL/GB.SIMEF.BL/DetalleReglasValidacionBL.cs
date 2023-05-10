@@ -163,7 +163,7 @@ namespace GB.SIMEF.BL
                 DetalleReglaValidacion objDetalleReglaValidacionAnterior =
                     BuscarDatos.Where(x => x.idDetalleReglaValidacion == objDetalleReglaValidacion.idDetalleReglaValidacion).SingleOrDefault();
 
-                objDetalleReglaValidacion = ObtenerCategoriaIndicadorTipo(objDetalleReglaValidacionAnterior);
+                objDetalleReglaValidacionAnterior = ObtenerCategoriaIndicadorTipo(objDetalleReglaValidacionAnterior);
 
 
                var resul = clsDatos.ActualizarDatos(objDetalleReglaValidacion);

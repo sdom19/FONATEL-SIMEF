@@ -53,6 +53,11 @@ namespace GB.SIMEF.BL
                 resultado.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.CorreoRegistrado);
             }
+            else if (consultardatos.Where(x => x.CorreoUsuario.Trim().ToUpper() == objeto.CorreoUsuario.Trim().ToUpper() && x.IdUsuario != objeto.IdUsuario).Count() > 0 && !agregar)
+            {
+                resultado.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(Errores.CorreoRegistrado);
+            }
             else if (objeto.IdUsuario == 0 && !agregar)
             {
                 resultado.HayError = (int)Constantes.Error.ErrorControlado;

@@ -320,5 +320,23 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("Seleccionar", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Externo.
+        /// </summary>
+        public static string UsoExternoIndicador {
+            get {
+                return ResourceManager.GetString("UsoExternoIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Interno.
+        /// </summary>
+        public static string UsoInternoIndicador {
+            get {
+                return ResourceManager.GetString("UsoInternoIndicador", resourceCulture);
+            }
+        }
     }
 }
