@@ -514,7 +514,7 @@
                 }
                 //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
                 if (JsReglas.Variables.objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
-                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.IdReglaComparacionEntradaSalida);
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idReglaComparacionEntradaSalida);
                     $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString).change();
                 }
             }
@@ -976,6 +976,7 @@
                 })
                 .then((obj) => {
                     if (JsReglas.Variables.esModoEdicion) {
+                        selected = JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString;
                         $(JsReglas.Controles.ddlVariableComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString).change();
                     }                  
                 })
@@ -1010,6 +1011,7 @@
                 })
                 .then((obj) => {
                     if (JsReglas.Variables.esModoEdicion) {
+                        selected = JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString;
                         $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString).change();
                     }
                 })
@@ -1044,6 +1046,7 @@
                 })
                 .then((obj) => {
                     if (JsReglas.Variables.esModoEdicion) {
+                        selected = JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString;
                         $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString).change();
                     }
                 })
@@ -1234,8 +1237,8 @@
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
-                objetoTipoRegla.IdReglaComparacionEntradaSalida = {};
-                objetoTipoRegla.reglaIndicadorEntradaSalida.idCompara = $(JsReglas.Controles.txtidCompara).val();
+                objetoTipoRegla.reglaIndicadorEntradaSalida = {};
+                objetoTipoRegla.reglaIndicadorEntradaSalida.idReglaComparacionEntradaSalida = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val();
             }
@@ -1292,16 +1295,19 @@
         "ConsultarCategoriasActualizables": function () {
             $("#loading").fadeIn();
             var idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
-            $(JsReglas.Controles.ddlCategoríaActualizableRegla).empty()
+            //$(JsReglas.Controles.ddlCategoríaActualizableRegla).empty()
 
             execAjaxCall("/ReglasValidacion/ObtenerCategoriasActualizablesIndicador", "GET", { idIndicadorString })
                 .then((obj) => {
 
+                    let valorActual = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+
                     let html = "<option value=''/>";
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].Codigo + " / " + obj.objetoRespuesta[i].NombreCategoria + "</option>"
+                        html = html + "<option value='" + obj.objetoRespuesta[i].idCategoriaDesagregacion + "'>" + obj.objetoRespuesta[i].Codigo + " / " + obj.objetoRespuesta[i].NombreCategoria + "</option>"
                     }
                     $(JsReglas.Controles.ddlCategoríaActualizableRegla).html(html);
+                    $(JsReglas.Controles.ddlCategoríaActualizableRegla).val(valorActual).trigger("change");
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -1319,16 +1325,17 @@
         "ObtenerCategoriaIdXIndicador": function () {
             $("#loading").fadeIn();
             var idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
-            $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).empty()
+            //$(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).empty()
 
             execAjaxCall("/ReglasValidacion/ObtenerCategoriaIdXIndicador", "GET", { idIndicadorString })
                 .then((obj) => {
-
+                    let seleccionado = $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).val();
                     let html = "<option value=''/>";
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                         html = html + "<option value='" + obj.objetoRespuesta[i].idCategoriaDesagregacion + "'>" + obj.objetoRespuesta[i].Codigo + " / " + obj.objetoRespuesta[i].NombreCategoria + "</option>"
                     }
                     $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).html(html);
+                    $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).val(seleccionado).trigger("change");
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
