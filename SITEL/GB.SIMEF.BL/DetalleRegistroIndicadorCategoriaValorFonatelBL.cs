@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using static GB.SIMEF.Resources.Constantes;
 
+
 namespace GB.SIMEF.BL
 {
     public class DetalleRegistroIndicadorCategoriaValorFonatelBL : IMetodos<DetalleRegistroIndicadorCategoriaValorFonatel>
@@ -582,8 +583,32 @@ namespace GB.SIMEF.BL
                                                 }
 
                                                 break;
+                                            case 5:
+                                                CategoriaDesagregacion cdetalle = new CategoriaDesagregacion();
+                                                cdetalle.idCategoriaDesagregacion = categoria.idCategoria;
+                                                List<CategoriaDesagregacion> listaCDetalle = categoriasDesagregacionDAL.ObtenerDatos(cdetalle);
+                                                if (listaCDetalle.Count > 0)
+                                                {
+                                                    int cont = listaCDetalle[0].DetalleCategoriaTexto.Where(x => x.Etiqueta == worksheet.Cells[j, i].Value.ToString()).ToList().Count;
+                                                    if (cont > 0)
+                                                    {
+                                                        valor = worksheet.Cells[j, i].Value.ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        ind = false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    ind = false;
+                                                    indRango = false;
+                                                }
+                                                break;
                                             default:
                                                 valor = worksheet.Cells[j, i].Value.ToString();
+                                                ind = false;
+                                                indRango = false;
                                                 break;
                                         }
                                         if (ind)
@@ -641,7 +666,7 @@ namespace GB.SIMEF.BL
                         {
                             ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
                         }
-
+                        ResultadoConsulta.MensajeError = Constantes.ErrorGeneralPlantilla;
                         ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     }
                 }

@@ -239,6 +239,7 @@ namespace GB.SIMEF.Resources
         public static readonly string ValorNoApilca = "N/A";
         public static readonly string ParametrosReglaValidacionDispatch = "Unico";
         public static readonly string ParametrosReglaValidacionPeriodicity = "Solo";
+        public static readonly string ErrorGeneralPlantilla = "Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente";
 
         public static readonly Color headColorFromHex = System.Drawing.ColorTranslator.FromHtml("#2f75b5");
         public static readonly Color fontColorFromHex = System.Drawing.ColorTranslator.FromHtml("#fff");
