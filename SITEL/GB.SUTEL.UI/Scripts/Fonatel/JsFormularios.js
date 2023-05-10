@@ -425,7 +425,7 @@
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
             formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
             formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
-            formulario.id = $.urlParam("id");
+            formulario.id = ObtenerValorParametroUrl("id");//$.urlParam("id");
             await execAjaxCall("/FormularioWeb/EditarFormularioWeb", "POST", formulario)
                 .then((obj) => {
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicador)
@@ -433,6 +433,7 @@
                     JsFormulario.Variables.HayError = false;
                     JsFormulario.Metodos.ValidarButonFinalizar();
                     JsFormulario.Metodos.ValidarButonGuardarIndicador();
+                    JsFormulario.Consultas.CambiarFrecuencia(formulario.idFrecuenciaEnvio);
                 }).catch((obj) => {
                     JsFormulario.Variables.HayError = true;
                     JsFormulario.Metodos.MensajeError(obj);

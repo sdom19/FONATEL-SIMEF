@@ -153,14 +153,15 @@ namespace GB.SIMEF.BL
                 
                 string jsonAnterior = clsDatos.ObtenerDatos(objetoAnterior).FirstOrDefault().ToString();
                 objeto.idFormularioWeb = DesencriptarId(objeto.id); 
-                
+                //objeto.idFormularioWeb = objetoAnterior.idFormularioWeb;
+
                 if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objeto.Nombre.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper().TrimStart().TrimEnd() != objeto.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
 
-                if (buscarRegistro.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.id.Equals(objeto.id)).ToList().Count() > 0)
+                if (buscarRegistro.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idFormularioWeb.Equals(objeto.idFormularioWeb)).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
