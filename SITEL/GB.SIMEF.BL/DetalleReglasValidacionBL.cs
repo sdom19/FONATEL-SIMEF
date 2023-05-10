@@ -22,7 +22,6 @@ namespace GB.SIMEF.BL
         private readonly ReglaIndicadorEntradaSalidaDAL clsReglaIndicadorEntradaSalidaDAL;
         private readonly IndicadorFonatelDAL clsIndicadorDAL;
         private readonly CategoriasDesagregacionDAL clsCategoriaDal;
-        private readonly DetalleIndicadorVariable clsDetalleIndicadorVariable;
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
         string user;

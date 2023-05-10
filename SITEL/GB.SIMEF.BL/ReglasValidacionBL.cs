@@ -15,6 +15,10 @@ namespace GB.SIMEF.BL
         private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
         private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL;
         private readonly RelacionCategoriaDAL relacionCategoriaDAL;
+        private readonly DetalleReglasValicionDAL detalleReglasValidacion;
+        private readonly IndicadorFonatelDAL clsIndicadorDAL;
+        private readonly CategoriasDesagregacionDAL clsCategoriaDal;
+        private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariableDAL;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
         public ReglaValidacionBL(string modulo, string user)
@@ -25,6 +29,10 @@ namespace GB.SIMEF.BL
             relacionCategoriaDAL = new RelacionCategoriaDAL();
             categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
+            detalleReglasValidacion = new DetalleReglasValicionDAL();
+            clsCategoriaDal = new CategoriasDesagregacionDAL();
+            clsIndicadorDAL = new IndicadorFonatelDAL();
+            clsDatosIndicadorVariableDAL = new DetalleIndicadorVariablesDAL();
         }
 
         /// <summary>
@@ -223,12 +231,10 @@ namespace GB.SIMEF.BL
 
                 DesencriptarReglasValidacion(objeto);
 
-                var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
-                var objetoInicial = listadoReglas.Where(x => x.idReglaValidacion == objeto.idReglaValidacion).Single();
-
+                List<ReglaValidacion> BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
+                ReglaValidacion objetoInicial = listadoReglas.Where(x => x.idReglaValidacion == objeto.idReglaValidacion).Single();
                 objeto.id = string.Empty;
                 objeto.idReglaValidacion = 0;
-
 
                 if (BuscarDatos.Where(x => x.idReglaValidacion != objeto.idReglaValidacion && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstadoRegistro != 4).Count() > 0)
                 {
@@ -243,19 +249,20 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    var resul = clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.objetoRespuesta = resul;
-                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    objeto = ResultadoConsulta.objetoRespuesta.SingleOrDefault();
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 }
 
-                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
 
                 string jsonValorInicial = objetoInicial.ToString();
                 string JsonNuevoValor = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                            ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Codigo, JsonNuevoValor, "", jsonValorInicial);
+                    ResultadoConsulta.Usuario,
+                        ResultadoConsulta.Clase, objeto.Codigo, JsonNuevoValor, "", jsonValorInicial);
+
 
             }
             catch (Exception ex)
@@ -302,9 +309,41 @@ namespace GB.SIMEF.BL
 
                 clsDatos.ClonarDetallesReglas(IdReglaAClonar, IdReglaDestino);
 
-                resultado.objetoRespuesta = new ReglaValidacion() { id = pIdReglaDestino };
 
 
+                ReglaValidacion obReglaAnterior =
+                    clsDatos.ObtenerDatos(new ReglaValidacion() { idReglaValidacion = IdReglaAClonar }).SingleOrDefault();
+                obReglaAnterior.DetalleReglaValidacion
+                    = detalleReglasValidacion.ObtenerDatos(new DetalleReglaValidacion() { idReglaValidacion = IdReglaAClonar })
+                    .Select(x=> ObtenerCategoriaIndicadorTipo(x)).ToList();
+
+            
+
+
+
+              ReglaValidacion obReglaNuevo =
+                    clsDatos.ObtenerDatos(new ReglaValidacion() { idReglaValidacion = IdReglaDestino }).SingleOrDefault();
+                obReglaNuevo.DetalleReglaValidacion
+                         = detalleReglasValidacion.ObtenerDatos(new DetalleReglaValidacion() { idReglaValidacion = IdReglaDestino })
+                          .Select(x => ObtenerCategoriaIndicadorTipo(x)).ToList();
+
+                string[] jsonValorInicial =  obReglaAnterior.DetalleReglaValidacion.Select(x => x.ToString()).ToArray();  
+                string[] JsonNuevoValor =    obReglaNuevo.DetalleReglaValidacion.Select(x => ObtenerCategoriaIndicadorTipo( x).ToString()).ToArray();
+
+                for (int i = 0; i < jsonValorInicial.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty( JsonNuevoValor[i]) && !string.IsNullOrEmpty(jsonValorInicial[i]))
+                    {
+                        clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, obReglaNuevo.Codigo, JsonNuevoValor[i], "", jsonValorInicial[i]);
+                    }
+       
+                }
+
+              
+
+                resultado.objetoRespuesta = obReglaNuevo;
             }
             catch (Exception ex)
             {
@@ -317,6 +356,81 @@ namespace GB.SIMEF.BL
 
             return resultado;
         }
+
+
+        /// <summary>
+        /// Obtiene la Categoria o indicador según el tipo;
+        /// Michael Hernández Cordero
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        private DetalleReglaValidacion ObtenerCategoriaIndicadorTipo(DetalleReglaValidacion objDetalleRegla)
+        {
+            switch (objDetalleRegla.idTipoReglaValidacion)
+            {
+                case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
+                    objDetalleRegla.CategoriaDesagregacion = clsCategoriaDal
+                        .ObtenerDatos(new CategoriaDesagregacion()
+                        {
+                            idCategoriaDesagregacion =
+                        objDetalleRegla.reglaSecuencial.idCategoriaDesagregacion
+                        }).FirstOrDefault();
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    string[] listaAtributosId = objDetalleRegla.reglaAtributoValido.idAtributoString.Split(',');
+                    List<string> categoriaAtributo = new List<string>();
+
+                    objDetalleRegla.CategoriaDesagregacion = clsCategoriaDal.ObtenerDatos(new CategoriaDesagregacion()
+                    { idCategoriaDesagregacion = objDetalleRegla.reglaAtributoValido.idCategoriaDesagregacion }
+                    ).FirstOrDefault();
+                    foreach (var item in listaAtributosId)
+                    {
+                        string NombreCategoria = clsCategoriaDal.ObtenerDatos(
+                            new CategoriaDesagregacion() { idCategoriaDesagregacion = Convert.ToInt32(item) })
+                            .Select(X => X.NombreCategoria).FirstOrDefault();
+                        categoriaAtributo.Add(NombreCategoria);
+                    }
+
+                    objDetalleRegla.AtributosValidos = string.Join(",", categoriaAtributo);
+
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
+
+                    objDetalleRegla.Indicador =
+                        clsIndicadorDAL
+                        .ObtenerDatos(new Indicador() { IdIndicador = objDetalleRegla.reglaIndicadorEntrada.idIndicador }).FirstOrDefault();
+
+                    objDetalleRegla.IndicadorVariable = clsDatosIndicadorVariableDAL.
+                        ObtenerDatos(new DetalleIndicadorVariable() { IdIndicador = objDetalleRegla.reglaIndicadorEntrada.idIndicador, IdDetalleIndicadorVariable = objDetalleRegla.reglaIndicadorEntrada.idDetalleIndicadorVariable })
+                    .FirstOrDefault();
+
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
+
+                    objDetalleRegla.Indicador =
+                        clsIndicadorDAL
+                        .ObtenerDatos(new Indicador() { IdIndicador = objDetalleRegla.reglaIndicadorEntradaSalida.idIndicador }).FirstOrDefault();
+                    objDetalleRegla.IndicadorVariable = clsDatosIndicadorVariableDAL.
+                        ObtenerDatos(new DetalleIndicadorVariable() { IdIndicador = objDetalleRegla.reglaIndicadorEntradaSalida.idIndicador, IdDetalleIndicadorVariable = objDetalleRegla.reglaIndicadorEntradaSalida.idDetalleIndicadorVariable })
+                        .FirstOrDefault();
+
+                    break;
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
+
+                    objDetalleRegla.Indicador =
+                        clsIndicadorDAL
+                        .ObtenerDatos(new Indicador() { IdIndicador = objDetalleRegla.reglaIndicadorSalida.idIndicador }).FirstOrDefault();
+
+                    objDetalleRegla.IndicadorVariable = clsDatosIndicadorVariableDAL.
+                        ObtenerDatos(new DetalleIndicadorVariable() { IdIndicador = objDetalleRegla.reglaIndicadorSalida.idIndicador, IdDetalleIndicadorVariable = objDetalleRegla.reglaIndicadorSalida.idDetalleIndicadorVariable })
+                        .FirstOrDefault();
+
+                    break;
+            }
+            return objDetalleRegla;
+        }
+
+
 
         public RespuestaConsulta<List<ReglaValidacion>> EliminarElemento(ReglaValidacion objeto)
         {
