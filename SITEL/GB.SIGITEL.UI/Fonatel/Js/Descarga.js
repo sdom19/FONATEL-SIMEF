@@ -42,7 +42,7 @@ function CargarTabla(){
 
             jQuery("#IndicadorNombre").append('Cantidad de '+ variable+ ' de '+definicion.nombre + hilera);
             jQuery("#Fuente").append('Fuente: '+definicion.fuente);
-            jQuery("#Nota").append('Nota al pie: '+definicion.notas);
+            jQuery("#Nota").append('Nota al pie: '+definicion.nota);
 
             fetch(urlAPI + 'GetResultado?IdIndicador=' + idIndicador +
             '&variable='+variable+
