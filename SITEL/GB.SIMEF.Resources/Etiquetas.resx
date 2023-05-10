@@ -204,4 +204,10 @@
   <data name="Seleccionar" xml:space="preserve">
     <value>Seleccionar</value>
   </data>
+  <data name="UsoExternoIndicador" xml:space="preserve">
+    <value>Externo</value>
+  </data>
+  <data name="UsoInternoIndicador" xml:space="preserve">
+    <value>Interno</value>
+  </data>
 </root>

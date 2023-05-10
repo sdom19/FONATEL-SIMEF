@@ -52,11 +52,11 @@
                 <label for="ddlUsoIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUsoIndicador</label>
                 @if ((bool)Model.Interno)
                 {
-                    <input type="text" id="InputInterno" class="form-control form-control-fonatel disabled" value="SI" />
+                    <input type="text" id="InputInterno" class="form-control form-control-fonatel disabled" value="@Etiquetas.UsoInternoIndicador" />
                 }
                 else
                 {
-                    <input type="text" id="InputInterno" class="form-control form-control-fonatel disabled" value="NO" />
+                    <input type="text" id="InputInterno" class="form-control form-control-fonatel disabled" value="@Etiquetas.UsoExternoIndicador" />
                 }
             </div>
 
