@@ -22,7 +22,6 @@ namespace GB.SIMEF.BL
         private readonly ReglaIndicadorEntradaSalidaDAL clsReglaIndicadorEntradaSalidaDAL;
         private readonly IndicadorFonatelDAL clsIndicadorDAL;
         private readonly CategoriasDesagregacionDAL clsCategoriaDal;
-        private readonly DetalleIndicadorVariable clsDetalleIndicadorVariable;
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
@@ -64,13 +63,22 @@ namespace GB.SIMEF.BL
                         }).FirstOrDefault();
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    string[] listaAtributosId = objDetalleRegla.reglaAtributoValido.idAtributoString.Split(',');
+                    List<string> categoriaAtributo = new List<string>();
 
-                    objDetalleRegla.CategoriaDesagregacion = clsCategoriaDal
-                       .ObtenerDatos(new CategoriaDesagregacion()
-                       {
-                           idCategoriaDesagregacion =
-                       objDetalleRegla.reglaAtributoValido.idCategoriaDesagregacion
-                       }).FirstOrDefault();
+                    objDetalleRegla.CategoriaDesagregacion = clsCategoriaDal.ObtenerDatos(new CategoriaDesagregacion()
+                    { idCategoriaDesagregacion = objDetalleRegla.reglaAtributoValido.idCategoriaDesagregacion }
+                    ).FirstOrDefault();
+                    foreach (var item in listaAtributosId)
+                    {
+                        string NombreCategoria = clsCategoriaDal.ObtenerDatos(
+                            new CategoriaDesagregacion() { idCategoriaDesagregacion = Convert.ToInt32(item) })
+                            .Select(X => X.NombreCategoria).FirstOrDefault();
+                        categoriaAtributo.Add(NombreCategoria);
+                    }
+
+                    objDetalleRegla.AtributosValidos = string.Join(",", categoriaAtributo);
+
                     break;
                 case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
 

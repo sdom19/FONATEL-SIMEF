@@ -15,6 +15,7 @@
         "Metodos": {
             "CargarTabla": function () {
                 let html = " <ul class='nav nav-tabs nav-tabs-fonatel mt-4'>";
+
                 for (var i = 0; i < JsHistorico.Variables.ListaDatosHistorico.length; i++) {
                     let datoHistorico = JsHistorico.Variables.ListaDatosHistorico[i];
                     if (i == 0) {
@@ -39,14 +40,17 @@
                         html = html + "<div id='tab" + x + "' class='tab-pane fade'>";
                     }
 
-
+  
                     html = html + "<table class='dataTable table-bordered table-condensed table-hover'><thead><tr>";
+                    let tfoot = "";
                     for (var i = 0; i < datoHistorico.DetalleDatoHistoricoColumna.length; i++) {
                         html = html + " <th>" + datoHistorico.DetalleDatoHistoricoColumna[i].Nombre + "</th>"
+                        tfoot = tfoot + "<th class='select2-wrapper'></th>";
                     }
                     html = html + "</tr></thead><tbody>";
                     let totalFilas = datoHistorico.DetalleDatoHistoricoFila.reduce((prev, current) => { return prev.NumeroFila > current.NumeroFila ? prev : current }).NumeroFila || 20;
                     let totalColumnas = datoHistorico.DetalleDatoHistoricoColumna.length;
+                   
                     for (var numfila = 1; numfila < totalFilas; numfila++) {
                         let fila = datoHistorico.DetalleDatoHistoricoFila.filter(x => x.NumeroFila == numfila);
                         html = html + "<tr>";
@@ -56,10 +60,12 @@
                             } else {
                                 html = html + " <th></th>"
                             }
+                      
                         }
                         html = html + "</tr>";
                     }
                     html = html + "</tbody>"
+                    html = html + "<tfoot><tr>" + tfoot + "</tr></tfoot>";
                     html = html + "</table>";
 
                     html = html + "</div>";
