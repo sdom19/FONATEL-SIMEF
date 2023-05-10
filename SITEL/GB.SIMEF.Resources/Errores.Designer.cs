@@ -259,7 +259,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente.
+        ///   Looks up a localized string similar to Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente..
         /// </summary>
         public static string ErrorGeneral {
             get {

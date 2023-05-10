@@ -657,16 +657,10 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
-                        if (!indFecha)
-                        {
-                            ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
-                        }
-
-                        if (!indRango)
-                        {
-                            ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
-                        }
-                        ResultadoConsulta.MensajeError = Constantes.ErrorGeneralPlantilla;
+                        
+                        ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
+                        //ResultadoConsulta.MensajeError = Errores.EtiquetaRegistrada;
+                        //ResultadoConsulta.MensajeError = Constantes.ErrorGeneralPlantilla;
                         ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     }
                 }
