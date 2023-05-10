@@ -1036,7 +1036,8 @@ GestionFormulaView = {
         preguntaAgregarFormula: "¿Desea agregar la Fórmula de Cálculo?",
         preguntaEjecutarFormula: "¿Desea ejecutar la Fórmula de Cálculo?",
 
-        preguntaGuardadoParcial: "Existen campos vacíos. ¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
+        preguntaGuardadoParcialCamposVacios: "Existen campos vacíos. ¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
+        preguntaGuardadoParcial: "¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
         preguntaFinalizarFormula: "¿Desea guardar la Fórmula de Cálculo?",
 
         preguntaCancelarAccion: "¿Desea cancelar la acción?",
@@ -1740,9 +1741,9 @@ GestionFormulaView = {
 
         CrearDetallesFormulaGuardadoParcial: function () {
             let formulaConstruida = GestionFormulaView.Variables.FormulaCalculo;
-
+            let mensaje = $(GestionFormulaView.Controles.form.inputFormulaCalculo).val().length == 0 ? GestionFormulaView.Mensajes.preguntaGuardadoParcialCamposVacios : GestionFormulaView.Mensajes.preguntaGuardadoParcial;
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaGuardadoParcial, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) { resolve(true); })
             })
                 .then(_ => {
