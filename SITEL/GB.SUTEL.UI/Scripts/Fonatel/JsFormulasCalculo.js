@@ -1036,7 +1036,7 @@ GestionFormulaView = {
         preguntaAgregarFormula: "¿Desea agregar la Fórmula de Cálculo?",
         preguntaEjecutarFormula: "¿Desea ejecutar la Fórmula de Cálculo?",
 
-        preguntaGuardadoParcial: "¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
+        preguntaGuardadoParcial: "Existen campos vacíos. ¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
         preguntaFinalizarFormula: "¿Desea guardar la Fórmula de Cálculo?",
 
         preguntaCancelarAccion: "¿Desea cancelar la acción?",
