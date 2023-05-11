@@ -15,8 +15,13 @@ namespace GB.SIMEF.API.Controllers
     public class IndicadoresController : ControllerBase
     {
         //private SIMEFContext db;
-        private  DWHSIMEFContext db = new DWHSIMEFContext();
-        
+        private SIGITELContext db;
+
+        public IndicadoresController(SIGITELContext _contexto)
+        {
+            db = _contexto;
+        }
+
 
         /// <summary>
         /// Obtiene los indicadores filtrados por servicio y tipo

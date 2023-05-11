@@ -8,22 +8,17 @@ using Microsoft.Extensions.Configuration;
 
 namespace SIMEF.API.Models
 {
-    public partial class DWHSIMEFContext : DbContext
+    public partial class SIGITELContext : DbContext
     {
-        public DWHSIMEFContext()
+        public SIGITELContext()
         {
+        }
 
-        }
-        public DWHSIMEFContext(DbContextOptions<DWHSIMEFContext> options) : base(options)
-        { 
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SIGITELContext(DbContextOptions<SIGITELContext> options)
+            : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(Connection.SIGITELDatabase);
-            }
         }
+
 
         public virtual DbSet<DefinicionIndicador> DefinicionIndicador { get; set; }
         public virtual DbSet<GrupoIndicador> GrupoIndicador { get; set; }
