@@ -16,7 +16,14 @@ namespace GB.SIMEF.API.Controllers
     public class CatalogoIndicadoresController : ControllerBase
     {
         //private SIMEFContext db;
-        private  DWHSIMEFContext db = new DWHSIMEFContext();
+        private readonly SIGITELContext db;
+        
+        public CatalogoIndicadoresController(SIGITELContext _contexto)
+        {
+            db = _contexto;
+        }
+        
+
         
 
         /// <summary>

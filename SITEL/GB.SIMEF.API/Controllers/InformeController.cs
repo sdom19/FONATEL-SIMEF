@@ -17,27 +17,28 @@ namespace GB.SIMEF.API.Controllers
     [ApiController]
     public class InformeController : Controller
     {
-
         /// <summary>
         /// Método para obtener json con la informacion guardada
         /// </summary>
         /// <param name="tabla">Nombre de tabla</param>
         [HttpGet]
         [Route("~/api/Informe/{tabla}")]
-        public JObject Get(string tabla)
+        public async Task<JObject> Get(string tabla)
         {
             InformeNombreTabla informe = ObtenerInformeNombreTabla(tabla);
             var resultado = new JObject();
-            if (informe != null)
-            {
-                List<string> l = ObtenerInformeValor(informe.IdInformeNombreTabla);
-                string json = "[" + String.Join(",", l) + "]";
-                JArray filas = JArray.Parse(json);
+            return
+            await Task.Run(() => {
+                if (informe != null)
+                {
+                    List<string> l = ObtenerInformeValor(informe.IdInformeNombreTabla);
+                    string json = "[" + String.Join(",", l) + "]";
+                    JArray filas = JArray.Parse(json);
 
-                resultado.Add(tabla, filas);
-            }
-
-            return resultado;
+                    resultado.Add(tabla, filas);
+                }
+                return resultado;
+            });
         }
 
         /// <summary>

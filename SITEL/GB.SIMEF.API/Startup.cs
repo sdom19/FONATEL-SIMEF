@@ -17,11 +17,6 @@ namespace GB.SIMEF.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-            Connection.SIGITELDatabase = Configuration.GetConnectionString("SIGITELDatabase");
-        }
 
         public IConfiguration Configuration { get; }
 
@@ -29,7 +24,7 @@ namespace GB.SIMEF.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DWHSIMEFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DWHSIMEF")));
+            services.AddDbContext<SIGITELContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SIGITELDatabase")));
             services.AddControllers();
             services.AddControllersWithViews().AddNewtonsoftJson();
 

@@ -24,7 +24,12 @@ namespace GB.SIMEF.API.Controllers
     {
 
         //private SIMEFContext db;
-        private DWHSIMEFContext db = new DWHSIMEFContext();
+        private readonly SIGITELContext db;
+
+        public DescargaIndicadoresController(SIGITELContext _contexto)
+        {
+            db = _contexto;
+        }
 
 
         /// <summary>
