@@ -12,10 +12,11 @@ namespace SIMEF.API.Models
     {
         public SIGITELContext()
         {
-
         }
-        public SIGITELContext(DbContextOptions<SIGITELContext> options) : base(options)
-        { 
+
+        public SIGITELContext(DbContextOptions<SIGITELContext> options)
+            : base(options)
+        {
         }
 
 

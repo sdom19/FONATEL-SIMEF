@@ -24,7 +24,7 @@ namespace GB.SIMEF.API.Controllers
     {
 
         //private SIMEFContext db;
-        private readonly SIGITELContext db;
+        private SIGITELContext db;
 
         public DescargaIndicadoresController(SIGITELContext _contexto)
         {

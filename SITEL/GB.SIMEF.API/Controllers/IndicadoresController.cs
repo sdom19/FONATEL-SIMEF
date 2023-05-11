@@ -15,13 +15,12 @@ namespace GB.SIMEF.API.Controllers
     public class IndicadoresController : ControllerBase
     {
         //private SIMEFContext db;
-        private readonly SIGITELContext db;
+        private SIGITELContext db;
 
         public IndicadoresController(SIGITELContext _contexto)
         {
             db = _contexto;
         }
-
 
 
         /// <summary>
