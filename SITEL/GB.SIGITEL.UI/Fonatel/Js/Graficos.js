@@ -3,6 +3,7 @@ var indicador2 = null;
 var indicador3 = null;
 var indicador4 = null;
 var contadorIndicadores = 0;
+
 jQuery(document).ready(function () {
 
     MostrarTextoImagen("#contenidoPantallaGraficos", 5);

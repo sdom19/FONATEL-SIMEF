@@ -163,9 +163,28 @@ jQuery(document).ready(function () {
 		// fields validation
 
 	});
-
-	
-
-
-
 });
+
+
+function descargarPDF(pNombreCarpeta){
+	generarEnlace(pNombreCarpeta, "pdf");
+}
+
+function descargarPPTX(pNombreCarpeta){
+	generarEnlace(pNombreCarpeta, "pptx");
+}
+  
+function generarEnlace(pNombreCarpeta, pExtension) {
+	if (pNombreCarpeta != "" && pNombreCarpeta != null) {
+		var ruta = jsconstantes.variables.direccionInformes;
+
+		const BotonDescargarPPTX = document.createElement('a');
+		BotonDescargarPPTX.href = ruta + pNombreCarpeta + `/${jsconstantes.variables.nombreInformes}.${pExtension}`;
+		BotonDescargarPPTX.target = '_blank';
+		BotonDescargarPPTX.download = jsconstantes.variables.nombreInformes;
+
+		document.body.appendChild(BotonDescargarPPTX);
+		BotonDescargarPPTX.click();
+		document.body.removeChild(BotonDescargarPPTX);
+	}
+}
