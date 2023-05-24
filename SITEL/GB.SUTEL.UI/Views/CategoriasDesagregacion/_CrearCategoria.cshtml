@@ -76,7 +76,7 @@
         <div class="form-group row hidden" id="divRangoMinimaCategoria">
             <label for="txtRangoMinimaCategoría" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.ValorMinimo</label>
             <div class="col-sm-12">
-                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Minimo, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.ValorMinimo, id = "txtRangoMinimaCategoria" } })
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Minimo, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.ValorMinimo, id = "txtRangoMinimaCategoria", maxlength = 30 } })
                 <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -84,7 +84,7 @@
         <div class="form-group row hidden" id="divRangoMaximaCategoria">
             <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.ValorMáximo</label>
             <div class="col-sm-12">
-                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Maximo, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.ValorMáximo, id = "txtRangoMaximaCategoria" } })
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Maximo, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.ValorMáximo, id = "txtRangoMaximaCategoria", maxlength = 30 } })
                 <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>

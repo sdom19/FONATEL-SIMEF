@@ -1006,7 +1006,11 @@ $(document).on("click", JsCategoria.Controles.btnAtrasCategoria, function (e) {
     window.location.href = "/Fonatel/CategoriasDesagregacion/index";
 });
 
-
+$(JsCategoria.Controles.txtCantidadDetalleCategoria).on('input', function () {
+    if (this.value.length > 30) {
+        this.value = this.value.slice(0, 30);
+    }
+});
 
 //window.addEventListener('beforeunload', (event) => {
 
