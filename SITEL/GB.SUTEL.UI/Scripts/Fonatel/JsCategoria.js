@@ -1,5 +1,5 @@
-﻿    JsCategoria= {
-        "Controles": {
+﻿    JsCategoria = {
+        Controles: {
             "FormularioCategorias": "#FormularioCategorias",
             "FormularioIndex":"#FormularioIndex",
             "FormularioDetalle": "#FormularioDetalle",
@@ -53,7 +53,7 @@
             "txtCodigoDetalle": "#txtCodigoDetalle",
             "txtEtiquetaDetalle": "#txtEtiquetaDetalle"
         },
-        "Variables": {
+        Variables: {
             "TipoFecha": 4,
             "TipoNumerico": 1,
             "OpcionSalir": true,
@@ -66,7 +66,7 @@
             preguntaEditarDetalleACategoria: "¿Desea editar el detalle de la Categoría de Desagregación?"
         },
 
-        "Metodos": {
+        Metodos: {
             "CargarTablaCategoria": function () {
                 EliminarDatasource();
                 let html = "";
@@ -300,13 +300,19 @@
             },
             "ValidarGuardadoCompletoSinDetalle": function () {
                 let tipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
-                if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Fecha && $(JsCategoria.Controles.txtFechaMinimaCategoria).val().length > 0 && $(JsCategoria.Controles.txtFechaMaximaCategoria).val().length > 0) {
+                let tieneCategoriaMinima = $(JsCategoria.Controles.txtFechaMinimaCategoria).val().length > 0;
+                let tieneCategoriaMaxima = $(JsCategoria.Controles.txtFechaMaximaCategoria).val().length > 0;
+                let tieneRangoMinimoCategoria = $(JsCategoria.Controles.txtRangoMinimaCategoria).val().length > 0;
+                let tieneRangoMaximoCategoria = $(JsCategoria.Controles.txtRangoMaximaCategoria).val().length > 0;
+                let tieneDetalles = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val() <= 0;
+
+                if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Fecha && tieneCategoriaMinima && tieneCategoriaMaxima) {
                     return true;
-                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Numerico && $(JsCategoria.Controles.txtRangoMinimaCategoria).val().length > 0 && $(JsCategoria.Controles.txtRangoMaximaCategoria).val().length > 0) {
+                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Numerico && tieneRangoMinimoCategoria && tieneRangoMaximoCategoria) {
                     return true;
-                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico) {
+                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico && tieneDetalles) {
                     return true;
-                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
+                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Texto && tieneDetalles) {
                     return true;
                 }
                 return false;
@@ -352,7 +358,7 @@
                 });
             }
         },
-        "Consultas": {
+        Consultas: {
             "ConsultaListaCategoria": function () {
                 $("#loading").fadeIn();
                 execAjaxCall("/CategoriasDesagregacion/ObtenerListaCategorias", "GET")
@@ -790,9 +796,6 @@ $(document).on("click", JsCategoria.Controles.btnFinalizarDetalle, function (e) 
     
 });
 
-
-
-
 $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
 
     e.preventDefault();
@@ -803,15 +806,10 @@ $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
         });
 });
 
-
-
-
 $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
     var selected = $(this).val();
     JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
 });
-
-
 
 $(document).on("change", JsCategoria.Controles.ddlTipoCategoria, function () {
     var selected = $(this).val();
@@ -830,14 +828,10 @@ $(document).on("change", JsCategoria.Controles.ddlTipoCategoria, function () {
     }
 });
 
-
-
-
 $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
-
 
 $(document).on("click", JsCategoria.Controles.btnDescargarDetalle, function () {
     let id = $(this).val();
@@ -855,15 +849,10 @@ $(document).on("click", JsCategoria.Controles.btnDescargarDetalle, function () {
         });
 });
 
-
-
 $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
     let idCategoria = $(this).val();
     window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle?IdCategoria=" + idCategoria;
 });
-
-
-
 
 $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function () {
     if (consultasFonatel) { return; }
@@ -886,9 +875,6 @@ $(document).on("click", JsCategoria.Controles.btnEliminarCategoria, function () 
             JsCategoria.Consultas.ValidarExistenciaCategoria(id, estado);;
         });
 });
-
-
-
 
 $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
     if (consultasFonatel) { return; }
@@ -929,8 +915,6 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
     JsCategoria.Metodos.ValidacionTipoGuardado();
 });
 
-
-
 $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, function (e) {
     e.preventDefault();
 
@@ -955,10 +939,6 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
 
 });
 
-
-
-
-
 $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
     let id = $(this).val();
     
@@ -974,12 +954,9 @@ $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
         });
 });
 
-
 $(document).on("change", JsCategoria.Controles.inputFileCargarDetalle, function (e) {
      JsCategoria.Consultas.ImportarExcel();
 });
-
-
 
 $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
     let id = $(this).val();
@@ -997,7 +974,6 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
     JsCategoria.Consultas.ConsultaCategoriaDetalle();
 });
 
-
 $(document).on("click", JsCategoria.Controles.btnViewCategoria, function (e) {
     let id = $(this).val();
     window.location.href = "/Fonatel/CategoriasDesagregacion/Visualizar?id=" + id;
@@ -1012,20 +988,6 @@ $(JsCategoria.Controles.txtCantidadDetalleCategoria).on('input', function () {
     }
 });
 
-//window.addEventListener('beforeunload', (event) => {
-
-//    if (JsCategoria.Variables.OpcionSalir) {
-//        // Cancel the event as stated by the standard.
-//        event.preventDefault();
-//        // Chrome requires returnValue to be set.
-//        event.returnValue = '';
-//    }
-
-//});
-
-//window.addEventListener('navigateback', function () {
-//    alert("sadas");
-//}, false);
 $(function () {
     if ($(JsCategoria.Controles.FormularioCategorias).length > 0) {
         let modo =ObtenerValorParametroUrl("modo");
@@ -1050,9 +1012,6 @@ $(function () {
         if (selected > 0) {
             JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
         }
-
-
-
 
         if ($(JsCategoria.Controles.ddlTipoCategoria).val() == jsUtilidades.Variables.TipoCategoria.VariableDato) {
             $(JsCategoria.Controles.txtRangoMinimaCategoria).addClass("disabled");
