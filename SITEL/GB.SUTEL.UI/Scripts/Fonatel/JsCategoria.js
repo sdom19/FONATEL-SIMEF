@@ -63,7 +63,11 @@
         },
         Mensajes: {
             preguntaAgregarDetalleACategoria: "¿Desea agregar el detalle a la Categoría de Desagregación?",
-            preguntaEditarDetalleACategoria: "¿Desea editar el detalle de la Categoría de Desagregación?"
+            preguntaEditarDetalleACategoria: "¿Desea editar el detalle de la Categoría de Desagregación?",
+            MensajeErrorValorMinimoFecha: "La Fecha Final debe ser mayor a la Fecha Inicial",
+            MensajeErrorValorMinimoNumerico: "El Valor Máximo debe ser mayor al Valor Mínimo",
+            MensajeConfirmacionCategoriaCreada: "La Categoría de Desagregación ha sido creada",
+            MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada"
         },
 
         "Metodos": {
@@ -538,12 +542,14 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                    
+
+
                                 });
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
                     });
+                    
             },
             "CambiarEstadoCategoria": function (idCategoria, estado) {
                 $("#loading").fadeIn();
@@ -589,7 +595,7 @@
                 let categoria = JsCategoria.Metodos.PrepararObjetoCategoria();
                 execAjaxCall("/CategoriasDesagregacion/InsertarCategoria", "POST", categoria= categoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("La Categoría de Desagregación ha sido creada")
+                        jsMensajes.Metodos.OkAlertModal(JsCategoria.Mensajes.MensajeConfirmacionCategoriaCreada)
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -601,7 +607,9 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                          
+                                    if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoFecha) {
+                                        $(JsCategoria.Controles.txtFechaMaximaCategoria).val("");
+                                    }
                                 });
                         }
                     }).finally(() => {
@@ -615,7 +623,7 @@
 
                 execAjaxCall("/CategoriasDesagregacion/EditarCategoria", "POST", categoria= categoria)
                     .then((data) => {
-                        jsMensajes.Metodos.OkAlertModal("La Categoría de Desagregación ha sido editada")
+                        jsMensajes.Metodos.OkAlertModal(JsCategoria.Mensajes.MensajeConfirmacionCategoriaEditada)
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -627,7 +635,9 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                 
+                                    if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoFecha) {
+                                        $(JsCategoria.Controles.txtFechaMaximaCategoria).val("");
+                                    }
                                 });
                         }
                     }).finally(() => {
@@ -651,7 +661,7 @@
                 categoria.DetalleCategoriaFecha.FechaMaxima = $(JsCategoria.Controles.txtFechaMaximaCategoria).val();
                 execAjaxCall("/CategoriasDesagregacion/ClonarCategoria", "POST", categoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("La Categoría de Desagregación ha sido creada")
+                        jsMensajes.Metodos.OkAlertModal(JsCategoria.Mensajes.MensajeConfirmacionCategoriaCreada)
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -663,7 +673,9 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                            
+                                    if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoFecha) {
+                                        $(JsCategoria.Controles.txtFechaMaximaCategoria).val("");
+                                    }
                                 });
                         }
                     }).finally(() => {
