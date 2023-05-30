@@ -687,6 +687,7 @@ namespace GB.SIMEF.BL
 
         private readonly RelacionCategoriaDAL clsDatos;
         private readonly CategoriasDesagregacionDAL clsDatosTexto;
+        private readonly DetalleCategoriaTextoDAL detalleCategoriaTextoDAL;
 
         private RespuestaConsulta<List<RelacionCategoria>> ResultadoConsulta;
         string modulo = string.Empty;
@@ -698,6 +699,7 @@ namespace GB.SIMEF.BL
             this.user = user;
             this.clsDatos = new RelacionCategoriaDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
+            this.detalleCategoriaTextoDAL = new DetalleCategoriaTextoDAL();
         }
 
 
@@ -731,9 +733,18 @@ namespace GB.SIMEF.BL
                         if (worksheet.Cells[fila, 1].Value == null)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                            throw new Exception(string.Format(Errores.CargaExcelRelacionCategoria, (fila - Constantes.FilaDatosExcel.DetalleRelacionCategoria)));
+                            throw new Exception(Errores.ErrorCargarDetalles);
                         }
                         string valorId = worksheet.Cells[fila, 1].Value.ToString().Trim();
+
+                        //Validar que el ID sea correcto
+                        var catId = detalleCategoriaTextoDAL.ObtenerDatos(new DetalleCategoriaTexto() { idCategoriaDesagregacion = relacion.idCategoriaDesagregacion, Etiqueta = valorId }).ToList();
+                        if (catId.Count == 0)
+                        {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(Errores.ErrorCargarDetalles);
+                        }
+
                         for (int temp= 2; temp<relacion.DetalleRelacionCategoria.Count()+2; temp++)
                         {
                             columna = temp;
