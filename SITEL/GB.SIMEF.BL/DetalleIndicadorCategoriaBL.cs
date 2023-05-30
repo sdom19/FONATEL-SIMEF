@@ -583,23 +583,21 @@ namespace GB.SIMEF.BL
         private string ValidacionDetalleTipoCategoriaTextoNumerico(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             // es obligatorio insertar detalles en detalles tipos numericos y texto
-            if (pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count < 1)
+            if (pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count > 0)
             {
-                return Errores.CamposIncompletos;
-            }
-
-            // validar que los detalles ingresados existan y esten disponibles
-            List<DetalleCategoriaTexto> detallesDisponibles = detalleCategoriaTextoDAL.ObtenerDatos(new DetalleCategoriaTexto()
-            {
-                idCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
-                Estado = true
-            });
-
-            for (int i = 0; i < pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count; i++)
-            {
-                if (!detallesDisponibles.Exists(x => x.id.Equals(pDetalleIndicadorCategoria.listaDetallesCategoriaString[i])))
+                // validar que los detalles ingresados existan y esten disponibles
+                List<DetalleCategoriaTexto> detallesDisponibles = detalleCategoriaTextoDAL.ObtenerDatos(new DetalleCategoriaTexto()
                 {
-                    return Errores.NoRegistrosActualizar;
+                    idCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
+                    Estado = true
+                });
+
+                for (int i = 0; i < pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count; i++)
+                {
+                    if (!detallesDisponibles.Exists(x => x.id.Equals(pDetalleIndicadorCategoria.listaDetallesCategoriaString[i])))
+                    {
+                        return Errores.NoRegistrosActualizar;
+                    }
                 }
             }
             return null;
