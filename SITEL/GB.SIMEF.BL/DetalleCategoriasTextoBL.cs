@@ -299,10 +299,10 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = new List<DetalleCategoriaTexto>();
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
                 {
-                    cantFinal = i;
                     int fila = i + 10;
                     if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
                     {
+                        cantFinal = i;
                         int codigo = 0;
                         string Etiqueta = string.Empty;
                         int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
@@ -339,14 +339,18 @@ namespace GB.SIMEF.BL
                             }
                         }
                         ResultadoConsulta.objetoRespuesta.Add(detallecategoria);
-                       
                     }
                 }
                 if (cantFinal+1 == categoria.CantidadDetalleDesagregacion)
                 {
                     categoria.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                     clsDatosCategoria.ActualizarDatos(categoria);
-                }              
+                }
+                else if (cantFinal == 0)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    ResultadoConsulta.MensajeError = Errores.ErrorCargarDetalles;
+                }
             }
 
             return ResultadoConsulta;

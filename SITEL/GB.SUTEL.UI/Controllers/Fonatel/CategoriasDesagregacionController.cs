@@ -350,6 +350,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     Directory.CreateDirectory(ruta);
                     string path = Path.Combine(ruta, fileName);
                     resultado = categoriaDetalleBL.CargarExcel(file);
+                    resultado.objetoRespuesta = new List<DetalleCategoriaTexto>();
                     file.SaveAs(path);
                 }
             });

@@ -183,6 +183,9 @@
   <data name="DetalleRegistrado" xml:space="preserve">
     <value>El Detalle ingresado ya se encuentra registrado</value>
   </data>
+  <data name="ErrorCargarDetalles" xml:space="preserve">
+    <value>Error al cargar los Detalles</value>
+  </data>
   <data name="ErrorGeneral" xml:space="preserve">
     <value>Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente.</value>
   </data>
