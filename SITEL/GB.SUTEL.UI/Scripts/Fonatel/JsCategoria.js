@@ -327,7 +327,7 @@
                 new Promise((resolve, reject) => {
                     let modo = ObtenerValorParametroUrl("modo");
                     if (modo == jsUtilidades.Variables.Acciones.Editar) {
-                        JsCategoria.Consultas.ConsultaCategoriaPorId(result);
+                        JsCategoria.Consultas.ConsultaCategoriaPorId(true);
                     }
                     else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
                         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
