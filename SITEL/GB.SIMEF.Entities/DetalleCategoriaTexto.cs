@@ -25,7 +25,7 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idDetalleCategoriaTexto { get; set; }
         public int idCategoriaDesagregacion { get; set; }
-        public int Codigo { get; set; }
+        public string Codigo { get; set; }
         public string Etiqueta { get; set; }
         public bool Estado { get; set; }
 

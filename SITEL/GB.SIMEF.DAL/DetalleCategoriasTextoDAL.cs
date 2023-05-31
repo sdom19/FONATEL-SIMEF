@@ -32,7 +32,7 @@ namespace GB.SIMEF.DAL
                     ("execute pa_ObtenerDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo, @Etiqueta",
                       new SqlParameter("@idCategoriaDetalle", objCategoria.idDetalleCategoriaTexto),
                       new SqlParameter("@idCategoria", objCategoria.idCategoriaDesagregacion),
-                      new SqlParameter("@codigo", objCategoria.Codigo),
+                      new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? DBNull.Value.ToString() : objCategoria.Codigo),
                       new SqlParameter("@Etiqueta", string.IsNullOrEmpty( objCategoria.Etiqueta)?DBNull.Value.ToString():objCategoria.Etiqueta)
                     ).ToList();
 
