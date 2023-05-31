@@ -311,7 +311,7 @@ namespace GB.SIMEF.BL
                         var detallecategoria = new DetalleCategoriaTexto()
                         {
                             idCategoriaDesagregacion = categoria.idCategoriaDesagregacion,
-                            Codigo = codigo,
+                            Codigo = codigo.ToString(),
                             Etiqueta = Etiqueta,
                             Estado = true
                         };

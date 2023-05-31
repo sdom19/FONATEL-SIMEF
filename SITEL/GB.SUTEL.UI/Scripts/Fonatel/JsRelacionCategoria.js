@@ -779,6 +779,11 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
         $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
         validar = false;
     }
+    if ($(JsRelacion.Controles.ddlCategoriaId).val().length == 0) {
+        validar = false;
+        $(JsRelacion.Controles.TipoCategoriaHelp).removeClass("hidden");
+        $(JsRelacion.Controles.ddlCategoriaId).parent().addClass("has-error");
+    }
     if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
         $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
         $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
