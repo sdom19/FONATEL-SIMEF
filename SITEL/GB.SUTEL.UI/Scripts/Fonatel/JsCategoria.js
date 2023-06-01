@@ -67,7 +67,8 @@
             MensajeErrorValorMinimoFecha: "La Fecha Final debe ser mayor a la Fecha Inicial",
             MensajeErrorValorMinimoNumerico: "El Valor Máximo debe ser mayor al Valor Mínimo",
             MensajeConfirmacionCategoriaCreada: "La Categoría de Desagregación ha sido creada",
-            MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada"
+            MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada",
+            MensajeErrorCantidadDetalles: "La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual"
         },
 
         Metodos: {
@@ -345,6 +346,16 @@
                             jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.InsertarCategoria();
+                                })
+                                .set('oncancel', function (closeEvent) {
+                                    $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
+                                    $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
+
+                                    if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
+
+                                        $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
+                                        $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
+                                    }
                                 });
                         }
                     }
@@ -383,11 +394,31 @@
                                     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                         .set('onok', function (closeEvent) {
                                             JsCategoria.Consultas.EditarCategoria();
+                                        })
+                                        .set('oncancel', function (closeEvent) {
+                                            $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
+                                            $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
+
+                                            if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
+
+                                                $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
+                                                $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
+                                            }
                                         });
                                 } else {
                                     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                         .set('onok', function (closeEvent) {
                                             JsCategoria.Consultas.EditarCategoria();
+                                        })
+                                        .set('oncancel', function (closeEvent) {
+                                            $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
+                                            $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
+
+                                            if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
+
+                                                $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
+                                                $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
+                                            }
                                         });
                                 }
 
@@ -607,6 +638,8 @@
                                     }
                                     else if (obj.MensajeError === JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
                                         $(JsCategoria.Controles.txtRangoMaximaCategoria).val("");
+                                    } else if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorCantidadDetalles) {
+                                        $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                                     }
                                 });
                         }
@@ -638,6 +671,8 @@
                                     }
                                     else if (obj.MensajeError === JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
                                         $(JsCategoria.Controles.txtRangoMaximaCategoria).val("");
+                                    } else if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorCantidadDetalles) {
+                                        $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                                     }
                                 });
                         }
@@ -679,6 +714,8 @@
                                     }
                                     else if (obj.MensajeError === JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
                                         $(JsCategoria.Controles.txtRangoMaximaCategoria).val("");
+                                    } else if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorCantidadDetalles) {
+                                        $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                                     }
                                 });
                         }
