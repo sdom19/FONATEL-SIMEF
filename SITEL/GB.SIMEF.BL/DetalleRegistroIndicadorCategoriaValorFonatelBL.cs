@@ -658,7 +658,7 @@ namespace GB.SIMEF.BL
                     else
                     {
                         
-                        ResultadoConsulta.MensajeError = Errores.ErrorGeneral;
+                        ResultadoConsulta.MensajeError = Errores.ErrorGeneralCargaPlantilla;
                         ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     }
                 }

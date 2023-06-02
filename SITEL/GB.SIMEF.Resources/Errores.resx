@@ -138,6 +138,9 @@
   <data name="CantidadDestinatariosIncorrecta" xml:space="preserve">
     <value>La cantidad de destinatarios no es la correcta</value>
   </data>
+  <data name="CantidadExcedeLimitePermitido" xml:space="preserve">
+    <value>El valor del campo {0} excede la cantidad permitida.</value>
+  </data>
   <data name="CantidadIndicadoresMenor" xml:space="preserve">
     <value>La cantidad ingresada en Cantidad de Indicadores no puede ser menor al valor actual</value>
   </data>
@@ -186,7 +189,7 @@
   <data name="ErrorCargarDetalles" xml:space="preserve">
     <value>Error al cargar los Detalles</value>
   </data>
-  <data name="ErrorGeneral" xml:space="preserve">
+  <data name="ErrorGeneralCargaPlantilla" xml:space="preserve">
     <value>Error al cargar los datos de la plantilla. Por favor revisar y volver a intentar nuevamente.</value>
   </data>
   <data name="EtiquetaRegistrada" xml:space="preserve">
