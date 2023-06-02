@@ -99,6 +99,11 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
+                else if (objeto.CantidadCategoria.ToString().Length > 5)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CantidadExcedeLimitePermitido, EtiquetasViewRelacionCategoria.Cantidad));
+                }
                 else
                 {
                     if (objeto.CantidadFila == result.RelacionCategoriaId.Count() 
@@ -286,6 +291,11 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
                 }
+                else if (objeto.CantidadCategoria.ToString().Length > 5)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CantidadExcedeLimitePermitido, EtiquetasViewRelacionCategoria.Cantidad));
+                }
                 else
                 {
                     //HACEMOS LA INSERCION 
@@ -404,20 +414,14 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
         public RespuestaConsulta<List<RelacionCategoria>> CambiarEstado(RelacionCategoria objeto)
         {
-            
-
             try
             {
                 RelacionCategoria objrelacion = new RelacionCategoria();
-                    
-                    
-               
+
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = objeto.IdEstadoRegistro ==(int)EstadosRegistro.Activo?(int)Accion.Activar:(int)Accion.Desactivar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-
-                
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {

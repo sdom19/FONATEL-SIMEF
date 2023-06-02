@@ -31,26 +31,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     {
        
 
-        // : RELACION ENTRE CATEGORIAS
+        // RELACION ENTRE CATEGORIAS
         private readonly RelacionCategoriaBL relacionCategoriaBL;
         private readonly DetalleRelacionCategoriaBL detalleRelacionCategoriaBL;
 
 
-        // : CATEGORIAS DESAGREGACION
+        // CATEGORIAS DESAGREGACION
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
 
         private readonly RelacionCategoriaAtributoBL relacionCategoriaAtributoBL;
 
         public RelacionCategoriaController()
         {
-
             categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
             relacionCategoriaAtributoBL = new RelacionCategoriaAtributoBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
             relacionCategoriaBL = new RelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
             detalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
-          
-
         }
 
         #region Eventos de la pagina 
@@ -131,7 +128,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Metodos de ASYNC Relacion Categoria
 
 
-
         /// Fecha 16/09/2022
         /// Francisco Vindas Ruiz
         /// Validar existencia en Indicadores
@@ -152,8 +148,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
-
         /// <summary>
         /// Fecha 10/08/2022
         /// Francisco Vindas Ruiz
@@ -164,35 +158,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaRelacionCategoria()
         {
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
 
-                RespuestaConsulta<List<RelacionCategoria>> result = null;
-
-                await Task.Run(() =>
-                {
-                    result = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
-                });
-                return JsonConvert.SerializeObject(result);
+            await Task.Run(() =>
+            {
+                result = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
+            });
+            return JsonConvert.SerializeObject(result);
         }
 
 
         [ConsultasFonatelFilter]
         public async Task<string> InsertarRelacionCategoria(RelacionCategoria relacion)
         {
-
-            //Identificamos el id del usuario
-      
-
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
             await Task.Run(() =>
             {
-                //Obtenemos el usuario de creacion en la variable user
-               
-
-                //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
                 result = relacionCategoriaBL.InsertarDatos(relacion);
-
             });
 
             //Retornamos un Json con el resultado
@@ -209,10 +193,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> EditarRelacionCategoria(RelacionCategoria relacion)
         {
-
-            //Identificamos el id del usuario
-        
-
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
@@ -233,7 +213,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Francisco Vindas Ruiz
         /// Metodo para eliminar relacion categoria
         /// </summary>
-        /// <param name="idRelacionCategoria></param>
+        /// <param name="relacionCategoria></param>
         /// <returns>JSON</returns>
         [HttpPost]
         [ConsultasFonatelFilter]
@@ -276,7 +256,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
-
         #region Metodos ASYN DetalleRelacion Categoria
         [HttpPost]
         [ConsultasFonatelFilter]
@@ -310,8 +289,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         #endregion
-
-
 
         #region Metodos ASYN Excel
 
@@ -445,7 +422,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         #endregion
-
 
         #region ASYN DetalleRelacionID
 

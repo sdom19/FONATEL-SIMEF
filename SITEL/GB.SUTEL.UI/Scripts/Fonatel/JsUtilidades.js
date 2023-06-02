@@ -803,6 +803,14 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
+$(document).on("keyup", '.limite_caracteres', function (e) {
+    var maxLength = parseInt($(this).attr('maxlength'));
+    var inputValue = $(this).val();
+    if (inputValue.length > maxLength) {
+        $(this).val(inputValue.slice(0, maxLength));
+    }
+});
+
 $.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results == null) {

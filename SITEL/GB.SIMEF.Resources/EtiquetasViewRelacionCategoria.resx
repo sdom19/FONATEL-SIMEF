@@ -165,6 +165,9 @@
   <data name="RelacionCategoria" xml:space="preserve">
     <value>Relaciones entre Categorías</value>
   </data>
+  <data name="TituloAgregarCategoriasDesagregacion" xml:space="preserve">
+    <value>Agregar Categorías de Desagregación</value>
+  </data>
   <data name="TituloModalCategoria" xml:space="preserve">
     <value>Seleccionar Categorías</value>
   </data>
