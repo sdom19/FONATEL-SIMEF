@@ -1495,6 +1495,7 @@ CreateView = {
                 })
                 .then(data => {
                     this.LimpiarValoresFormularioDetallesCategoria();
+                    CreateView.Metodos.RestablecerCamposFormularioDetalleCategoria();
 
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
                         .set('onok', function (closeEvent) {
