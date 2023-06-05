@@ -67,7 +67,8 @@
             MensajeErrorValorMinimoFecha: "La Fecha Final debe ser mayor a la Fecha Inicial",
             MensajeErrorValorMinimoNumerico: "El Valor Máximo debe ser mayor al Valor Mínimo",
             MensajeConfirmacionCategoriaCreada: "La Categoría de Desagregación ha sido creada",
-            MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada"
+            MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada",
+            MensajeValorInferior: "La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual"
         },
 
         Metodos: {
@@ -636,13 +637,17 @@
                                     if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoFecha) {
                                         $(JsCategoria.Controles.txtFechaMaximaCategoria).val("");
                                     }
-                                    else if (obj.MensajeError === JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
+                                    else if (obj.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
                                         $(JsCategoria.Controles.txtRangoMaximaCategoria).val("");
+                                    }
+                                    else if (obj.MensajeError == JsCategoria.Mensajes.MensajeValorInferior) {
+                                        //location.reload();
+                                        $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                                     }
                                 });
                         }
                     }).finally(() => {
-                        $("#loading").fadeOut();
+                       $("#loading").fadeOut();
                     });
             },
             "ClonarCategoria": function () {
@@ -679,6 +684,10 @@
                                     }
                                     else if (obj.MensajeError === JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
                                         $(JsCategoria.Controles.txtRangoMaximaCategoria).val("");
+                                    }
+                                    else if (obj.MensajeError == JsCategoria.Mensajes.MensajeValorInferior) {
+                                        //location.reload();
+                                        $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                                     }
                                 });
                         }
