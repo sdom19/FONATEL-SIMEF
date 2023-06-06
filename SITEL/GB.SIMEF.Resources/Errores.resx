@@ -213,6 +213,9 @@
   <data name="IdRelacionDuplicado" xml:space="preserve">
     <value>El detalle de la Categoría {0} seleccionado ya se encuentra registrado</value>
   </data>
+  <data name="IdRelacionDuplicadoExcel" xml:space="preserve">
+    <value>El detalle de la Categoría {0} ingresado ya se encuentra registrado</value>
+  </data>
   <data name="IndicadorFormularioRegistrado" xml:space="preserve">
     <value>El Indicador ingresado ya se encuentra registrado</value>
   </data>

@@ -411,13 +411,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public string ObtenerIndicadoresFormularioCombo()
+        public string ObtenerIndicadoresFormularioCombo(int idFrecuencia)
         {
             //async Task<string>
                 RespuestaConsulta<List<SelectListItem>> result = new RespuestaConsulta<List<SelectListItem>>();
                // await Task.Run(() =>
                 //{
-                    var indicadores = indicadorBL.ObtenerDatos(new Indicador() { IdEstadoRegistro = 2 })
+                    var indicadores = indicadorBL.ObtenerDatos(new Indicador() { IdEstadoRegistro = 2, IdFrecuenciaEnvio = idFrecuencia })
                     .objetoRespuesta.Where(x => x.IdClasificacionIndicador != (int)Constantes.ClasificacionIndicadorEnum.Salida);
                     //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
                     indicadores = indicadores.

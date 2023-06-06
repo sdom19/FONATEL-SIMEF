@@ -1142,7 +1142,7 @@
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 
                 objetoTipoRegla.reglaSecuencial = {};
-                objetoTipoRegla.reglaSecuencial.idCategoriaString = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+                objetoTipoRegla.reglaSecuencial.idCategoriaDesagregacion = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {

@@ -675,11 +675,12 @@
 
         "ConsultaListaIndicadoresFormularioCombo": function () {
             $("#loading").fadeIn();
-            execAjaxCall("/FormularioWeb/ObtenerIndicadoresFormularioCombo", "GET")
+            let idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+            execAjaxCall("/FormularioWeb/ObtenerIndicadoresFormularioCombo?idFrecuencia=" + idFrecuencia, "GET")
                 .then((obj) => {
                     var comboIndicador = document.getElementById("ddlIndicador");
                     comboIndicador.innerHTML = '';
-                    comboIndicador.options[0] = new Option("", -1);
+                    
                     for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
                         comboIndicador.options[i] = new Option(obj.objetoRespuesta[i-1].Text, obj.objetoRespuesta[i-1].Value);
                     }
@@ -776,7 +777,7 @@
                 .then((obj) => {
                     var comboIndicador = document.getElementById("ddlIndicador");
                     comboIndicador.innerHTML = '';
-                    comboIndicador.options[0] = new Option("", -1);
+                    
                     for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
                         comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
                     }
