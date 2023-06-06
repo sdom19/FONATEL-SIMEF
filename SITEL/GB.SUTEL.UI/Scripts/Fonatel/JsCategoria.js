@@ -322,11 +322,25 @@
                 }
                 return false;
             },
-            "ValidacionCamposRequeridosCancelarGuardado": function () {
+            LimpiarErroresFormularioCategoria: function () {
                 $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
                 $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.FechaMinimaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.FechaMaximaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.RangoMinimaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.RangoMaximaCategoriaHelp).addClass("hidden");
+
                 $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
                 $(JsCategoria.Controles.ddlTipoDetalle).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtFechaMinimaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtFechaMaximaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().removeClass("has-error");
+            },
+            ValidacionCamposRequeridosCancelarGuardado: function () {
+                JsCategoria.Metodos.LimpiarErroresFormularioCategoria();
 
                 let tipoDetalleCategoria = $(JsCategoria.Controles.ddlTipoDetalle).val();
 
@@ -344,13 +358,21 @@
 
                     if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Numerico) {
 
-                        $(JsCategoria.Controles.RangoMinimaCategoriaHelp).addClass("hidden");
-                        $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().removeClass("has-error");
-
                         if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val().length == 0) {
 
                             $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
                             $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().addClass("has-error");
+                        }
+                        if ($(JsCategoria.Controles.txtRangoMaximaCategoria).val().length == 0) {
+
+                            $(JsCategoria.Controles.RangoMaximaCategoriaHelp).removeClass("hidden");
+                            $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().addClass("has-error");
+                        }
+                    }
+                    if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
+                        if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val().length <= 0 || $(JsCategoria.Controles.txtCantidadDetalleCategoria).val() < 0) {
+                            $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).removeClass("hidden");
+                            $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().addClass("has-error");
                         }
                     }
                 }
