@@ -752,6 +752,13 @@ namespace GB.SIMEF.BL
                             throw new Exception(Errores.ErrorCargarDetalles);
                         }
 
+                        if (listaRelacion.Where(r => r.idCategoriaDesagregacion == valorId).Count() > 0)
+                        {
+                            string ValorColumna = worksheet.Cells[(Constantes.FilaDatosExcel.DetalleRelacionCategoria - 1), 1].Value.ToString().Trim().ToUpper();
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(string.Format(Errores.IdRelacionDuplicadoExcel, ValorColumna));
+                        }
+
                         for (int temp= 2; temp<relacion.DetalleRelacionCategoria.Count()+2; temp++)
                         {
                             columna = temp;
