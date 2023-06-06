@@ -328,15 +328,31 @@
                 $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
                 $(JsCategoria.Controles.ddlTipoDetalle).parent().removeClass("has-error");
 
+                let tipoDetalleCategoria = $(JsCategoria.Controles.ddlTipoDetalle).val();
+
                 if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
 
                     $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
                     $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
                 }
-                if ($(JsCategoria.Controles.ddlTipoDetalle).val().length == 0) {
+
+                if (tipoDetalleCategoria.length == 0) {
 
                     $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).removeClass("hidden");
                     $(JsCategoria.Controles.ddlTipoDetalle).parent().addClass("has-error");
+                } else {
+
+                    if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Numerico) {
+
+                        $(JsCategoria.Controles.RangoMinimaCategoriaHelp).addClass("hidden");
+                        $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().removeClass("has-error");
+
+                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val().length == 0) {
+
+                            $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
+                            $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().addClass("has-error");
+                        }
+                    }
                 }
             },
             "ValidacionTipoGuardado": function () {
@@ -358,6 +374,9 @@
                             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.InsertarCategoria();
+                                })
+                                .set('oncancel', function (closeEvent) {
+                                    JsCategoria.Metodos.ValidacionCamposRequeridosCancelarGuardado();
                                 });
                         } else {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
