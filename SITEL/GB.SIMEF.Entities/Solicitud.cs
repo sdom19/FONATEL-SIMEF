@@ -85,7 +85,8 @@ namespace GB.SIMEF.Entities
         public Mes Mes { get; set; }
         [NotMapped]
         public Anno Anno { get; set; }
-
+        [NotMapped]
+        public FrecuenciaEnvio FrecuenciaEnvio { get; set; }
 
         #endregion
 
