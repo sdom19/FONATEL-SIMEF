@@ -349,7 +349,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El Indicador ingresado ya se encuentra registrado.
+        ///   Busca una cadena traducida similar a El detalle de la Categoría {0} ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string IdRelacionDuplicadoExcel {
+            get {
+                return ResourceManager.GetString("IdRelacionDuplicadoExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El Indicador ingresado ya se encuentra registrado.
         /// </summary>
         public static string IndicadorFormularioRegistrado {
             get {

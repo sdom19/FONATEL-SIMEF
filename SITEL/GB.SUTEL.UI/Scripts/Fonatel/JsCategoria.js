@@ -69,7 +69,7 @@
             MensajeConfirmacionCategoriaCreada: "La Categoría de Desagregación ha sido creada",
             MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada",
             MensajeErrorCantidadDetalles: "La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual",
-            MensajeErrorCodigoYaExistente: "El Código ingresado ya se encuentra registrado"
+            MensajeErrorCodigoYaExistente: "El Código ingresado ya se encuentra registrado",
             MensajeValorInferior: "La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual"
         },
 
@@ -323,6 +323,61 @@
                     return true;
                 }
                 return false;
+            },            
+            LimpiarErroresFormularioCategoria: function () {
+                $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.FechaMinimaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.FechaMaximaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.RangoMinimaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.RangoMaximaCategoriaHelp).addClass("hidden");
+
+                $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.ddlTipoDetalle).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtFechaMinimaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtFechaMaximaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().removeClass("has-error");
+            },
+            ValidacionCamposRequeridosCancelarGuardado: function () {
+                JsCategoria.Metodos.LimpiarErroresFormularioCategoria();
+
+                let tipoDetalleCategoria = $(JsCategoria.Controles.ddlTipoDetalle).val();
+
+                if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
+
+                    $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
+                    $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
+                }
+
+                if (tipoDetalleCategoria.length == 0) {
+
+                    $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).removeClass("hidden");
+                    $(JsCategoria.Controles.ddlTipoDetalle).parent().addClass("has-error");
+                } else {
+
+                    if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Numerico) {
+
+                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val().length == 0) {
+
+                            $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
+                            $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().addClass("has-error");
+                        }
+                        if ($(JsCategoria.Controles.txtRangoMaximaCategoria).val().length == 0) {
+
+                            $(JsCategoria.Controles.RangoMaximaCategoriaHelp).removeClass("hidden");
+                            $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().addClass("has-error");
+                        }
+                    }
+                    if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
+                        if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val().length <= 0 || $(JsCategoria.Controles.txtCantidadDetalleCategoria).val() < 0) {
+                            $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).removeClass("hidden");
+                            $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().addClass("has-error");
+                        }
+                    }
+                }
             },
             ValidacionTipoGuardado: function () {
                 validar = JsCategoria.Metodos.ValidarFormularioCategoria(false);
@@ -343,6 +398,9 @@
                             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.InsertarCategoria();
+                                })
+                                .set('oncancel', function (closeEvent) {
+                                    JsCategoria.Metodos.ValidacionCamposRequeridosCancelarGuardado();
                                 });
                         } else {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
@@ -350,14 +408,7 @@
                                     JsCategoria.Consultas.InsertarCategoria();
                                 })
                                 .set('oncancel', function (closeEvent) {
-                                    $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
-                                    $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
-
-                                    if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
-
-                                        $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
-                                        $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
-                                    }
+                                    JsCategoria.Metodos.ValidacionCamposRequeridosCancelarGuardado();
                                 });
                         }
                     }
@@ -414,14 +465,7 @@
                                             JsCategoria.Consultas.EditarCategoria();
                                         })
                                         .set('oncancel', function (closeEvent) {
-                                            $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
-                                            $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
-
-                                            if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
-
-                                                $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
-                                                $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
-                                            }
+                                            JsCategoria.Metodos.ValidacionCamposRequeridosCancelarGuardado();
                                         });
                                 } else {
                                     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
@@ -429,14 +473,7 @@
                                             JsCategoria.Consultas.EditarCategoria();
                                         })
                                         .set('oncancel', function (closeEvent) {
-                                            $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
-                                            $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
-
-                                            if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
-
-                                                $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
-                                                $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
-                                            }
+                                            JsCategoria.Metodos.ValidacionCamposRequeridosCancelarGuardado();
                                         });
                                 }
 

@@ -227,7 +227,7 @@
                     categoriaAtributo.idCategoriaDesagregacion = relacionCategoriaId.idCategoriaDesagregacion;
                     categoriaAtributo.idCategoriaDesagregacionAtributo = $(this).attr('id').replace("dd_", "");
                     categoriaAtributo.idDetalleCategoriaTextoAtributo = $(this).val();
-                    if (categoriaAtributo.idDetalleCategoriaTextoAtributo == null || categoriaAtributo.idCategoriaDesagregacionAtributo.length == 0) {
+                    if ((categoriaAtributo.idDetalleCategoriaTextoAtributo == null || categoriaAtributo.idDetalleCategoriaTextoAtributo == "") || categoriaAtributo.idCategoriaDesagregacionAtributo.length == 0) {
                         $("#help_" + categoriaAtributo.idCategoriaDesagregacionAtributo).removeClass("hidden");
                         $(this).parent().addClass("has-error");
                         validacion = false;

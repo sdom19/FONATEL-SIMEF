@@ -730,6 +730,13 @@ namespace GB.SIMEF.BL
                     RelacionCategoria relacion = clsDatos.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
                     int columna = 2;
                     relacionId.OpcionEliminar = true;
+
+                    if (relacion == null)
+                    {
+                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                        throw new Exception(Errores.ErrorCargarDetalles);
+                    }
+
                     //relacion.CantidadFila=relacion.CantidadFila +2;
                     for (int fila = Constantes.FilaDatosExcel.DetalleRelacionCategoria; fila < (Constantes.FilaDatosExcel.DetalleRelacionCategoria + relacion.CantidadFila); fila++)
                     {
@@ -749,6 +756,13 @@ namespace GB.SIMEF.BL
                             throw new Exception(Errores.ErrorCargarDetalles);
                         }
 
+                        if (listaRelacion.Where(r => r.idCategoriaDesagregacion == valorId).Count() > 0)
+                        {
+                            string ValorColumna = worksheet.Cells[(Constantes.FilaDatosExcel.DetalleRelacionCategoria - 1), 1].Value.ToString().Trim().ToUpper();
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(string.Format(Errores.IdRelacionDuplicadoExcel, ValorColumna));
+                        }
+
                         for (int temp= 2; temp<relacion.DetalleRelacionCategoria.Count()+2; temp++)
                         {
                             columna = temp;
@@ -764,12 +778,6 @@ namespace GB.SIMEF.BL
                             {
                                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                                 throw new Exception("Error en la lectura de la columna "+ValorColumna);
-                            }
-                            //else if(ResultadoConsulta.objetoRespuesta.Single().RelacionCategoriaId.Where(i=>i.idCategoriaDesagregacion==valorId).Count()>0)
-                            else if (relacion.RelacionCategoriaId.Where(i => i.idCategoriaDesagregacion== valorId && i.idEstadoRegistro != (int)Constantes.EstadosRegistro.Eliminado).Count() > 0)
-                            {
-                                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                                throw new Exception("La Categoría id ya se encuentra registrada " + ValorColumna);
                             }
                             else
                             {
