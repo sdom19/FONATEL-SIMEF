@@ -70,6 +70,7 @@
             MensajeConfirmacionCategoriaEditada: "La Categoría de Desagregación ha sido editada",
             MensajeErrorCantidadDetalles: "La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual",
             MensajeErrorCodigoYaExistente: "El Código ingresado ya se encuentra registrado"
+            MensajeValorInferior: "La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual"
         },
 
         Metodos: {
@@ -373,6 +374,9 @@
                     $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                 } else if (objError.MensajeError == JsCategoria.Mensajes.MensajeErrorCodigoYaExistente) {
                     $(JsCategoria.Controles.txtCodigoCategoria).val("");
+                }else if (obj.MensajeError == JsCategoria.Mensajes.MensajeValorInferior) {
+                     //location.reload();
+                    $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
                 }
             }
         },
@@ -673,11 +677,13 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
+
                                     JsCategoria.Metodos.AccionesEjecutarMensajesDeError(obj);
+                                     
                                 });
                         }
                     }).finally(() => {
-                        $("#loading").fadeOut();
+                       $("#loading").fadeOut();
                     });
             },
             ClonarCategoria: function () {
@@ -710,6 +716,8 @@
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Metodos.AccionesEjecutarMensajesDeError(obj);
+                                    
+
                                 });
                         }
                     }).finally(() => {
