@@ -91,8 +91,6 @@ namespace GB.SIMEF.BL
                         errorControlado = true;
                         throw new Exception(Errores.NoRegistrosActualizar);
                     }
-
-                    CambioEstadoDependenciasIndicador(pIndicador, EstadosRegistro.EnProceso); // cambiar de estado las dependencias del indicador
                 }
 
                 // actualizar el estado del indicador
@@ -990,36 +988,6 @@ namespace GB.SIMEF.BL
                 pIndicador.IdFrecuenciaEnvio = number;
                 pIndicador.FrecuenciaEnvio.IdFrecuenciaEnvio = pIndicador.FrecuenciaEnvio != null ? number : 0;
             }
-        }
-
-        /// <summary>
-        /// 11/10/2022
-        /// José Navarro Acuña
-        /// Permite cambiar de estado todas las dependencias que se encuentren asociadas al indicador proporcionado
-        /// </summary>
-        /// <param name="pIndicador"></param>
-        /// <returns></returns>
-        private bool CambioEstadoDependenciasIndicador(Indicador pIndicador, EstadosRegistro pNuevoEstado)
-        {
-            List<FormularioWeb> listaFormularioWeb = formularioWebDAL.ObtenerDependenciasIndicadorConFormulariosWeb(pIndicador.IdIndicador);
-
-            foreach (FormularioWeb formulario in listaFormularioWeb)
-            {
-                formulario.idEstadoRegistro = (int)pNuevoEstado;
-                formulario.UsuarioModificacion = user;
-                formularioWebDAL.ActualizarDatos(formulario);
-            }
-            
-            List<FormulaCalculo> listaFormulas = formulasCalculoDAL.ObtenerDependenciasIndicadorConFormulasCalculo(pIndicador.IdIndicador);
-
-            foreach (FormulaCalculo formula in listaFormulas)
-            {
-                formula.IdEstadoRegistro = (int)pNuevoEstado;
-                formula.UsuarioModificacion = user;
-                formulasCalculoDAL.ActualizarDatos(formula);
-            }
-
-            return true;
         }
     }
 }
