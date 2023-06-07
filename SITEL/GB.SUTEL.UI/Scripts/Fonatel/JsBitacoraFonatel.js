@@ -20,6 +20,7 @@
         "CargarTablaBitacora": function () {
             EliminarDatasource();
 
+            //---------------INICIO NUEVA FORMA DE MOSTRAR BITACORA-----------------
             const codigoRegistro = "Código";
             const camposUnicos = [codigoRegistro];
             const strNoAplica = "N/A";
@@ -87,8 +88,14 @@
             //Campos al inicio del array
             const camposGenerales = ["Pantalla", "Usuario", "Acción", "Fecha", "Hora"];
             const camposValores = ["Valor Anterior", "Valor Actual"];
+
+            const indiceNoSerialize = camposUnicos.indexOf("NoSerialize");
+            if (indiceNoSerialize !== -1) {
+                camposUnicos.splice(indiceNoSerialize, 1);
+            }
+
             const columnasTabla = [...camposGenerales, ...camposUnicos, ...camposValores];
-         
+
 
             let htmlEncabezado = "";
             let htmlFoot = "";
@@ -132,7 +139,7 @@
                     html = html + "</tr>";
 
                 }
-                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar && Bitacora.ValorDiferencial != null && Bitacora.ValorDiferencial != "") {
+                else if ((Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar || Bitacora.Accion == jsUtilidades.Variables.Acciones.Activar || Bitacora.Accion == jsUtilidades.Variables.Acciones.Desactivar) && (Bitacora.ValorDiferencial != null && Bitacora.ValorDiferencial != "")) {
 
                     let json = JSON.parse(Bitacora.ValorDiferencial);
 
@@ -165,13 +172,68 @@
                         }
                     }
                 }
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Clonar) {
+                    let json = JSON.parse(Bitacora.ValorInicial);
+                    let jsonActual = JSON.parse(Bitacora.ValorActual);
+
+                    for (var objeto in json) {
+                        if (objeto != "NoSerialize") {
+
+                            let array = json[objeto];
+                            let array2 = jsonActual[objeto];
+                            html = html + "<tr>"
+                            html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
+                            html = html + "<th>" + Bitacora.Usuario + "</th>";
+                            html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                            html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
+                            html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
+                            html = html + "<th>" + Bitacora.Codigo + "</th>";
+
+                            camposUnicos.forEach(col => {
+                                if (col != codigoRegistro) {
+                                    if (col == objeto) {
+                                        html = html + "<th>" + (array2 ?? strNoAplica) + "</th>";
+                                    } else {
+                                        html = html + "<th>" + strNoAplica + "</th>";
+                                    }
+                                }
+                            })
+
+                            html = html + "<th>" + array + "</th>";
+                            html = html + "<th>" + array2 + "</th>";
+                            html = html + "</tr>";
+                        }
+                    }
+                }
+                else {
+
+                    html = html + "<tr>"
+                    html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
+                    html = html + "<th>" + Bitacora.Usuario + "</th>";
+                    html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                    html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
+                    html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
+                    html = html + "<th>" + Bitacora.Codigo + "</th>";
+
+                    camposUnicos.forEach(col => {
+                        if (col != codigoRegistro) {
+                            html = html + "<th>" + strNoAplica + "</th>";
+                        }
+                    })
+
+                    html = html + "<th>" + strNoAplica + "</th>";
+                    html = html + "<th>" + strNoAplica + "</th>";
+                    html = html + "</tr>";
+                }
             }
 
             $(JsBitacora.Controles.TablaBitacora).html(html);
             CargarDatasourceBitacora();
             return;
 
-            //--------------------------------
+            //---------------FIN NUEVA FORMA DE MOSTRAR BITACORA-----------------
+
+            //let html = "";
 
             for (var i = 0; i < JsBitacora.Variables.ListaBitacora.length; i++) {
                 let Bitacora = JsBitacora.Variables.ListaBitacora[i];
@@ -341,7 +403,7 @@
             execAjaxCall("/BitacoraFonatel/ObtenerListaBitacora", "POST", bitacora)
                 .then((obj) => {
                     JsBitacora.Variables.ListaBitacora = obj.objetoRespuesta;
-                    
+                    JsBitacora.Metodos.CargarTablaBitacora();
                 }).catch((data) => {
                     console.log(data);
                     if (data.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -353,7 +415,6 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
-                    JsBitacora.Metodos.CargarTablaBitacora();
                     $("#loading").fadeOut();
                 });
         }
