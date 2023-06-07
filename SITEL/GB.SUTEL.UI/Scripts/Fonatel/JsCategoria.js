@@ -420,7 +420,7 @@
                 if (objError.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoFecha) {
                     $(JsCategoria.Controles.txtFechaMaximaCategoria).val("");
                 }
-                else if (objError.MensajeError === JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
+                else if (objError.MensajeError == JsCategoria.Mensajes.MensajeErrorValorMinimoNumerico) {
                     $(JsCategoria.Controles.txtRangoMaximaCategoria).val("");
                 } else if (objError.MensajeError == JsCategoria.Mensajes.MensajeErrorCantidadDetalles) {
                     $(JsCategoria.Controles.txtCantidadDetalleCategoria).val("");
