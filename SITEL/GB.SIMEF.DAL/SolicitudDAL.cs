@@ -50,7 +50,8 @@ namespace GB.SIMEF.DAL
                 FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
                 FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
                 Mes=db.Mes.Where(p=>p.idMes==x.idMes).FirstOrDefault(),
-                Anno=db.Anno.Where(p=>p.idAnno==x.idAnno).FirstOrDefault()
+                Anno=db.Anno.Where(p=>p.idAnno==x.idAnno).FirstOrDefault(),
+                FrecuenciaEnvio = db.FrecuenciaEnvio.Where(f => f.IdFrecuenciaEnvio == x.IdFrecuenciaEnvio).FirstOrDefault()
 
             }).ToList();
         }

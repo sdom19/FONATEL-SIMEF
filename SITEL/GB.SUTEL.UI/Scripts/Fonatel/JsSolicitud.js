@@ -112,6 +112,7 @@ JsSolicitud = {
                 let listaFormularios = solicitud.FormulariosString;
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
                 let EnProceso = solicitud.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
+                let registroActivo = solicitud.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo;
 
                 html = html + "<tr>";
 
@@ -145,26 +146,21 @@ JsSolicitud = {
                 html = html + " <button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' data-original-title='Visualizar' value=" + solicitud.id + " class='btn-icon-base btn-view'></button>"+
                               " <button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button > ";
 
-                if (EnProceso == "NO") {
+                if (registroActivo) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + "  title='Envío' class='btn-icon-base btn-sent'></button>";
                 } else {
                     html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' value=" + solicitud.id + "  title='Envío' class='btn-icon-base btn-sent'></button>";
 
                 }
 
-                if (envioProgramado == "NO" && EnProceso == "SI") {
+                if (envioProgramado == "NO" && !registroActivo) {
                     html = html + "<button type='button' data-toggle='tooltip'  disabled  data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
                 }
-
-                else if (envioProgramado == "NO" && EnProceso == "SI") {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
-                }
-
-                if (envioProgramado == "SI" && EnProceso == "SI") {
+                else if (envioProgramado == "SI" && !registroActivo) {
 
                     html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
-                else if (envioProgramado == "SI" && EnProceso == "NO") {
+                else if (envioProgramado == "SI" && registroActivo) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
 
