@@ -41,7 +41,12 @@
                         @Html.EditorFor(model => model.FechaFin, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtFechaFin" } })
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Mensaje</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtMensajeSolicitud" } })
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
@@ -73,18 +78,14 @@
                 <div class="form-group row">
                     <label for="ddlAnoSolicitud" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Anno</label>
                     <div class="col-sm-12">
-                         @Html.EditorFor(model => model.Anno.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtAnoSolicitud" } })
+                        @Html.EditorFor(model => model.Anno.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtAnoSolicitud" } })
                     </div>
                 </div>
-
-            </div>
-        </div>
-
-        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 ">
-            <div class="form-group row">
-                <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Mensaje</label>
-                <div class="col-sm-12">
-                    @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtMensajeSolicitud" } })
+                <div class="form-group row">
+                    <label for="txtFrecuenciaEnvio" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.FrecuenciaEnvio</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.FrecuenciaEnvio.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtFrecuenciaEnvio" } })
+                    </div>
                 </div>
             </div>
         </div>
