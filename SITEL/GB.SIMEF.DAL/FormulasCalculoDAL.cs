@@ -217,52 +217,6 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
-        /// 11/10/2022
-        /// José Navarro Acuña
-        /// Función que busca y retorna una lista de fórmulas de cálculo donde el Indicador proporcionado este relacionado
-        /// </summary>
-        /// <param name="pIdIndicador"></param>
-        /// <returns></returns>
-        public List<FormulaCalculo> ObtenerDependenciasIndicadorConFormulasCalculo(int pIdIndicador)
-        {
-            List<FormulaCalculo> lista = new List<FormulaCalculo>();
-
-            using (db = new SIMEFContext())
-            {
-                lista = db.Database.SqlQuery<FormulaCalculo>
-                    ("execute pa_ObtenerDependenciaIndicadorConFormulaCalculo @pIdIndicador",
-                     new SqlParameter("@pIdIndicador", pIdIndicador)
-                    ).ToList();
-
-                lista = lista.Select(x => new FormulaCalculo()
-                {
-                    id = Utilidades.Encriptar(x.IdFormulaCalculo.ToString()),
-                    IdFormulaCalculo = x.IdFormulaCalculo,
-                    Codigo = x.Codigo,
-                    Nombre = x.Nombre,
-                    Descripcion = x.Descripcion,
-                    IdEstadoRegistro = x.IdEstadoRegistro,
-                    NivelCalculoTotal = x.NivelCalculoTotal,
-                    IdFrecuenciaEnvio = x.IdFrecuenciaEnvio,
-                    IdIndicador = x.IdIndicador,
-                    IdDetalleIndicadorVariable = x.IdDetalleIndicadorVariable,
-                    FechaCreacion = x.FechaCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    FechaCalculo = x.FechaCalculo,
-
-                    FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
-                    IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
-                    VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo, x.Formula)
-                }).ToList();
-            }
-
-            return lista;
-        }
-
-        /// <summary>
         /// 21/10/2022
         /// José Navarro Acuña
         /// Función que permite buscar y verificar por código y nombre la existencia de una fórmula de calculo en estado diferente de eliminado
