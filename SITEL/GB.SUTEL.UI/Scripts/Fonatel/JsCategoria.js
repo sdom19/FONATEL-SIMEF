@@ -380,7 +380,7 @@
                 }
             },
             ValidacionTipoGuardado: function () {
-                validar = JsCategoria.Metodos.ValidarFormularioCategoria(false);
+                validar = JsCategoria.Metodos.ValidarFormularioCategoria(true);
 
                 new Promise((resolve, reject) => {
                     let modo = ObtenerValorParametroUrl("modo");
@@ -397,6 +397,7 @@
                         if (JsCategoria.Metodos.ValidarGuardadoCompletoSinDetalle()) {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
+                                  //  ValidarFormularioCategoria();
                                     JsCategoria.Consultas.InsertarCategoria();
                                 })
                                 .set('oncancel', function (closeEvent) {
