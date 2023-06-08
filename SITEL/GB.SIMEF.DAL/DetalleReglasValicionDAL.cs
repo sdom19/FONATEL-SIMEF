@@ -168,6 +168,17 @@ namespace GB.SIMEF.DAL
                 ("exec pa_ObtenerReglaAtributoValido @IdDetalleReglaValidacion",
                    new SqlParameter("@IdDetalleReglaValidacion", id)
                 ).FirstOrDefault();
+            if (regla!=null)
+            {
+
+                regla.CategoriaDesagregacion = db.Database
+                    .SqlQuery<CategoriaDesagregacion>(string.Format("select * from CategoriaDesagregacion where IdCategoriaDesagregacion={0}", regla.idCategoriaDesagregacion)).Single();
+               
+                regla.AtributoValidos = db.Database
+                    .SqlQuery<string>(string.Format("SELECT STRING_AGG(NombreCategoria,', ') NombreCategoria FROM CategoriaDesagregacion WHERE IdCategoriaDesagregacion IN({0})", regla.idAtributoString)).Single();
+
+                
+            }
             return regla;
         }
 
@@ -178,6 +189,14 @@ namespace GB.SIMEF.DAL
 
             return regla;
         }
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Carga las regla tipo indicador salida
+        /// 08-06-2023
+        /// Modificación se agrega la categoría
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         private ReglaSecuencial ObtenerReglaSecuencial(int id)
         {
@@ -187,8 +206,20 @@ namespace GB.SIMEF.DAL
                ("exec pa_ObtenerReglaSecuencial @IdDetalleReglaValidacion",
                   new SqlParameter("@IdDetalleReglaValidacion", id)
                ).FirstOrDefault();
+
+            regla.CategoriaDesagregacion = db.Database
+                .SqlQuery<CategoriaDesagregacion>( string.Format("select * from CategoriaDesagregacion where IdCategoriaDesagregacion={0}",regla.idCategoriaDesagregacion)).Single();
             return regla;
         }
+
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Carga las regla tipo indicador salida
+        /// 08-06-2023
+        /// Modificación se agrega el indicador y la variable 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         private ReglaIndicadorSalida ObtenerReglaIndicadorSalida(int id)
         {
@@ -198,10 +229,24 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.idIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.idDetalleIndicadorVariable.ToString());
+                regla.Indicador=  db.Database.SqlQuery<Indicador>
+                    (string.Format("SELECT *FROM dbo.Indicador where IdIndicador={0}", regla.idIndicador)).Single();
+                regla.IndicadorVariable = db.Database
+                .SqlQuery<DetalleIndicadorVariable>
+                    (string.Format("SELECT * FROM dbo.DetalleIndicadorVariable where IdIndicador={0} and IdDetalleIndicadorVariable={1}",
+                    regla.idIndicador, regla.idDetalleIndicadorVariable)).Single();
             }
 
             return regla;
         }
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Carga las regla tipo indicador salida
+        /// 08-06-2023
+        /// Modificación se agrega el indicador y la variable 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         private ReglaIndicadorEntrada ObtenerReglaIndicadorEntrada(int id)
         {
@@ -211,10 +256,24 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.idIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.idDetalleIndicadorVariable.ToString());
+                regla.Indicador= db.Database
+                .SqlQuery<Indicador>
+                    (string.Format("SELECT * FROM dbo.Indicador where IdIndicador={0}", regla.idIndicador)).Single();
+                regla.IndicadorVariable= db.Database
+                .SqlQuery<DetalleIndicadorVariable>
+                    (string.Format("SELECT * FROM dbo.DetalleIndicadorVariable where IdIndicador={0} and IdDetalleIndicadorVariable={1}", 
+                    regla.idIndicador, regla.idDetalleIndicadorVariable)).Single();
             }
             return regla;
         }
-
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Carga las regla tipo indicador salida
+        /// 08-06-2023
+        /// Modificación se agrega el indicador y la variable 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private ReglaIndicadorEntradaSalida ObtenerReglaIndicadorEntradaSalida(int id)
         {
             ReglaIndicadorEntradaSalida regla =
@@ -223,6 +282,12 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.idIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.idDetalleIndicadorVariable.ToString());
+                regla.Indicador=  db.Database.SqlQuery<Indicador>
+                    (string.Format("SELECT *FROM dbo.Indicador where IdIndicador={0}", regla.idIndicador)).Single();
+                regla.IndicadorVariable = db.Database
+                .SqlQuery<DetalleIndicadorVariable>
+                    (string.Format("SELECT * FROM dbo.DetalleIndicadorVariable where IdIndicador={0} and IdDetalleIndicadorVariable={1}",
+                    regla.idIndicador, regla.idDetalleIndicadorVariable)).Single();
             }
             return regla;
         }

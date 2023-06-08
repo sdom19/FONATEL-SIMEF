@@ -23,8 +23,14 @@ namespace GB.SIMEF.Entities
         public int idCategoriaDesagregacion { get; set; }
         public int idDetalleCategoriaTexto { get; set; }
         public string idAtributoString { get; set; }
-
+        #region Atributos que no forman parte del contexto
         [NotMapped]
         public bool OpcionEliminar { get; set; }
+        [NotMapped]
+        public CategoriaDesagregacion CategoriaDesagregacion { get; set; }
+
+        [NotMapped]
+        public string AtributoValidos { get; set; }
+        #endregion
     }
 }
