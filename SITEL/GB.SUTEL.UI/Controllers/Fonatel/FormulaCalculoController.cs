@@ -1338,8 +1338,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!string.IsNullOrEmpty(pFormulaCalculo.Descripcion?.Trim())) // ¿se ingresó el dato?
             {
                 // se cambia la logica para que no valide solo texto si no que permita guardar valores alfanumericos
-                //if (!Utilidades.rx_soloTexto.Match(pFormulaCalculo.Descripcion).Success               // la descripción solo debe contener texto como valor
-               if( pFormulaCalculo.Descripcion.Trim().Length > 1500)                               // validar la cantidad de caracteres
+                if (!Utilidades.rx_alfanumerico.Match(pFormulaCalculo.Descripcion).Success ||               // la descripción solo debe contener texto como valor
+               pFormulaCalculo.Descripcion.Trim().Length > 1500)                               // validar la cantidad de caracteres
                 {
                     return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelDescripcion);
                 }
