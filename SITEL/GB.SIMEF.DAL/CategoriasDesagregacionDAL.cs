@@ -186,6 +186,7 @@ namespace GB.SIMEF.DAL
                 listaCategorias = listaCategorias.Select(x => new CategoriaDesagregacion()
                 {
                     id = Utilidades.Encriptar(x.idCategoriaDesagregacion.ToString()),
+                    idCategoriaDesagregacion = x.idCategoriaDesagregacion,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
                     idEstadoRegistro = x.idEstadoRegistro,

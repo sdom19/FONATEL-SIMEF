@@ -53,12 +53,12 @@ namespace GB.SIMEF.BL
                 var listadoCategoria = categoriasDesagregacionDAL.ObtenerCategoriasDesagregacionDeIndicador(int.Parse(idIndicador));
                 foreach (var item in listadoCategoria)
                 {
-                    var cat = categoriasDesagregacionDAL.ObtenerDatos(item).FirstOrDefault();
-                    var rel = relacionCategoriaDAL.ObtenerDatos(new RelacionCategoria() { idCategoriaDesagregacion = cat.idCategoriaDesagregacion, IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo });
+
+                    var rel = relacionCategoriaDAL.ObtenerDatos(new RelacionCategoria() { idCategoriaDesagregacion = item.idCategoriaDesagregacion, IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo });
 
                     if (rel.Count > 0)
                     {
-                        data.Add(cat);
+                        data.Add(item);
                     }
                 }
                 result.objetoRespuesta = data.Where(c => c.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.IdUnico).ToList();
