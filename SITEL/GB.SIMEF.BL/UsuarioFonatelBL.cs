@@ -92,8 +92,8 @@ namespace GB.SIMEF.BL
         {
             PlantillaHtml plantilla = plantillaHtmlDAL.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.CrearUsuario);
 
-            plantilla.Html = string.Format(plantilla.Html,  objeto.NombreUsuario, objeto.CorreoUsuario, objeto.ContrasenaSinEncriptar);          
-            CorreoDal correo = new CorreoDal(objeto.CorreoUsuario, "", plantilla.Html, "Envío de Credenciales");
+            plantilla.Html = string.Format(plantilla.Html, objeto.NombreUsuario, objeto.CorreoUsuario, objeto.ContrasenaSinEncriptar);
+            CorreoDal correo = new CorreoDal(objeto.CorreoUsuario, "", plantilla.Html, Constantes.AsuntoEnvioCredenciales);
             correo.EnviarCorreo();
         }
 

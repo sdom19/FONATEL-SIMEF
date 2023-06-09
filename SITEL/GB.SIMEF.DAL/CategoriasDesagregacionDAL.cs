@@ -189,9 +189,20 @@ namespace GB.SIMEF.DAL
                     idCategoriaDesagregacion = x.idCategoriaDesagregacion,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
+                    CantidadDetalleDesagregacion=x.CantidadDetalleDesagregacion,
+                    FechaCreacion=x.FechaCreacion,
+                    FechaModificacion=x.FechaModificacion,
+                    UsuarioCreacion=x.UsuarioCreacion,
+                    IdTipoDetalleCategoria=x.IdTipoDetalleCategoria,
+                    IdTipoCategoria=x.IdTipoCategoria,
                     idEstadoRegistro = x.idEstadoRegistro,
+                    
                 }).ToList();
             }
+
+
+
+
             return listaCategorias;
         }
 

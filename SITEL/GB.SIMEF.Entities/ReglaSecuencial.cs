@@ -22,9 +22,11 @@ namespace GB.SIMEF.Entities
         public int idReglaSecuencial { get; set; }
         public int idCategoriaDesagregacion { get; set; }
         public int idDetalleReglaValidacion { get; set; }
-
+        #region Atributos que no forman parte del contexto
         [NotMapped]
         public string idCategoriaString { get; set; }
-
+        [NotMapped]
+        public CategoriaDesagregacion CategoriaDesagregacion { get; set; }
+        #endregion
     }
 }
