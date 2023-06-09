@@ -198,6 +198,7 @@
                     $(JsCategoria.Controles.CodigoDetalleHelp).removeClass("hidden")
                     validarFormulario = false;
                 }
+            
                 return validarFormulario;
             },
             ValidarFormularioCategoria: function (opcion = true) {
@@ -263,24 +264,7 @@
                          
                         }
                     }
-                    else {
-                        if (!moment($(JsCategoria.Controles.txtFechaMinimaCategoria).val(), 'YYYY-MM-DD').isValid()) {
-                            validar = false;
-                            if (opcion) {
-                                $(JsCategoria.Controles.FechaMinimaCategoriaHelp).removeClass("hidden");
-                                $(JsCategoria.Controles.txtFechaMinimaCategoria).parent().addClass("has-error");
-                            }
-                          
-                        }
-                        if (!moment($(JsCategoria.Controles.txtFechaMaximaCategoria).val(), 'YYYY-MM-DD').isValid()) {
-                            validar = false;
-                            if (opcion) {
-                                $(JsCategoria.Controles.FechaMaximaCategoriaHelp).removeClass("hidden");
-                                $(JsCategoria.Controles.txtFechaMaximaCategoria).parent().addClass("has-error");
-                            }
-                            
-                        }
-                    }
+             
                 }
 
                 
@@ -369,6 +353,18 @@
 
                             $(JsCategoria.Controles.RangoMaximaCategoriaHelp).removeClass("hidden");
                             $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().addClass("has-error");
+                        }
+                    }
+                    if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Fecha) {
+
+                        if (!moment($(JsCategoria.Controles.txtFechaMinimaCategoria).val(), 'YYYY-MM-DD').isValid()) {
+
+                             $(JsCategoria.Controles.FechaMinimaCategoriaHelp).removeClass("hidden");
+                             $(JsCategoria.Controles.txtFechaMinimaCategoria).parent().addClass("has-error");
+                        }
+                        if (!moment($(JsCategoria.Controles.txtFechaMaximaCategoria).val(), 'YYYY-MM-DD').isValid()) {
+                             $(JsCategoria.Controles.FechaMaximaCategoriaHelp).removeClass("hidden");
+                             $(JsCategoria.Controles.txtFechaMaximaCategoria).parent().addClass("has-error");
                         }
                     }
                     if (tipoDetalleCategoria == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
