@@ -219,21 +219,7 @@
                 $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().removeClass("has-error");
                 $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().removeClass("has-error");
 
-                if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
-                    validar = false;
-                    if (opcion) {
-                        $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
-                        $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
-                    }             
-                }
-                if ($(JsCategoria.Controles.ddlTipoDetalle).val() == 0) {
-                    validar = false
-                    if (opcion) {
-                        $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).removeClass("hidden");
-                        $(JsCategoria.Controles.ddlTipoDetalle).parent().addClass("has-error");
-                    }
               
-                }
                 if ($(JsCategoria.Controles.ddlTipoCategoria).val() != jsUtilidades.Variables.TipoCategoria.VariableDato)
                 {
                     if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
@@ -334,6 +320,12 @@
 
                     $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
                     $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
+                }
+                if ($(JsCategoria.Controles.ddlTipoDetalle).val() == 0) {
+    
+                    $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).removeClass("hidden");
+                     $(JsCategoria.Controles.ddlTipoDetalle).parent().addClass("has-error");
+              
                 }
 
                 if (tipoDetalleCategoria.length == 0) {
