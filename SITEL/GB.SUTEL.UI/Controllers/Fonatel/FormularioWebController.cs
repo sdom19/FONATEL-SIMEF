@@ -118,18 +118,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Visualizar(string? id, int? modo)
         {
-            FormularioWeb objFormularioWeb = new FormularioWeb();
-            objFormularioWeb.id = id;
-            objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
+            FormularioWeb objFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() { id = id }).objetoRespuesta.Single();
+            objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(new FormularioWeb() { id = id }).objetoRespuesta.ToList();
 
-            DetalleFormularioWeb detalleFormulario = new DetalleFormularioWeb();
             ViewBag.ListaDetalle = formularioWebBL.ObtenerTodosDetalleFormularioWeb(objFormularioWeb);
+            ViewBag.TituloFormulario = objFormularioWeb.Nombre;
 
-            ViewBag.ListaIndicadores = objFormularioWeb.ListaIndicadoresObj;
-
-            objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.Single();
-            ViewData["TituloFormulario"] = objFormularioWeb.Nombre;
-            return View();
+            return View(objFormularioWeb);
         }
 
         [HttpGet]

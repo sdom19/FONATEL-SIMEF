@@ -1452,7 +1452,6 @@
     <Content Include="Views\HistoricoFonatel\Detalle.cshtml" />
     <Content Include="Views\HistoricoFonatel\_DetalleHistorico.cshtml" />
     <Content Include="Views\EditarFormulario\Edit.cshtml" />
-    <Content Include="Views\FormularioWeb\Visualizar.cshtml" />
     <Content Include="Views\HistoricoFonatel\DescargarExcel.cshtml" />
     <Content Include="Views\RelacionCategoria\_ModalCategorias.cshtml" />
     <Content Include="Views\RelacionCategoria\_AsignarCategorias.cshtml" />
@@ -1484,6 +1483,10 @@
     <Content Include="Views\GestionTextoSIGITEL\Create.cshtml" />
     <Content Include="Views\GestionTextoSIGITEL\_CrearDetalle.cshtml" />
     <Content Include="Views\GestionTextoSIGITEL\_TablaDetalle.cshtml" />
+    <Content Include="Views\FormularioWeb\Visualizar.cshtml" />
+    <Content Include="Views\FormularioWeb\_CrearPrevisualizarFormulario.cshtml" />
+    <Content Include="Views\FormularioWeb\_CrearVisualizarFormulario.cshtml" />
+    <Content Include="Views\FormularioWeb\_TablaVisualizarIndicador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
