@@ -104,7 +104,7 @@ namespace GB.SUTEL.UI
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/FormularioWeb").Include(
-                "~/Scripts/Fonatel/JsFormularios.min.js"
+                "~/Scripts/Fonatel/JsFormularios.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/DefinicionIndicador").Include(

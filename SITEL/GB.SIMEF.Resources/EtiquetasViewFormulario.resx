@@ -198,4 +198,16 @@
   <data name="TituloHoja" xml:space="preserve">
     <value>Título de Hoja</value>
   </data>
+  <data name="TituloPantalla" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
+  <data name="TituloPaso1Visualizacion" xml:space="preserve">
+    <value>Visualización Formulario Web</value>
+  </data>
+  <data name="TituloStepperPaso1Visualizacion" xml:space="preserve">
+    <value>Formulario</value>
+  </data>
+  <data name="TituloStepperPaso2Visualizacion" xml:space="preserve">
+    <value>Previsualización Formulario</value>
+  </data>
 </root>

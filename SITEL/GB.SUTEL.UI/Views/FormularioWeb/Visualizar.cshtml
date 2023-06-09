@@ -3,170 +3,72 @@
 @{
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
+
 <div class="container body-content">
+    <input type="hidden" id="dad1f560">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                 <li class="breadcrumb-item active"><a href="/Fonatel/FormularioWeb/index">@Etiquetas.Formulario</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Visualizar
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewFormulario.TituloPantalla
             </ol>
         </nav>
     </div>
 
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel step_navigation_indicador">
+            <div class="stepwizard-step" data-step="0">
+                <p>@EtiquetasViewFormulario.TituloStepperPaso1Visualizacion</p>
+                <a href="#step-1" type="button" class="btn btn-circle" disabled>1</a>
+            </div>
+            <div class="stepwizard-step" data-step="1">
+                <p>@EtiquetasViewFormulario.TituloStepperPaso2Visualizacion</p>
+                <a href="#step-2" type="button" class="btn btn-circle" disabled>2</a>
+            </div>
+        </div>
+    </div>
 
+    <div class="row stepwizard-content-container hidden" id="step-1">
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewFormulario.TituloPaso1Visualizacion</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            @Html.Partial("_CrearVisualizarFormulario")
+        </div>
+        <div class="col-lg-12">
+            @Html.Partial("_TablaVisualizarIndicador")
+        </div>
 
+        <div class="row mt-5">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <button type="button" id="btnSiguiente" class="btn btn-fonatel btn-next-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonSiguiente">@Etiquetas.BotonSiguiente</button>
+                    <button type="button" id="btnCancelar" class="btn btn-fonatel btn-error-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar">@Etiquetas.BotonCancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="row">
+    <div class="row stepwizard-content-container hidden" id="step-2">
         <div class="col-lg-12">
             <h2 class="page-title-fonatel text-center">@ViewData["TituloFormulario"]</h2>
             <hr />
         </div>
-    </div>
-    @if (ViewBag.ListaDetalle.Count == 0)
-    {
-        @*
-            <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
-                <li id="0"> <a data-toggle="tab" href="#">No hay información</a></li>
-            </ul>
-        *@
-        <div id="0" class="tab-pane fade in active">
+        <div class="col-lg-12">
+            @Html.Partial("_CrearPrevisualizarFormulario")
+        </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
-                        <div class="col-sm-3 mt-2">
-                            <input type="text" class="form-control form-control-fonatel solo_numeros" disabled id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas">
-                        </div>
-                        <div class="col-sm-9">
-                            <button id="btnCantidadFilas" data-toggle="tooltip" data-placement="top" title='@EtiquetasViewRegistroIndicadorFonatel.GenerarFilas' class="btn btn-fonatel btn-success-fonatel">@EtiquetasViewRegistroIndicadorFonatel.GenerarFilas</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 mt-4">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-
-                        <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
-                            <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Notas"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                    <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
-                    <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-sm-12 text-center">
-                    <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                    <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
-                    <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
-                </div>
+        <div class="row mt-4">
+            <div class="col-12 pull-right mt-4">
+                <button type="button" id="btnAtras" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
+                    <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+                </button>
             </div>
         </div>
-    }
-
-    <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
-        @for (int i = 0; i < ViewBag.ListaDetalle.Count; i++)
-        {
-            string activo = "";
-            if (i == 0) { activo = "active"; }
-            <li class="@activo" id="@ViewBag.ListaDetalle[i].Indicador.IdIndicador"> <a data-toggle="tab" href="#@i" data-Indicador="@ViewBag.ListaDetalle[i].Indicador.IdIndicador">@ViewBag.ListaDetalle[i].TituloHoja</a></li>
-        }
-    </ul>
-
-    <div class="tab-content">
-        @for (int i = 0; i < ViewBag.ListaDetalle.Count; i++)
-        {
-            string clase = "tab-pane fade";
-            if (i == 0) { clase = "tab-pane fade in active"; }
-
-            <div id="@i" class="@clase">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
-                            <div class="col-sm-3 mt-2">
-                                <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas">
-                            </div>
-                            <div class="col-sm-9">
-                                <button id="btnCantidadFilas" data-toggle="tooltip" data-placement="top" title='@EtiquetasViewRegistroIndicadorFonatel.GenerarFilas' class="btn btn-fonatel btn-success-fonatel">@EtiquetasViewRegistroIndicadorFonatel.GenerarFilas</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 mt-4">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas">@ViewBag.ListaDetalle[i].NotaEncargado</textarea>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
-                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                        <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel" disabled>Descargar plantilla</button>
-                        <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel" disabled>Cargar plantilla</button>
-                    </div>
-                </div>
-
-                <div class="table-responsive table-wrapper-fonatel mb-2">
-                    <table class="dataTable table-bordered table-condensed table-hover hidden disabled" id="tablaIndicador">
-                        <thead>
-                            <tr>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="col-sm-12 text-center">                       
-                        <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel" disabled>@Etiquetas.BotonValidar</button>                     
-                    </div>
-                </div>
-            </div>
-
-        }
     </div>
 
-    <hr />
-
-    <div class="row mt-4">
-        <div class="col-sm-12 text-center">
-            <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success-fonatel" disabled>@Etiquetas.BotonGuardar</button>
-            <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-error-fonatel" disabled>@Etiquetas.BotonCancelar</button>
-            <br />
-            <button type="submit" id="btnCargaRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-info-fonatel" disabled>@Etiquetas.BotonCargar</button>
-        </div>
-        <div class="col-12 pull-right mt-4">
-            <button type="button" id="btnAtrasFormularioVisualizar" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
-                <span aria-hidden="true"></span>@Etiquetas.BotonAtras
-            </button>
-        </div>
-    </div>
 </div>
 
-
-@*<script src="~/Scripts/Fonatel/JsRegistroIndicadores.js"></script>*@
 <script src="~/Scripts/Fonatel/JsFormularios.js"></script>

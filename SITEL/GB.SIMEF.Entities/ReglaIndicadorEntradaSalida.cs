@@ -23,7 +23,7 @@ namespace GB.SIMEF.Entities
         public int idDetalleReglaValidacion { get; set; }
         public int idDetalleIndicadorVariable{ get; set; }
         public int idIndicador { get; set; }
-
+        #region Atributos que no forman parte del contexto
 
         [NotMapped]
         public string idComparaString { get; set; }
@@ -33,5 +33,10 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string idVariableComparaString { get; set; }
 
+        [NotMapped]
+        public Indicador Indicador { get; set; }
+        [NotMapped]
+        public DetalleIndicadorVariable IndicadorVariable { get; set; }
+        #endregion
     }
 }

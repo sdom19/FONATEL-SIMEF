@@ -8,6 +8,34 @@
                 <th scope="col">@EtiquetasViewFormulario.Etiqueta</th>
                 <th scope="col">@EtiquetasViewFormulario.TipoRegla</th>
                 <th scope="col">@EtiquetasViewFormulario.Operador</th>
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial).Count() > 0)
+                {
+                    <th scope="col">@EtiquetasViewReglasValidacion.CategoriaActualizable</th>
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraConstante).Count() > 0)
+                {
+                    <th scope="col">@EtiquetasViewReglasValidacion.ValorConstante</th>
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos).Count() > 0)
+                {
+                    <th scope="col">@EtiquetasViewReglasValidacion.CategoriaID</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.AtributosValidos</th>
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada).Count() > 0)
+                {
+                    <th scope="col">@EtiquetasViewReglasValidacion.IndicadorComparacion</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.Variable</th>
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida).Count() > 0)
+                {
+                    <th scope="col">@EtiquetasViewReglasValidacion.IndicadorComparacion</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.Variable</th>
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida).Count() > 0)
+                {
+                    <th scope="col">@EtiquetasViewReglasValidacion.IndicadorComparacion</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.Variable</th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -17,6 +45,81 @@
                 <td>@item.NombreVariable</td>
                 <td>@item.tipoReglaValidacion.Nombre</td>
                 <td>@item.operadorArismetico.Nombre</td>
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial).Count() > 0)
+                {
+                    if (item.reglaSecuencial.idCategoriaDesagregacion == 0)
+                    {
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@item.reglaSecuencial.CategoriaDesagregacion.NombreCategoria</td>
+                    }
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraConstante).Count() > 0)
+                {
+                    if (string.IsNullOrEmpty(item.reglaComparacionConstante.Constante))
+                    {
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@item.reglaComparacionConstante.Constante</td>
+                    }
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos).Count() > 0)
+                {
+                    if (item.reglaAtributoValido.idCategoriaDesagregacion == 0)
+                    {
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@item.reglaAtributoValido.CategoriaDesagregacion.NombreCategoria</td>
+                        <td>@item.reglaAtributoValido.AtributoValidos</td>
+                    }
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada).Count() > 0)
+                {
+                    if (item.reglaIndicadorEntrada.idIndicador == 0)
+                    {
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@item.reglaIndicadorEntrada.Indicador.Nombre</td>
+                        <td>@item.reglaIndicadorEntrada.IndicadorVariable.NombreVariable</td>
+                    }
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida).Count() > 0)
+                {
+                    if (item.reglaIndicadorEntradaSalida.idIndicador == 0)
+                    {
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@item.reglaIndicadorEntradaSalida.Indicador.Nombre</td>
+                        <td>@item.reglaIndicadorEntradaSalida.IndicadorVariable.NombreVariable</td>
+                    }
+                }
+                @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida).Count() > 0)
+                {
+                    if (item.reglaIndicadorSalida.idIndicador == 0)
+                    {
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@item.reglaIndicadorSalida.Indicador.Nombre</td>
+                        <td>@item.reglaIndicadorSalida.IndicadorVariable.NombreVariable</td>
+                    }
+
+                }
             </tr>
             }
         </tbody>

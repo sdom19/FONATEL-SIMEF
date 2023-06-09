@@ -272,6 +272,8 @@ namespace GB.SIMEF.Resources
         public readonly static string Dispatch_Unique = "Unico";
         public readonly static string Periodicity_Unique = "Solo";
 
+        public readonly static string AsuntoEnvioCredenciales = "Envío de Credenciales de Ingreso a Registro de Datos de SITEL FONATEL";
+
         public readonly static Dictionary<FrecuenciaEnvioEnum, string> mapFrecuenciasConMotor = new Dictionary<FrecuenciaEnvioEnum, string>() {
             { FrecuenciaEnvioEnum.Semana, "Semanal"},
             { FrecuenciaEnvioEnum.Mes, "Mensual"},
