@@ -89,7 +89,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
-            json.Append("\"Nombre de indicador\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Nombre\":\"").Append(this.Nombre).Append("\",");
             json.Append("\"Tipo de indicador\":\"").Append(this.TipoIndicadores.Nombre).Append("\",");
             json.Append("\"Frecuencia\":\"").Append(this.FrecuenciaEnvio.Nombre).Append("\",");
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");

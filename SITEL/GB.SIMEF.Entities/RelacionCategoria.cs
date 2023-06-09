@@ -77,7 +77,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
-            json.Append("\"Nombre de la relación\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Nombre\":\"").Append(this.Nombre).Append("\",");
             json.Append("\"Cantidad de atributos\":\"").Append(this.CantidadCategoria).Append("\",");
             
 

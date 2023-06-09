@@ -124,7 +124,7 @@
     <value>Reporte de Bitácora</value>
   </data>
   <data name="Codigo" xml:space="preserve">
-    <value>Código/Nombre</value>
+    <value>Código</value>
   </data>
   <data name="ElementoAfectado" xml:space="preserve">
     <value>Elemento Afectado</value>

@@ -120,7 +120,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
-            json.Append("\"Nombre de la fórmula\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Nombre\":\"").Append(this.Nombre).Append("\",");
             json.Append("\"Frecuencia de aplicación\":\"").Append(this.FrecuenciaEnvio?.Nombre).Append("\",");
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
             json.Append("\"Indicador de salida\":\"").Append(this.IndicadorSalida?.Nombre).Append("\",");

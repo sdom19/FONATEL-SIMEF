@@ -89,9 +89,12 @@
             const camposGenerales = ["Pantalla", "Usuario", "Acción", "Fecha", "Hora"];
             const camposValores = ["Valor Anterior", "Valor Actual"];
 
-            const indiceNoSerialize = camposUnicos.indexOf("NoSerialize");
-            if (indiceNoSerialize !== -1) {
-                camposUnicos.splice(indiceNoSerialize, 1);
+            const quitarCampos = ["NoSerialize", "idDetalleCategoriaTexto", "idCategoriaDesagregacion"];
+            for (let obj in quitarCampos) {
+                let indiceNoSerialize = camposUnicos.indexOf(quitarCampos[obj]);
+                if (indiceNoSerialize !== -1) {
+                    camposUnicos.splice(indiceNoSerialize, 1);
+                }
             }
 
             const columnasTabla = [...camposGenerales, ...camposUnicos, ...camposValores];
@@ -117,7 +120,14 @@
             for(var i = 0; i < JsBitacora.Variables.ListaBitacora.length; i++) {
                 let Bitacora = JsBitacora.Variables.ListaBitacora[i];
 
-                if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Insertar && Bitacora.ValorInicial != null && Bitacora.ValorInicial != "") {
+                if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Insertar) {
+
+                    if (Bitacora.ValorInicial == null || Bitacora.ValorInicial == "") {
+                        continue;
+                    }
+
+                    let json = JSON.parse(Bitacora.ValorInicial);
+                    delete json.NoSerialize;
 
                     html = html + "<tr>"
                     html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
@@ -127,7 +137,6 @@
                     html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
                     html = html + "<th>" + Bitacora.Codigo + "</th>";
 
-                    let json = JSON.parse(Bitacora.ValorInicial);
                     camposUnicos.forEach(col => {
                         if (col != codigoRegistro) {
                             html = html + "<th>" + (json[col] ?? strNoAplica) + "</th>";
@@ -137,9 +146,12 @@
                     html = html + "<th>" + strNoAplica + "</th>";
                     html = html + "<th>" + strNoAplica + "</th>";
                     html = html + "</tr>";
-
                 }
-                else if ((Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar || Bitacora.Accion == jsUtilidades.Variables.Acciones.Activar || Bitacora.Accion == jsUtilidades.Variables.Acciones.Desactivar) && (Bitacora.ValorDiferencial != null && Bitacora.ValorDiferencial != "")) {
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar || Bitacora.Accion == jsUtilidades.Variables.Acciones.Activar || Bitacora.Accion == jsUtilidades.Variables.Acciones.Desactivar) {
+
+                    if (Bitacora.ValorDiferencial == null || Bitacora.ValorDiferencial == "") {
+                        continue;
+                    }
 
                     let json = JSON.parse(Bitacora.ValorDiferencial);
 
@@ -158,7 +170,7 @@
                                 camposUnicos.forEach(col => {
                                     if (col != codigoRegistro) {
                                         if (col == objeto) {
-                                            html = html + "<th>" + (array[0] ?? strNoAplica) + "</th>";
+                                            html = html + "<th>" + (array[1] ?? strNoAplica) + "</th>";
                                         } else {
                                             html = html + "<th>" + strNoAplica + "</th>";
                                         }

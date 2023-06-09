@@ -88,7 +88,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
-            json.Append("\"Nombre de categoria\":\"").Append(this.NombreCategoria).Append("\",");
+            json.Append("\"Nombre\":\"").Append(this.NombreCategoria).Append("\",");
             json.Append("\"Tipo de categoría\":\"").Append(this.TipoCategoria.Nombre).Append("\",");
             switch (this.IdTipoDetalleCategoria)
             {
