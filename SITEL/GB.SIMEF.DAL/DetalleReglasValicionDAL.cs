@@ -160,7 +160,14 @@ namespace GB.SIMEF.DAL
             return
             db.OperadorArismetico.Where(x => x.idOperadorAritmetico == id && x.Estado == true).FirstOrDefault();
         }
-
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Carga las regla tipo indicador atributos validos
+        /// 08-06-2023
+        /// Modificación se agrega la categoría
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private ReglaAtributoValido ObtenerReglaAtributosValidos(int id)
         {
             ReglaAtributoValido regla =
@@ -171,9 +178,7 @@ namespace GB.SIMEF.DAL
             if (regla!=null)
             {
 
-                regla.CategoriaDesagregacion = db.Database
-                    .SqlQuery<CategoriaDesagregacion>(string.Format("select * from CategoriaDesagregacion where IdCategoriaDesagregacion={0}", regla.idCategoriaDesagregacion)).Single();
-               
+                regla.CategoriaDesagregacion = db.CategoriasDesagregacion.Where(x=>x.idCategoriaDesagregacion== regla.idCategoriaDesagregacion).Single();            
                 regla.AtributoValidos = db.Database
                     .SqlQuery<string>(string.Format("SELECT STRING_AGG(NombreCategoria,', ') NombreCategoria FROM CategoriaDesagregacion WHERE IdCategoriaDesagregacion IN({0})", regla.idAtributoString)).Single();
 
@@ -207,8 +212,8 @@ namespace GB.SIMEF.DAL
                   new SqlParameter("@IdDetalleReglaValidacion", id)
                ).FirstOrDefault();
 
-            regla.CategoriaDesagregacion = db.Database
-                .SqlQuery<CategoriaDesagregacion>( string.Format("select * from CategoriaDesagregacion where IdCategoriaDesagregacion={0}",regla.idCategoriaDesagregacion)).Single();
+            regla.CategoriaDesagregacion = regla.CategoriaDesagregacion = db.CategoriasDesagregacion
+                .Where(x => x.idCategoriaDesagregacion == regla.idCategoriaDesagregacion).Single();
             return regla;
         }
 
@@ -229,12 +234,10 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.idIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.idDetalleIndicadorVariable.ToString());
-                regla.Indicador=  db.Database.SqlQuery<Indicador>
-                    (string.Format("SELECT *FROM dbo.Indicador where IdIndicador={0}", regla.idIndicador)).Single();
-                regla.IndicadorVariable = db.Database
-                .SqlQuery<DetalleIndicadorVariable>
-                    (string.Format("SELECT * FROM dbo.DetalleIndicadorVariable where IdIndicador={0} and IdDetalleIndicadorVariable={1}",
-                    regla.idIndicador, regla.idDetalleIndicadorVariable)).Single();
+                regla.Indicador=  db.Indicador.Where(x=>x.IdIndicador==regla.idIndicador).Single();
+                regla.IndicadorVariable = db.DetalleIndicadorVariables
+                    .Where(x=>x.IdDetalleIndicadorVariable== regla.idDetalleIndicadorVariable && x.IdIndicador == regla.idIndicador)
+                  .Single();
             }
 
             return regla;
@@ -256,13 +259,10 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.idIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.idDetalleIndicadorVariable.ToString());
-                regla.Indicador= db.Database
-                .SqlQuery<Indicador>
-                    (string.Format("SELECT * FROM dbo.Indicador where IdIndicador={0}", regla.idIndicador)).Single();
-                regla.IndicadorVariable= db.Database
-                .SqlQuery<DetalleIndicadorVariable>
-                    (string.Format("SELECT * FROM dbo.DetalleIndicadorVariable where IdIndicador={0} and IdDetalleIndicadorVariable={1}", 
-                    regla.idIndicador, regla.idDetalleIndicadorVariable)).Single();
+                regla.Indicador = db.Indicador.Where(x => x.IdIndicador == regla.idIndicador).Single();
+                regla.IndicadorVariable = db.DetalleIndicadorVariables
+                    .Where(x => x.IdDetalleIndicadorVariable == regla.idDetalleIndicadorVariable && x.IdIndicador == regla.idIndicador)
+                  .Single();
             }
             return regla;
         }
@@ -282,12 +282,10 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.idIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.idDetalleIndicadorVariable.ToString());
-                regla.Indicador=  db.Database.SqlQuery<Indicador>
-                    (string.Format("SELECT *FROM dbo.Indicador where IdIndicador={0}", regla.idIndicador)).Single();
-                regla.IndicadorVariable = db.Database
-                .SqlQuery<DetalleIndicadorVariable>
-                    (string.Format("SELECT * FROM dbo.DetalleIndicadorVariable where IdIndicador={0} and IdDetalleIndicadorVariable={1}",
-                    regla.idIndicador, regla.idDetalleIndicadorVariable)).Single();
+                regla.Indicador = db.Indicador.Where(x => x.IdIndicador == regla.idIndicador).Single();
+                regla.IndicadorVariable = db.DetalleIndicadorVariables
+                    .Where(x => x.IdDetalleIndicadorVariable == regla.idDetalleIndicadorVariable && x.IdIndicador == regla.idIndicador)
+                  .Single();
             }
             return regla;
         }
