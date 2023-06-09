@@ -302,5 +302,41 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("TituloHoja", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visualizar.
+        /// </summary>
+        public static string TituloPantalla {
+            get {
+                return ResourceManager.GetString("TituloPantalla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visualización Formulario Web.
+        /// </summary>
+        public static string TituloPaso1Visualizacion {
+            get {
+                return ResourceManager.GetString("TituloPaso1Visualizacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formulario.
+        /// </summary>
+        public static string TituloStepperPaso1Visualizacion {
+            get {
+                return ResourceManager.GetString("TituloStepperPaso1Visualizacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previsualización Formulario.
+        /// </summary>
+        public static string TituloStepperPaso2Visualizacion {
+            get {
+                return ResourceManager.GetString("TituloStepperPaso2Visualizacion", resourceCulture);
+            }
+        }
     }
 }

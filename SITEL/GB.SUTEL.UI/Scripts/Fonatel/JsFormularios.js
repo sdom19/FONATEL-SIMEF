@@ -1,70 +1,72 @@
 ﻿JsFormulario = {
-    "Controles": {
-        "FormularioIndex": "#FormularioIndex",
-        "FormFormulario": "#FormFormulario",
-        "formCrearFormulario": "#formCrearFormulario",
-        "tablaFormulario": "#TablaFormulario tbody",
-        "TableIndicadorFormulario": "#TableIndicadorFormulario",
-        "TableIndicadorFormularioBody": "#TableIndicadorFormulario tbody",
+    Controles: {
+        FormularioIndex: "#FormularioIndex",
+        FormFormulario: "#FormFormulario",
+        formCrearFormulario: "#formCrearFormulario",
+        tablaFormulario: "#TablaFormulario tbody",
+        TableIndicadorFormulario: "#TableIndicadorFormulario",
+        TableIndicadorFormularioBody: "#TableIndicadorFormulario tbody",
 
-        "txtCodigoFormulario": "#txtCodigoFormulario",
-        "txtNombreFormulario": "#txtNombreFormulario",
-        "ddlFrecuanciaEnvio": "#ddlFrecuanciaEnvio",
-        "txtDescripcionFormulario": "#txtDescripcionFormulario",
+        txtCodigoFormulario: "#txtCodigoFormulario",
+        txtNombreFormulario: "#txtNombreFormulario",
+        ddlFrecuanciaEnvio: "#ddlFrecuanciaEnvio",
+        txtDescripcionFormulario: "#txtDescripcionFormulario",
 
-        "txtCantidadIndicadoresFormulario": "#txtCantidadIndicadoresFormulario",
-        "txtCodigoFormularioHelp": "#txtCodigoFormularioHelp",
-        "txtNombreFormularioHelp": "#txtNombreFormularioHelp",
-        "txtCantidadIndicadoresFormularioHelp": "#txtCantidadIndicadoresFormularioHelp",
-        "txtDescripcionFormularioHelp": "#txtDescripcionFormularioHelp",
-        "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
+        txtCantidadIndicadoresFormulario: "#txtCantidadIndicadoresFormulario",
+        txtCodigoFormularioHelp: "#txtCodigoFormularioHelp",
+        txtNombreFormularioHelp: "#txtNombreFormularioHelp",
+        txtCantidadIndicadoresFormularioHelp: "#txtCantidadIndicadoresFormularioHelp",
+        txtDescripcionFormularioHelp: "#txtDescripcionFormularioHelp",
+        ddlFrecuenciaHelp: "#ddlFrecuenciaHelp",
 
-        "btnAgregarFormulario": "#TablaFormulario tbody tr td .btn-add",
-        "btnEditarFormulario": "#TablaFormulario tbody tr td .btn-edit",
-        "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
-        "btnVizualizarFormulario": "#TablaFormulario tbody tr td .btn-view",
-        "btnDeleteIndicador": "#TableIndicadorFormulario tbody tr td .btn-delete",
-        "btnEditarIndicadores": "#TableIndicadorFormulario tbody tr td .btn-edit",
+        btnAgregarFormulario: "#TablaFormulario tbody tr td .btn-add",
+        btnEditarFormulario: "#TablaFormulario tbody tr td .btn-edit",
+        btnDeleteFormulario: "#TablaFormulario tbody tr td .btn-delete",
+        btnVizualizarFormulario: "#TablaFormulario tbody tr td .btn-view",
+        btnDeleteIndicador: "#TableIndicadorFormulario tbody tr td .btn-delete",
+        btnEditarIndicadores: "#TableIndicadorFormulario tbody tr td .btn-edit",
 
-        "btnSiguienteFormulario": "#btnSiguienteFormulario",
-        "btnCloneFormulario": "#TablaFormulario tbody tr td .btn-clone",
-        "btnDesactivadoFormulario": "#TablaFormulario tbody tr td .btn-power-off",
-        "btnActivadoFormulario": "#TablaFormulario tbody tr td .btn-power-on",
-        "btnGuardar": "#btnGuardarFormulario",
-        "btnCancelar": "#btnCancelarFormulario",
-        "btnGuardarIndicador": "#btnGuardarIndicadorFormulario",
-        "divContenedor": ".contenedor_formulario",
-        "btnAtrasFormularioRegla": "#btnAtrasFormularioRegla",
-        "btnAtrasFormularioVisualizar": "#btnAtrasFormularioVisualizar",
-        "btnGuardarFormularioCompleto": "#btnGuardarFormularioCompleto",
-        "txtTituloHoja": "#txtTituloHoja",
-        "txtNotasEncargadoFormulario": "#txtNotasEncargadoFormulario",
-        "ddlIndicador": "#ddlIndicador",
-        "ddlIndicadorHelp": "#ddlIndicadorHelp",
-        "txtTituloHojaHelp": "#txtTituloHojaHelp",
-        "step2": "a[href='#step-2']",
-        "txtNotasEncargadoFormularioHelp": "#txtNotasEncargadoFormularioHelp",
+        btnSiguienteFormulario: "#btnSiguienteFormulario",
+        btnCloneFormulario: "#TablaFormulario tbody tr td .btn-clone",
+        btnDesactivadoFormulario: "#TablaFormulario tbody tr td .btn-power-off",
+        btnActivadoFormulario: "#TablaFormulario tbody tr td .btn-power-on",
+        btnGuardar: "#btnGuardarFormulario",
+        btnCancelar: "#btnCancelarFormulario",
+        btnGuardarIndicador: "#btnGuardarIndicadorFormulario",
+        divContenedor: ".contenedor_formulario",
+        btnAtrasFormularioRegla: "#btnAtrasFormularioRegla",
+        btnGuardarFormularioCompleto: "#btnGuardarFormularioCompleto",
+        txtTituloHoja: "#txtTituloHoja",
+        txtNotasEncargadoFormulario: "#txtNotasEncargadoFormulario",
+        ddlIndicador: "#ddlIndicador",
+        ddlIndicadorHelp: "#ddlIndicadorHelp",
+        txtTituloHojaHelp: "#txtTituloHojaHelp",
+        step2: "a[href='#step-2']",
+        txtNotasEncargadoFormularioHelp: "#txtNotasEncargadoFormularioHelp",
 
-        "CantidadIndicadoresMax": "#CantidadIndicadoresMax",
+        CantidadIndicadoresMax: "#CantidadIndicadoresMax",
 
-        "txtCantidadIndicador": "#txtCantidadRegistroIndicador",
-        "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
-        "tabIndicadorActive": "ul .active a",
-        "tabActivoIndicador": "div.tab-pane.active",
-        "columnaTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr th",
-        "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
-        "filasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table tbody",
-        "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
-        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
-        "tablaIndicador_filter": "div.tab-pane.active #tablaIndicador_filter",
-        "btnCantidadFilas": "div.tab-pane.active #btnCantidadFilas"
+        txtCantidadIndicador: "#txtCantidadRegistroIndicador",
+        tablaIndicador: "div.tab-pane.active .table-wrapper-fonatel table",
+        tabIndicadorActive: "ul .active a",
+        tabActivoIndicador: "div.tab-pane.active",
+        columnaTablaIndicador: "div.tab-pane.active .table-wrapper-fonatel table thead tr th",
+        columnasTablaIndicador: "div.tab-pane.active .table-wrapper-fonatel table thead tr",
+        filasTablaIndicador: "div.tab-pane.active .table-wrapper-fonatel table tbody",
+        btnDescargarPlantillaRegistro: "#btnDescargarPlantillaRegistro",
+        btnCargarPlantillaRegistro: "#btnCargarPlantillaRegistro",
+        tablaIndicador_filter: "div.tab-pane.active #tablaIndicador_filter",
+        btnCantidadFilas: "div.tab-pane.active #btnCantidadFilas",
+
+        ViewVisualizar: "#dad1f560",
     },
-    "Variables": {
-        "ListadoFormulario": [],
-        "ListadoDetalleIndicadores": [],
-        "HayError": false,
-        "NuevoIndicador": true,
-        "CantidadActual": 0
+    Variables: {
+        ListadoFormulario: [],
+        ListadoDetalleIndicadores: [],
+        HayError: false,
+        NuevoIndicador: true,
+        CantidadActual: 0,
+        indexViewURL: "/Fonatel/FormularioWeb/index",
     },
 
     Mensajes: {
@@ -72,10 +74,10 @@
         preguntaEditarIndicador: "¿Desea editar el Indicador del Formulario?"
     },
 
-    "Metodos": {
+    Metodos: {
 
         // Validar los datos que son totalmente requeridos, que ni en guardado parcial deben ser omitidos
-        "ValidarDatosMinimos": function () {
+        ValidarDatosMinimos: function () {
             let validar = true;
             $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
@@ -105,13 +107,13 @@
             return validar;
         },
 
-        "ValidarFormularioWebCrear": function () {
+        ValidarFormularioWebCrear: function () {
             if ($(JsFormulario.Controles.txtCodigoFormulario).val()?.trim().length > 0 && $(JsFormulario.Controles.txtNombreFormulario).val().trim().length > 0
                 && $(JsFormulario.Controles.ddlFrecuanciaEnvio).val().trim().length > 0 && $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val() > 0
                 && $(JsFormulario.Controles.txtDescripcionFormulario).val().trim().length > 0) {
 
-                    $(JsFormulario.Controles.btnSiguienteFormulario).prop("disabled", false);
-                    $(JsFormulario.Controles.step2).prop("disabled", false);
+                $(JsFormulario.Controles.btnSiguienteFormulario).prop("disabled", false);
+                $(JsFormulario.Controles.step2).prop("disabled", false);
             }
             else {
                 $(JsFormulario.Controles.btnSiguienteFormulario).prop("disabled", true);
@@ -119,7 +121,7 @@
             }
         },
 
-        "ValidarFormularioWebTotal": function () {
+        ValidarFormularioWebTotal: function () {
             let validar = true;
 
             $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
@@ -172,7 +174,7 @@
             return validar;
         },
 
-        "ValidarFormularioIndicador": function () {
+        ValidarFormularioIndicador: function () {
             let validar = true;
 
             $(JsFormulario.Controles.txtTituloHojaHelp).addClass("hidden");
@@ -205,21 +207,21 @@
             return validar;
         },
 
-        "ValidarButonFinalizar": function () {
+        ValidarButonFinalizar: function () {
             if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val())
                 $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true); // gris
             else
                 $(JsFormulario.Controles.btnGuardarFormularioCompleto).removeAttr("disabled");// azul
         },
 
-        "ValidarButonGuardarIndicador": function () {
+        ValidarButonGuardarIndicador: function () {
             if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val())
                 $(JsFormulario.Controles.btnGuardarIndicador).removeAttr("disabled"); // gris
             else
                 $(JsFormulario.Controles.btnGuardarIndicador).prop("disabled", true);// azul
         },
 
-        "CargarTablasFormulario": function () {
+        CargarTablasFormulario: function () {
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < JsFormulario.Variables.ListadoFormulario.length; i++) {
@@ -264,7 +266,7 @@
             JsFormulario.Variables.ListadoFormulario = [];
         },
 
-        "CargarTablasIndicadores": function () {
+        CargarTablasIndicadores: function () {
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < JsFormulario.Variables.ListadoDetalleIndicadores.length; i++) {
@@ -284,7 +286,7 @@
             JsFormulario.Variables.ListadoDetalleIndicadores = [];
         },
 
-        "CrearTablaFormulario": function (formulario, indicador) {
+        CrearTablaFormulario: function (formulario, indicador) {
             let html = "";
             html = html + "<tr>"
             html = html + "<td scope='row'>" + formulario.Codigo + "</td>";
@@ -307,25 +309,25 @@
             return html;
         },
 
-        "CargarIndicadores": function (obj) {
+        CargarIndicadores: function (obj) {
             $(JsFormulario.Controles.txtTituloHoja).val(obj.TituloHoja);
             $(JsFormulario.Controles.txtNotasEncargadoFormulario).val(obj.NotaEncargado);
             var comboIndicador = document.getElementById("ddlIndicador");
             comboIndicador.innerHTML = '';
-           
+
             comboIndicador.options[0] = new Option(obj.Indicador.Nombre, obj.idIndicador);
             $(JsFormulario.Controles.ddlIndicador).val(obj.idIndicador).change();
             $(JsFormulario.Controles.ddlIndicador).prop("disabled", true);
-            
+
         },
 
-        "ReestablecerIndicadores": function (obj) {
+        ReestablecerIndicadores: function (obj) {
             $(JsFormulario.Controles.txtTituloHoja).val("");
             $(JsFormulario.Controles.txtNotasEncargadoFormulario).val("");
             $(JsFormulario.Controles.ddlIndicador).val(0).change();
         },
 
-        "MensajeError": function (obj) {
+        MensajeError: function (obj) {
             if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                 jsMensajes.Metodos.OkAlertErrorModal()
                     .set('onok', function (closeEvent) {
@@ -338,7 +340,8 @@
                     });
             }
         },
-        "CargarColumnasTabla": function (pDetallesIndicadorFonatel) {
+
+        CargarColumnasTabla: function (pDetallesIndicadorFonatel) {
             if ($(JsFormulario.Controles.columnaTablaIndicador).length == 0) {
                 let html = "<th style='min-width:30PX'>  </th>";
                 for (var i = 0; i < pDetallesIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
@@ -355,7 +358,8 @@
                 EliminarDatasource(JsFormulario.Controles.tablaIndicador);
             }
         },
-        "CargarFilasTabla": function (pDetallesIndicadorFonatel) {
+
+        CargarFilasTabla: function (pDetallesIndicadorFonatel) {
             $(JsFormulario.Controles.filasTablaIndicador).html("");
             let html = "<tr><td></td>";
             for (var i = 0; i < pDetallesIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
@@ -372,9 +376,41 @@
                 $(JsFormulario.Controles.filasTablaIndicador).append(html.replace("[0]", i + 1));
             }
         },
+
+        InicializarPantalla: function () {
+            $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
+            JsFormulario.Metodos.ValidarButonFinalizar();
+            JsFormulario.Metodos.ValidarButonGuardarIndicador();
+
+            if ($(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val() == 0) {
+                $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val("");
+            }
+
+            if ($(JsFormulario.Controles.FormFormulario).length > 0) {
+                JsFormulario.Metodos.ValidarFormularioWebCrear();
+                let modo = ObtenerValorParametroUrl('modo');
+                if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                    $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
+                    JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
+                }
+                if (modo == undefined) {
+                    JsFormulario.Metodos.ValidarButonFinalizar();
+                    JsFormulario.Metodos.ValidarButonGuardarIndicador();
+                }
+            }
+
+            if ($(JsFormulario.Controles.FormularioIndex).length > 0) {
+                JsFormulario.Consultas.ConsultaListaFormularioWeb();
+            }
+        }
     },
 
-    "Consultas": {
+    Consultas: {
 
         "InsertarFormularioWeb": async function () {
             $("#loading").fadeIn();
@@ -522,14 +558,14 @@
             let detalleFormulario = new Object();
             let formularioweb = new Object();
             detalleFormulario.idIndicador = idIndicador;
-            formularioweb.id  = idFormulario;
+            formularioweb.id = idFormulario;
             detalleFormulario.formularioweb = formularioweb;
             await execAjaxCall("/FormularioWeb/EliminarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
                     JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
                         .set('onok', function (closeEvent) {
-                            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();                           
+                            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
                         });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
@@ -558,7 +594,7 @@
         "EliminarDetalleIndicadoresFormulario": async function (objFormulario) {
             await execAjaxCall("/FormularioWeb/EliminarDetalleIndicadoresFormulario", "POST", objFormulario)
                 .then((obj) => {
-                    
+
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
                 })
@@ -680,11 +716,11 @@
                 .then((obj) => {
                     var comboIndicador = document.getElementById("ddlIndicador");
                     comboIndicador.innerHTML = '';
-                    
+
                     for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
-                        comboIndicador.options[i] = new Option(obj.objetoRespuesta[i-1].Text, obj.objetoRespuesta[i-1].Value);
+                        comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
                     }
-                    
+
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
@@ -703,9 +739,9 @@
                     JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
                     JsFormulario.Metodos.ValidarButonFinalizar();
-                    
+
                     JsFormulario.Metodos.ValidarButonGuardarIndicador();
-                    
+
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
@@ -777,7 +813,7 @@
                 .then((obj) => {
                     var comboIndicador = document.getElementById("ddlIndicador");
                     comboIndicador.innerHTML = '';
-                    
+
                     for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
                         comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
                     }
@@ -799,289 +835,314 @@
                     $("#loading").fadeOut();
                 });
         },
-    }
+    },
 
-}
-
-//CAMBIO DE FRECUENCIA
-$(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e) {
-    let id = $(this).val();
-    // alert(id);
-    JsFormulario.Consultas.CambiarFrecuencia(id);
-});
-
-
-$(document).on("keyup", JsFormulario.Controles.ControlesStep1, function (e) {
-    JsFormulario.Metodos.ValidarFormularioWebCrear();
-});
-
-$(document).on("change", JsFormulario.Controles.ControlesStep1, function (e) {
-    JsFormulario.Metodos.ValidarFormularioWebCrear();
-});
-
-// CANCELAR
-$(document).on("click", JsFormulario.Controles.btnCancelar, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/FormularioWeb/Index";
+    Eventos: function () {
+        //CAMBIO DE FRECUENCIA
+        $(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e) {
+            let id = $(this).val();
+            // alert(id);
+            JsFormulario.Consultas.CambiarFrecuencia(id);
         });
-});
 
-// GUARDAR INDICADOR
-$(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e) {
-    e.preventDefault();
-    if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
-        if (JsFormulario.Variables.NuevoIndicador === true) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(JsFormulario.Mensajes.preguntaGuardarIndicador, jsMensajes.Variables.actionType.agregar)
-                .set('onok', async function (closeEvent) {
-                    await JsFormulario.Consultas.InsertarIndicadores();
-                    JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
-                });
-        }
-        else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(JsFormulario.Mensajes.preguntaEditarIndicador, jsMensajes.Variables.actionType.agregar)
+        $(document).on("keyup", JsFormulario.Controles.ControlesStep1, function (e) {
+            JsFormulario.Metodos.ValidarFormularioWebCrear();
+        });
+
+        $(document).on("change", JsFormulario.Controles.ControlesStep1, function (e) {
+            JsFormulario.Metodos.ValidarFormularioWebCrear();
+        });
+
+        // CANCELAR
+        $(document).on("click", JsFormulario.Controles.btnCancelar, function (e) {
+            e.preventDefault();
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
-                    JsFormulario.Consultas.EditarIndicadores();
-                    JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
+                    window.location.href = "/Fonatel/FormularioWeb/Index";
                 });
-        }
-    }
-});
+        });
 
-// EDITAR INDICADORES
-$(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function () {
-    let idIndicador = $(this).val();
-    let idFormulario =ObtenerValorParametroUrl('id');
-    JsFormulario.Variables.NuevoIndicador = false;
-    $(JsFormulario.Controles.btnGuardarIndicador).removeAttr("disabled");
-    JsFormulario.Consultas.ConsultaDetalleFormularioWebAjax(idIndicador, idFormulario);
-});
+        // GUARDAR INDICADOR
+        $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e) {
+            e.preventDefault();
+            if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
+                if (JsFormulario.Variables.NuevoIndicador === true) {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(JsFormulario.Mensajes.preguntaGuardarIndicador, jsMensajes.Variables.actionType.agregar)
+                        .set('onok', async function (closeEvent) {
+                            await JsFormulario.Consultas.InsertarIndicadores();
+                            JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
+                        });
+                }
+                else {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(JsFormulario.Mensajes.preguntaEditarIndicador, jsMensajes.Variables.actionType.agregar)
+                        .set('onok', function (closeEvent) {
+                            JsFormulario.Consultas.EditarIndicadores();
+                            JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
+                        });
+                }
+            }
+        });
 
-// EDITAR FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnEditarFormulario, function () {
-    if (consultasFonatel) { return; }
-    let id = $(this).val();
-    window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
-});
+        // EDITAR INDICADORES
+        $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function () {
+            let idIndicador = $(this).val();
+            let idFormulario = ObtenerValorParametroUrl('id');
+            JsFormulario.Variables.NuevoIndicador = false;
+            $(JsFormulario.Controles.btnGuardarIndicador).removeAttr("disabled");
+            JsFormulario.Consultas.ConsultaDetalleFormularioWebAjax(idIndicador, idFormulario);
+        });
 
-// CLONAR FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
-    if (consultasFonatel) { return; }
-    let id = $(this).val();
-    
+        // EDITAR FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnEditarFormulario, function () {
+            if (consultasFonatel) { return; }
+            let id = $(this).val();
+            window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
+        });
+
+        // CLONAR FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
+            if (consultasFonatel) { return; }
+            let id = $(this).val();
+
             window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
-      
-});
-// GUARDAR FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
-    e.preventDefault();
-    if (JsFormulario.Metodos.ValidarDatosMinimos()) {
 
-        let modo = ObtenerValorParametroUrl('modo');
+        });
 
-        if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Formulario Web? ", jsMensajes.Variables.actionType.agregar)
-                .set('onok', async function (closeEvent) {
+        // GUARDAR FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
+            e.preventDefault();
+            if (JsFormulario.Metodos.ValidarDatosMinimos()) {
+
+                let modo = ObtenerValorParametroUrl('modo');
+
+                if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Formulario Web? ", jsMensajes.Variables.actionType.agregar)
+                        .set('onok', async function (closeEvent) {
+                            await JsFormulario.Consultas.ClonarFormularioWeb();
+                            if (JsFormulario.Variables.HayError === false) {
+                                jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido creado")
+                                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+                            }
+                        })
+                        .set("oncancel", function () {
+                            JsFormulario.Metodos.ValidarFormularioWebTotal();
+                        });
+
+                } else if (modo == jsUtilidades.Variables.Acciones.Editar) {
+
+                    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
+                        .set('onok', async function (closeEvent) {
+
+                            if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                                await JsFormulario.Consultas.EditarFormularioWeb();
+                                modoMsj = "editado";
+                            }
+                            if (JsFormulario.Variables.HayError === false) {
+                                jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
+                                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+                            }
+                        })
+                        .set("oncancel", function () {
+                            JsFormulario.Metodos.ValidarFormularioWebTotal();
+                        });
+                }
+
+                else {
+
+                    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Formulario Web?", jsMensajes.Variables.actionType.agregar)
+                        .set('onok', async function (closeEvent) {
+
+                            let modoMsj = "";
+
+                            if (modo == undefined) { // Crear
+                                await JsFormulario.Consultas.InsertarFormularioWeb();
+                                modoMsj = "creado";
+                            }
+                            if (JsFormulario.Variables.HayError === false) {
+                                jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
+                                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+                            }
+                        })
+                        .set("oncancel", function () {
+                            JsFormulario.Metodos.ValidarFormularioWebTotal();
+                        });
+                }
+            }
+        });
+
+        // VISUALIZAR FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
+            let id = $(this).val();
+            window.location.href = "/Fonatel/FormularioWeb/Visualizar?id=" + id + "&modo=" + 6;
+        });
+
+        // SIGUIENTE FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async function (e) {
+            e.preventDefault();
+            let modo = ObtenerValorParametroUrl('modo');
+            if (JsFormulario.Metodos.ValidarFormularioWebTotal()) {
+                if (modo == undefined) { // Crear
+                    await JsFormulario.Consultas.InsertarFormularioWeb();
+                }
+                if (modo == jsUtilidades.Variables.Acciones.Clonar) {
                     await JsFormulario.Consultas.ClonarFormularioWeb();
+                    JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
+                }
+                if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                    await JsFormulario.Consultas.EditarFormularioWeb();
+                }
+                if (JsFormulario.Variables.HayError === false) {
+                    $("a[href='#step-2']").trigger('click');
+                }
+            }
+        });
+
+        // DELETE(BORRAR) FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
+            if (consultasFonatel) { return; }
+            let id = $(this).val();
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario Web?", jsMensajes.Variables.actionType.eliminar)
+                .set('onok', function (closeEvent) {
+                    JsFormulario.Consultas.ValidarExistenciaFormulario(id, true);
+                });
+        });
+
+        // DELETE(BORRAR) INDICADOR
+        $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
+            let idIndicador = $(this).val();
+            let idFormulario = ObtenerValorParametroUrl("id");
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
+                .set('onok', async function (closeEvent) {
+                    await JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
+                    $(JsFormulario.Controles.ddlIndicador).prop("disabled", false);
+                    $(JsFormulario.Controles.txtNotasEncargadoFormulario).val("");
+                    $(JsFormulario.Controles.txtTituloHoja).val("");
+                    JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
+                    JsFormulario.Variables.NuevoIndicador = true;
+                });
+        });
+
+        // ACTIVAR FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, function (e) {
+            if (consultasFonatel) { return; }
+            e.preventDefault();
+            let id = $(this).val();
+
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Formulario Web?", jsMensajes.Variables.actionType.estado)
+                .set('onok', function (closeEvent) {
+                    JsFormulario.Consultas.ActivarFormulario(id);
+                });
+        });
+
+        // DESACTIVAR FORMULARIO
+        $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
+            if (consultasFonatel) { return; }
+            let id = $(this).val();
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario Web?", jsMensajes.Variables.actionType.estado)
+                .set('onok', function (closeEvent) {
+                    JsFormulario.Consultas.DesactivarFormulario(id);
+                });
+        });
+
+        // ATRAS
+        $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
+            e.preventDefault();
+            $("a[href='#step-1']").trigger('click');
+
+            $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
+            InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar);
+        });
+
+        // GUARDAR FORMULARIO COMPLETO
+        $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
+            e.preventDefault();
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', async function (closeEvent) {
+                    await JsFormulario.Consultas.GuardadoCompleto();
                     if (JsFormulario.Variables.HayError === false) {
                         jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido creado")
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                     }
-                })
-                .set("oncancel", function () {
-                    JsFormulario.Metodos.ValidarFormularioWebTotal();
                 });
-
-        } else if (modo == jsUtilidades.Variables.Acciones.Editar) {
-
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', async function (closeEvent) {
-
-                    if (modo == jsUtilidades.Variables.Acciones.Editar) {
-                        await JsFormulario.Consultas.EditarFormularioWeb();
-                        modoMsj = "editado";
-                    }
-                    if (JsFormulario.Variables.HayError === false) {
-                        jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
-                    }
-                })
-                .set("oncancel", function () {
-                    JsFormulario.Metodos.ValidarFormularioWebTotal();
-                });
-        }
-
-        else {
-
-            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Formulario Web?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', async function (closeEvent) {
-
-                    let modoMsj = "";
-
-                    if (modo == undefined) { // Crear
-                        await JsFormulario.Consultas.InsertarFormularioWeb();
-                        modoMsj = "creado";
-                    }
-                    if (JsFormulario.Variables.HayError === false) {
-                        jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
-                    }
-                })
-                .set("oncancel", function () {
-                    JsFormulario.Metodos.ValidarFormularioWebTotal();
-                });
-        }
-    }
-});
-
-// VISUALIZAR FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
-    let id = $(this).val();
-    window.location.href = "/Fonatel/FormularioWeb/Visualizar?id=" + id + "&modo=" + 6;
-});
-
-// SIGUIENTE FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async function (e) {
-    e.preventDefault();
-    let modo =ObtenerValorParametroUrl('modo');
-    if (JsFormulario.Metodos.ValidarFormularioWebTotal()) {
-        if (modo == undefined) { // Crear
-            await JsFormulario.Consultas.InsertarFormularioWeb();
-        }
-        if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            await JsFormulario.Consultas.ClonarFormularioWeb();
-            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
-        }
-        if (modo == jsUtilidades.Variables.Acciones.Editar) {
-            await JsFormulario.Consultas.EditarFormularioWeb();
-        }
-        if (JsFormulario.Variables.HayError === false) {
-            $("a[href='#step-2']").trigger('click');
-        }
-    }
-});
-
-// DELETE(BORRAR) FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
-    if (consultasFonatel) { return; }
-    let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario Web?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', function (closeEvent) {
-            JsFormulario.Consultas.ValidarExistenciaFormulario(id, true);
         });
-});
 
-// DELETE(BORRAR) INDICADOR
-$(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
-    let idIndicador = $(this).val();
-    let idFormulario = ObtenerValorParametroUrl("id");
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', async function (closeEvent) {
-            await JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
-            $(JsFormulario.Controles.ddlIndicador).prop("disabled", false);
-            $(JsFormulario.Controles.txtNotasEncargadoFormulario).val("");
-            $(JsFormulario.Controles.txtTituloHoja).val("");
-            JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();           
-            JsFormulario.Variables.NuevoIndicador = true;
-        });
-});
 
-// ACTIVAR FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, function (e) {
-    if (consultasFonatel) { return; }
-    e.preventDefault();
-    let id = $(this).val();
-
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Formulario Web?", jsMensajes.Variables.actionType.estado)
-        .set('onok', function (closeEvent) {
-            JsFormulario.Consultas.ActivarFormulario(id);
-        });
-});
-
-// DESACTIVAR FORMULARIO
-$(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
-    if (consultasFonatel) { return; }
-    let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario Web?", jsMensajes.Variables.actionType.estado)
-        .set('onok', function (closeEvent) {
-            JsFormulario.Consultas.DesactivarFormulario(id);
-        });
-});
-
-// ATRAS
-$(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
-    e.preventDefault();
-    $("a[href='#step-1']").trigger('click');
-
-    $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
-    InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar); 
-});
-
-//Atras visualizar
-$(document).on("click", JsFormulario.Controles.btnAtrasFormularioVisualizar, function (e) {
-    e.preventDefault();
-    window.location.href = "/Fonatel/FormularioWeb/index";
-});
-
-// GUARDAR FORMULARIO COMPLETO
-$(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', async function (closeEvent) {
-            await JsFormulario.Consultas.GuardadoCompleto();
-            if (JsFormulario.Variables.HayError === false) {
-                jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido creado")
-                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+        $(document).on("keypress", JsFormulario.Controles.txtCantidadIndicador, function () {
+            if (event.keyCode == 13) {
+                var tabla = $(JsFormulario.Controles.tablaIndicador);
+                tabla.addClass("revisado");
+                JsFormulario.Consultas.ConsultaVizualizarFormulario();
             }
         });
-});
+
+        $(document).on("click", JsFormulario.Controles.btnCantidadFilas, function (e) {
+            e.preventDefault();
+            var tabla = $(JsFormulario.Controles.tablaIndicador);
+            tabla.addClass("revisado");
+            JsFormulario.Consultas.ConsultaVizualizarFormulario();
+        });
+
+        $(document).on('draw.dt', JsFormulario.Controles.tablaIndicador, function (e) {
+            setSelect2();
+        });
+    },
+
+    Init: function () {
+        JsFormulario.Metodos.InicializarPantalla();
+        JsFormulario.Eventos();
+    },
+};
+
+JsVisualizar = {
+    Controles: {
+        step1: "a[href='#step-1']",
+        step2: "a[href='#step-2']",
+        btnSiguienteVisualizaFormulario: "#btnSiguiente",
+        btnAtrasPrevisualizarFormulario: "#btnAtras",
+        btnCancelar: "#btnCancelar",
+        btnCantidadFilas: "#btnCantidadFilas"
+    },
+
+    Mensajes: {
+        preguntaCancelarAccion: "¿Desea cancelar la acción?",
+    },
+
+    Eventos: function () {
+        $(document).on("click", JsVisualizar.Controles.btnSiguienteVisualizaFormulario, function (e) {
+            $(JsVisualizar.Controles.step2).click();
+        });
+
+        $(document).on("click", JsVisualizar.Controles.btnAtrasPrevisualizarFormulario, function (e) {
+            $(JsVisualizar.Controles.step1).click();
+        });
+
+        $(document).on("click", JsVisualizar.Controles.btnCancelar, function (e) {
+            jsMensajes.Metodos.ConfirmYesOrNoModal(JsVisualizar.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
+                .set('onok', function (closeEvent) {
+                    window.location.href = JsFormulario.Variables.indexViewURL;
+                });
+        });
+
+        $(document).on("click", JsVisualizar.Controles.btnCantidadFilas, function (e) {
+            // se reutiliza la función de JsFormulario
+            var tabla = $(JsFormulario.Controles.tablaIndicador);
+            tabla.addClass("revisado");
+            JsFormulario.Consultas.ConsultaVizualizarFormulario();
+        });
+    },
+
+    Init: function () {
+        JsVisualizar.Eventos();
+    },
+};
 
 $(function () {
-    $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
-    $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
-    $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
-    $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
-    $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
-    $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
-    JsFormulario.Metodos.ValidarButonFinalizar();
-    JsFormulario.Metodos.ValidarButonGuardarIndicador();
-
-    if ($(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val() == 0) {
-        $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val("");
+    if ($(JsFormulario.Controles.ViewVisualizar).length > 0) {
+        JsVisualizar.Init();
     }
-
-    if ($(JsFormulario.Controles.FormFormulario).length > 0) {
-        JsFormulario.Metodos.ValidarFormularioWebCrear();
-        let modo =ObtenerValorParametroUrl('modo');
-        if (modo == jsUtilidades.Variables.Acciones.Editar) {
-            $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
-            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
-        }
-        if (modo == undefined) {
-            JsFormulario.Metodos.ValidarButonFinalizar();
-            JsFormulario.Metodos.ValidarButonGuardarIndicador();
-        }
+    else {
+        JsFormulario.Init();
     }
-
-    if ($(JsFormulario.Controles.FormularioIndex).length > 0) {
-        JsFormulario.Consultas.ConsultaListaFormularioWeb();
-    }
-});
-
-$(document).on("keypress", JsFormulario.Controles.txtCantidadIndicador, function () {
-    if (event.keyCode == 13) {     
-        var tabla = $(JsFormulario.Controles.tablaIndicador);
-        tabla.addClass("revisado");
-        JsFormulario.Consultas.ConsultaVizualizarFormulario();
-    }
-});
-
-$(document).on("click", JsFormulario.Controles.btnCantidadFilas, function (e) {
-    e.preventDefault();
-    var tabla = $(JsFormulario.Controles.tablaIndicador);
-    tabla.addClass("revisado");
-    JsFormulario.Consultas.ConsultaVizualizarFormulario();
 });
 
 function setSelect2() {
@@ -1090,7 +1151,3 @@ function setSelect2() {
         width: 'resolve'
     });
 }
-
-$(document).on('draw.dt', JsFormulario.Controles.tablaIndicador, function (e) {
-    setSelect2();
-});

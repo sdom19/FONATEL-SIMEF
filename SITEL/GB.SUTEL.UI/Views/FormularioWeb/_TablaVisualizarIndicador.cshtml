@@ -1,11 +1,9 @@
 ﻿@using GB.SIMEF.Resources;
 
-@model GB.SIMEF.Entities.DetalleFormularioWeb
-
-@Html.Hidden("CantidadIndicadoresMax", (int)ViewBag.CantidadMax)
+@model GB.SIMEF.Entities.FormularioWeb
 
 <div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
-    <table id="TableIndicadorFormulario" class=" dataTable datatable_simef  table-bordered table-condensed table-hover">
+    <table class=" dataTable datatable_simef  table-bordered table-condensed table-hover">
         <thead>
             <tr>
                 <th scope="col">@EtiquetasViewFormulario.Codigo</th>
@@ -13,13 +11,20 @@
                 <th scope="col">@EtiquetasViewFormulario.Grupo</th>
                 <th scope="col">@EtiquetasViewFormulario.Tipo</th>
                 <th scope="col">@EtiquetasViewFormulario.Estado</th>
-                <th scope="col">@EtiquetasViewFormulario.Acciones</th>
             </tr>
         </thead>
         <tbody>
-
+            @foreach (var indi in Model.ListaIndicadoresObj)
+            {
+                <tr>
+                    <td>@indi.Codigo</td>
+                    <td>@indi.Nombre</td>
+                    <td>@indi.GrupoIndicadores.Nombre</td>
+                    <td>@indi.TipoIndicadores.Nombre</td>
+                    <td>@indi.EstadoRegistro.Nombre</td>
+                </tr>
+            }
         </tbody>
-
     </table>
 </div>
 
