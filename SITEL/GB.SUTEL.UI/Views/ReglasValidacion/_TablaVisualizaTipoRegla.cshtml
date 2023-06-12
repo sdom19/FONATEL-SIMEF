@@ -24,17 +24,17 @@
                 @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada).Count() > 0)
                 {
                     <th scope="col">@EtiquetasViewReglasValidacion.IndicadorComparacion</th>
-                    <th scope="col">@EtiquetasViewReglasValidacion.Variable</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.Comparacion</th>
                 }
                 @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida).Count() > 0)
                 {
                     <th scope="col">@EtiquetasViewReglasValidacion.IndicadorComparacion</th>
-                    <th scope="col">@EtiquetasViewReglasValidacion.Variable</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.Comparacion</th>
                 }
                 @if (Model.DetalleReglaValidacion.Where(x => x.idTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida).Count() > 0)
                 {
                     <th scope="col">@EtiquetasViewReglasValidacion.IndicadorComparacion</th>
-                    <th scope="col">@EtiquetasViewReglasValidacion.Variable</th>
+                    <th scope="col">@EtiquetasViewReglasValidacion.Comparacion</th>
                 }
             </tr>
         </thead>
