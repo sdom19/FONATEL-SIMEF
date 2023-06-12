@@ -12,6 +12,7 @@ namespace GB.SIMEF.DAL
         public SIMEFContext()
            : base("name=SIMEFEntities")
         {
+            base.Configuration.ProxyCreationEnabled = false;
         }
 
 
