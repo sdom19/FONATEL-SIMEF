@@ -33,3 +33,7 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: IISWebAppDeploymentOnMachineGroup@0
+  inputs:
+    WebSiteName: 'Sitel'  # Reemplaza con el nombre real del sitio en IIS
+    Package: '$(build.artifactStagingDirectory)\WebApp.zip'  # Ruta al paquete publicado generado por la compilación
