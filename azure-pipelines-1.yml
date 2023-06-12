@@ -11,9 +11,9 @@ pool:
 
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/GB.SUTEL.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 steps:
 - task: NuGetToolInstaller@1
