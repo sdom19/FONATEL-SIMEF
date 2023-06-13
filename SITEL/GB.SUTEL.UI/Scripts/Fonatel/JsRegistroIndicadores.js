@@ -57,6 +57,7 @@
         "GuardadoTotal": false,
 
         "SubtitulosReglas": {
+            '0': 'Error al aplicar reglas de validación',
             '1': 'Fórmula cambio mensual',
             '2': 'Fórmula contra otro indicador',
             '3': 'Fórmula contra constante',
@@ -697,51 +698,50 @@
                             else {
 
                                 let subtitulo = jsRegistroIndicadorFonatel.Variables.SubtitulosReglas[resultadoRegla.idRegla.toString()];
+                                
+                                var fila = resultadoRegla.fila;
+                                var categoria = resultadoRegla.categoria;
 
-                                if (resultadoRegla.idRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos || resultadoRegla.idRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+                                if (categoria.length > 0) {
+                                    for (let cat = 0; cat < categoria.length; cat++) {
+                                        var categoriaActual = categoria[cat];
+                                        var numeroFila = 0;
+                                        var numeroColumna = 0;
 
-                                    var fila = resultadoRegla.fila;
-                                    var categoria = resultadoRegla.categoria;
-
-                                    var numeroFila = 0;
-                                    var numeroColumna = 0;
-
-                                    $(jsRegistroIndicadorFonatel.Controles.tablaIndicadorRecorridoActivoEncabezado).each(function (index) {
-                                        $(this).children("th").each(function (td) {
-                                            var test = $(this).text()
-                                            if (test == categoria) {
-                                                return false;
-                                            }
-                                            numeroColumna++;
-                                        })
-                                    });
-
-                                    $(jsRegistroIndicadorFonatel.Controles.tablaIndicadorRecorrido).each(function (index) {
-                                        numeroFila++;
-                                        if (numeroFila == fila) {
-                                            let col = 0;
-                                            $(this).children("td").each(function (td) {
-                                                if (col == numeroColumna) {
-                                                    if ($(this).children("input").length != 0) {
-                                                        $(this).addClass("has-error");
-                                                    }
-                                                    else if ($(this).children(".select2-wrapper").length != 0) {
-                                                        var select = $(this).children(".select2-wrapper");
-                                                        select.addClass("has-error");
-                                                    }
+                                        $(jsRegistroIndicadorFonatel.Controles.tablaIndicadorRecorridoActivoEncabezado).each(function (index) {
+                                            $(this).children("th").each(function (td) {
+                                                var test = $(this).text()
+                                                if (test == categoriaActual) {
                                                     return false;
                                                 }
-                                                col++;
+                                                numeroColumna++;
                                             })
-                                        }
-                                    });
+                                        });
 
-                                    jsMensajes.Metodos.OkAlertErrorModal(subtitulo + "<br/><br/>" + resultadoRegla.mensaje)
+                                        $(jsRegistroIndicadorFonatel.Controles.tablaIndicadorRecorrido).each(function (index) {
+                                            numeroFila++;
+                                            if (numeroFila == fila || fila == 0) {
+                                                let col = 0;
+                                                $(this).children("td").each(function (td) {
+                                                    if (col == numeroColumna) {
+                                                        if ($(this).children("input").length != 0) {
+                                                            $(this).addClass("has-error");
+                                                        }
+                                                        else if ($(this).children(".select2-wrapper").length != 0) {
+                                                            var select = $(this).children(".select2-wrapper");
+                                                            select.addClass("has-error");
+                                                        }
+                                                        return false;
+                                                    }
+                                                    col++;
+                                                })
+                                            }
+                                        });
+                                    }
+                                }
+                                
 
-                                }
-                                else {
-                                    jsMensajes.Metodos.OkAlertErrorModal(subtitulo + "<br/><br/>" + resultadoRegla.mensaje)
-                                }
+                                jsMensajes.Metodos.OkAlertErrorModal(subtitulo + "<br/><br/>" + resultadoRegla.mensaje)
                             }
                         }
                     }
