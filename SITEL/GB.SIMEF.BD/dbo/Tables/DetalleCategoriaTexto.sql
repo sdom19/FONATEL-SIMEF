@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[DetalleCategoriaTexto] (
-    [idCategoriaDetalle] INT           IDENTITY (1, 1) NOT NULL,
-    [idCategoria]        INT           NOT NULL,
-    [Codigo]             INT           NULL,
-    [Etiqueta]           VARCHAR (300) NOT NULL,
-    [Estado]             BIT           NOT NULL,
-    CONSTRAINT [PK_DetalleCategoriaTexto] PRIMARY KEY CLUSTERED ([idCategoriaDetalle] ASC, [idCategoria] ASC),
-    CONSTRAINT [FK_DetalleCategoriaTexto_CategoriasDesagregacion] FOREIGN KEY ([idCategoria]) REFERENCES [dbo].[CategoriasDesagregacion] ([idCategoria])
+    [IdDetalleCategoriaTexto]  INT            IDENTITY (1, 1) NOT NULL,
+    [IdCategoriaDesagregacion] INT            NOT NULL,
+    [Codigo]                   VARCHAR (30)   NULL,
+    [Etiqueta]                 VARCHAR (2000) NOT NULL,
+    [Estado]                   BIT            NOT NULL,
+    CONSTRAINT [PK_DetalleCategoriaTexto_1] PRIMARY KEY CLUSTERED ([IdDetalleCategoriaTexto] ASC, [IdCategoriaDesagregacion] ASC),
+    CONSTRAINT [FK_DetalleCategoriaTexto_CategoriaDesagregacion] FOREIGN KEY ([IdCategoriaDesagregacion]) REFERENCES [dbo].[CategoriaDesagregacion] ([IdCategoriaDesagregacion])
 );
 

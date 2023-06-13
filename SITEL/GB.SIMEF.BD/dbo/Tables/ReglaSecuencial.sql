@@ -1,16 +1,9 @@
 ﻿CREATE TABLE [dbo].[ReglaSecuencial] (
-    [IdCompara]             INT NOT NULL,
-    [IdTipoReglaValidacion] INT NOT NULL,
-    [idCategoriaId]         INT NOT NULL,
-    [IdOperador]            INT NOT NULL,
-    [idvariable]            INT NULL,
-    [Estado]                BIT NULL,
-    CONSTRAINT [PK_ReglaSecuencial] PRIMARY KEY CLUSTERED ([IdCompara] ASC),
-    CONSTRAINT [FK_ReglaSecuencial_OperadorReglaValidacion] FOREIGN KEY ([IdOperador]) REFERENCES [dbo].[OperadorArismetico] ([IdOperador]),
-    CONSTRAINT [FK_ReglaSecuencial_ReglaValidacionTipo] FOREIGN KEY ([IdTipoReglaValidacion]) REFERENCES [dbo].[ReglaValidacionTipo] ([IdReglasValidacionTipo])
+    [IdReglaSecuencial]        INT IDENTITY (1, 1) NOT NULL,
+    [IdDetalleReglaValidacion] INT NOT NULL,
+    [IdCategoriaDesagregacion] INT NOT NULL,
+    CONSTRAINT [PK_Reglaecuencial] PRIMARY KEY CLUSTERED ([IdReglaSecuencial] ASC),
+    CONSTRAINT [FK_Reglaecuencial_DetalleReglaValidacion] FOREIGN KEY ([IdDetalleReglaValidacion]) REFERENCES [dbo].[DetalleReglaValidacion] ([IdDetalleReglaValidacion]),
+    CONSTRAINT [FK_ReglaSecuencial_CategoriaDesagregacion] FOREIGN KEY ([IdCategoriaDesagregacion]) REFERENCES [dbo].[CategoriaDesagregacion] ([IdCategoriaDesagregacion])
 );
-
-
-
-
 

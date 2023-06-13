@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[FuenteIndicador] (
-    [idFuenteIndicador] INT           NOT NULL,
-    [FuenteIndicador]   VARCHAR (200) NULL,
-    [Estado]            BIT           NULL,
-    CONSTRAINT [PK_FuenteIndicador] PRIMARY KEY CLUSTERED ([idFuenteIndicador] ASC)
+    [IdFuenteIndicador] INT           IDENTITY (1, 1) NOT NULL,
+    [Fuente]            VARCHAR (200) NOT NULL,
+    [Estado]            BIT           NOT NULL,
+    CONSTRAINT [PK_FuenteIndicador] PRIMARY KEY CLUSTERED ([IdFuenteIndicador] ASC)
 );
 

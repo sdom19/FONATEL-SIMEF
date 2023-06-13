@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="GB.SIMEF.BD.dll" />
-			<Metadata Name="FileName" Value="C:\USERS\ADMINISTRADOR\SOURCE\REPOS\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\OBJ\DEBUG\GB.SIMEF.BD.DLL" />
+			<Metadata Name="FileName" Value="C:\USERS\MICHAEL.HERNANDEZ\SOURCE\REPOS\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\OBJ\DEBUG\GB.SIMEF.BD.DLL" />
 			<Metadata Name="AssemblyName" Value="GB.SIMEF.BD" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\michael.hernandez\source\repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -9037,6 +9037,21 @@ from TipoIndicadores]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[Solicitud].[IdFrecuenciaEnvio]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Solicitud].[Mensaje]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
@@ -13513,6 +13528,7 @@ set @consulta='SELECT  idSolicitud
       ,IdAnno
       ,CantidadFormularios
       ,idFuente
+      ,IdFrecuenciaEnvio
       ,Mensaje
       ,FechaCreacion
       ,UsuarioCreacion
@@ -13608,7 +13624,7 @@ end]]></Value>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
 				<Property Name="CreateOffset" Value="2" />
-				<Property Name="Length" Value="768" />
+				<Property Name="Length" Value="794" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="&#xD;&#xA;create procedure [dbo].[spObtenerSolicitudes]&#xD;&#xA;@idSolicitud int,&#xD;&#xA;@Codigo varchar(30),&#xD;&#xA;@idEstado int&#xD;&#xA;as" />
